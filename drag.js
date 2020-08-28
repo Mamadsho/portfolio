@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded',()=>{
+    function dbg(str){
+        document.querySelector('#debug').innerHTML=str;
+    }
     document.querySelector('#logo').style.animationPlayState='running';
     setTimeout(function(){
         document.querySelector('#logo').style.zIndex=-1;
@@ -28,11 +31,17 @@ document.addEventListener('DOMContentLoaded',()=>{
 
     function md (e){
         if (e.type==='touchstart'){
+            dbg('touchstart')
+
+
             c=this;
             c.style.zIndex='10';
             init_x=e.touches[0].clientX;
             init_y=e.touches[0].clientY;
         }else{
+            dbg('mousedown')
+
+
             init_x=e.clientX;
             init_y=e.clientY;
         }
@@ -43,16 +52,22 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
     function move(e){
         if (c.is_active){
-            if (e.type==='touchstart'){
+            if (e.type==='touchmove'){
                 shift_x=e.touches[0].clientX-init_x;
                 shift_y=e.touches[0].clientY-init_y;
                 init_x=e.touches[0].clientX;
                 init_y=e.touches[0].clientY;
+
+                dbg(`touchmove init: [${init_x}, ${init_y}], shift[${shift_x}, ${shift_y}]`)
+
+
             }else{
                 shift_x=e.clientX-init_x;
                 shift_y=e.clientY-init_y;
                 init_x=e.clientX;
                 init_y=e.clientY;
+
+                dbg(`mousemove init: [${init_x}, ${init_y}], shift[${shift_x}, ${shift_y}]`)
             }
             
 
@@ -64,12 +79,17 @@ document.addEventListener('DOMContentLoaded',()=>{
         //console.log(c.is_active,shift_x,shift_y,(c.offsetLeft+shift_x)+'px',(c.offsetTop+shift_y)+'px')
     }
 
+
+
     document.onmousemove=move;
     document.ontouchmove=move;
+    
+
     
     function mu (e){
         this.is_active=false;
         if (e.type==='touchend'){
+
             c.style.zIndex='initial';
         }
         //console.log('c deactivated', c.is_active)
