@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         document.querySelector('#logo').style.zIndex=-1;
         document.querySelector('#logo').style.animationPlayState='running';
         console.log('modal removed')
-    },3000)
+    },1100)
 
     c={};
     c.is_active=false;
