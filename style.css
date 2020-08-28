@@ -6,16 +6,22 @@
     height: 100%;
     z-index: 998;
     background-color: white;
+    animation: modal_backing 1s forwards;
+    animation-play-state: paused;
 }
 #logo{
     position: absolute;
     width: 350px;
     top: 15%;
     left: 10%;
+    user-drag: none; 
     user-select: none;
+    -moz-user-select: none;
     -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
     z-index: 999;
-    animation: backing 2s forwards;
+    animation: logo_backing 3s forwards;
     animation-play-state: paused;
 }
 
@@ -31,6 +37,14 @@
     border: 4px solid rgba(136, 136, 136, .5);
     
 }
+.circle>*{
+    user-drag: none; 
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
 
 .circle:hover{
     width: 200px;
@@ -40,8 +54,17 @@
     transition: width 0.7s, height 0.7s, opacity 0.7s, border-color 0.7s; 
 }
 
-@keyframes backing{
+@keyframes modal_backing{
     100%{
-        opacity: 10%;
+        opacity: 0%;
     }
+}
+
+@keyframes logo_backing{
+    0%{opacity: 0%;}
+    25%{opacity: 100%;}
+    50%{opacity: 0%;}
+    75%{opacity: 100%;}
+    99%{opacity: 0%;}
+    100%{opacity: 20%;}
 }

@@ -1,12 +1,15 @@
 document.addEventListener('DOMContentLoaded',()=>{
-
+    document.querySelector('#logo').style.animationPlayState='running';
     setTimeout(function(){
-        document.querySelector('.modal').remove();
         document.querySelector('#logo').style.zIndex=-1;
-        document.querySelector('#logo').style.animationPlayState='running';
-        console.log('modal removed')
-    },3000)
-
+        
+        document.querySelector('.modal').style.animationPlayState='running';
+        setTimeout(function(){
+            document.querySelector('.modal').remove();
+        },1000);
+        
+    },3000*.99)//<=This number should be change to loading time plus little in future.
+    console.log('#5');
     c={};
     c.is_active=false;
     init_x=null;
@@ -59,13 +62,13 @@ document.addEventListener('DOMContentLoaded',()=>{
         document.querySelector('.container').append(pr);
 
     }
-
+    console.log('#6');
     add_project("background-color: blue; left: 80px; top: 80px;");
     add_project('');
     add_project("background-color: greenyellow; left: 180px; top: 60px;")
 
-
-        document.querySelectorAll('.circle').forEach(function(dragElement){
+    console.log('#7');
+    document.querySelectorAll('.circle').forEach(function(dragElement){
         dragElement.onmouseover=mo;
         dragElement.onmouseout=mout;
         dragElement.onmousedown=md;
