@@ -27,7 +27,9 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
 
     function md (e){
-        if (e.type=='touchstart'){
+        if (e.type==='touchstart'){
+            c=this;
+            c.style.zIndex='10';
             init_x=e.touches[0].clientX;
             init_y=e.touches[0].clientY;
         }else{
@@ -39,10 +41,9 @@ document.addEventListener('DOMContentLoaded',()=>{
 
         //console.log('c activated.',c.is_active,init_x,init_y)
     }
-    
-    document.onmousemove=function(e){
+    function move(e){
         if (c.is_active){
-            if (e.type=='touchstart'){
+            if (e.type==='touchstart'){
                 shift_x=e.touches[0].clientX-init_x;
                 shift_y=e.touches[0].clientY-init_y;
                 init_x=e.touches[0].clientX;
@@ -62,10 +63,15 @@ document.addEventListener('DOMContentLoaded',()=>{
         }
         //console.log(c.is_active,shift_x,shift_y,(c.offsetLeft+shift_x)+'px',(c.offsetTop+shift_y)+'px')
     }
+
+    document.onmousemove=move;
+    document.ontouchmove=move;
     
     function mu (e){
         this.is_active=false;
-        
+        if (e.type==='touchend'){
+            c.style.zIndex='initial';
+        }
         //console.log('c deactivated', c.is_active)
     }
 
@@ -89,5 +95,8 @@ document.addEventListener('DOMContentLoaded',()=>{
         dragElement.onmouseout=mout;
         dragElement.onmousedown=md;
         dragElement.onmouseup=mu;
+
+        dragElement.ontouchstart=md;
+        dragElement.ontouchend=mu;
     });
 })
