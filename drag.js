@@ -27,22 +27,38 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
 
     function md (e){
+        if (e.type=='touchstart'){
+            init_x=e.touches[0].clientX;
+            init_y=e.touches[0].clientY;
+        }else{
+            init_x=e.clientX;
+            init_y=e.clientY;
+        }
+
         this.is_active=true;
-        init_x=e.clientX;
-        init_y=e.clientY;
+
         //console.log('c activated.',c.is_active,init_x,init_y)
     }
     
     document.onmousemove=function(e){
         if (c.is_active){
-            shift_x=e.clientX-init_x;
-            shift_y=e.clientY-init_y;
+            if (e.type=='touchstart'){
+                shift_x=e.touches[0].clientX-init_x;
+                shift_y=e.touches[0].clientY-init_y;
+                init_x=e.touches[0].clientX;
+                init_y=e.touches[0].clientY;
+            }else{
+                shift_x=e.clientX-init_x;
+                shift_y=e.clientY-init_y;
+                init_x=e.clientX;
+                init_y=e.clientY;
+            }
             
+
             c.style.left=(c.offsetLeft+shift_x)+'px';
             c.style.top=(c.offsetTop+shift_y)+'px';
 
-            init_x=e.clientX;
-            init_y=e.clientY;
+            
         }
         //console.log(c.is_active,shift_x,shift_y,(c.offsetLeft+shift_x)+'px',(c.offsetTop+shift_y)+'px')
     }
