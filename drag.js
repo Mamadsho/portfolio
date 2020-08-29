@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     },3000*.99)//<=This number should be change to loading time plus little in future.
     console.log('#5');
     c={};
-    c.is_active=false;
+    is_active=false;
     init_x=null;
     shift_x=null;
     init_y=null;
@@ -24,41 +24,41 @@ document.addEventListener('DOMContentLoaded',()=>{
         c=this;
         c.style.zIndex='10';
     };
-
+    
     function mout (e){
         c.style.zIndex='initial';
+        // is_active=false;
+        //c={};
     }
 
     function md (e){
         if (e.type==='touchstart'){
-            dbg('touchstart')
-
-
+            dbg(`c: ${c}; touchstart`)
             c=this;
             c.style.zIndex='10';
             init_x=e.touches[0].clientX;
             init_y=e.touches[0].clientY;
         }else{
-            dbg('mousedown')
+            dbg(`c: ${c}; mousedown`)
 
 
             init_x=e.clientX;
             init_y=e.clientY;
         }
 
-        this.is_active=true;
+        is_active=true;
 
-        //console.log('c activated.',c.is_active,init_x,init_y)
+        //console.log('c activated.',is_active,init_x,init_y)
     }
     function move(e){
-        if (c.is_active){
+        if (is_active){
             if (e.type==='touchmove'){
                 shift_x=e.touches[0].clientX-init_x;
                 shift_y=e.touches[0].clientY-init_y;
                 init_x=e.touches[0].clientX;
                 init_y=e.touches[0].clientY;
 
-                dbg(`touchmove init: [${init_x}, ${init_y}], shift[${shift_x}, ${shift_y}]`)
+                dbg(`c: ${c}; is_active=${is_active}; touchmove init: [${init_x}, ${init_y}], shift[${shift_x}, ${shift_y}]`)
 
 
             }else{
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded',()=>{
                 init_x=e.clientX;
                 init_y=e.clientY;
 
-                dbg(`mousemove init: [${init_x}, ${init_y}], shift[${shift_x}, ${shift_y}]`)
+                dbg(`c: ${c}; is_active=${is_active}; mousemove init: [${init_x}, ${init_y}], shift[${shift_x}, ${shift_y}]`)
             }
             
 
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
             
         }
-        //console.log(c.is_active,shift_x,shift_y,(c.offsetLeft+shift_x)+'px',(c.offsetTop+shift_y)+'px')
+        //console.log(is_active,shift_x,shift_y,(c.offsetLeft+shift_x)+'px',(c.offsetTop+shift_y)+'px')
     }
 
 
@@ -87,12 +87,12 @@ document.addEventListener('DOMContentLoaded',()=>{
 
     
     function mu (e){
-        this.is_active=false;
+        is_active=false;
         if (e.type==='touchend'){
 
             c.style.zIndex='initial';
         }
-        //console.log('c deactivated', c.is_active)
+        //console.log('c deactivated', is_active)
     }
 
     //ADDING PROJECT ELEMENTS:
