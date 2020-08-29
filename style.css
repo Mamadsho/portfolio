@@ -1,3 +1,13 @@
+@media (max-width: 999px){
+    #logo{
+        width: 60%;
+    }
+}
+@media (min-width: 1000px){
+    #logo{
+        width: 600px;
+    }
+}
 body {
     height: 100%;
     margin: 0;
@@ -28,7 +38,7 @@ body {
     animation-play-state: paused;
 }
 #logo_container{
-    height: 100%;
+    height: 60%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -36,7 +46,6 @@ body {
 }
 #logo{
     position: absolute;
-    width: 60%;
     user-drag: none; 
     user-select: none;
     -moz-user-select: none;
