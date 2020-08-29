@@ -4,7 +4,7 @@ body {
     cursor: url('cursor.svg') 15 15, auto;
 }
 #debug{
-    height: 4%;
+    height: 0%;
 }
 .container{
     /* height: 100%; */
@@ -36,7 +36,7 @@ body {
 }
 #logo{
     position: absolute;
-    width: 350px;
+    width: 60%;
     user-drag: none; 
     user-select: none;
     -moz-user-select: none;
