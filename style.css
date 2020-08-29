@@ -38,7 +38,7 @@ body {
     animation-play-state: paused;
 }
 #logo_container{
-    height: 60%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
