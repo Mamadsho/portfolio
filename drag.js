@@ -1,19 +1,4 @@
 document.addEventListener('DOMContentLoaded',()=>{
-    function toggle_open(circle){
-        console.log('toggle called on:',circle)
-        if (circle.style.width=='200px'){
-            console.log('1');
-            circle.style.width=``;
-            circle.style.height=``;
-        }else{
-            console.log('2');
-            circle.style.width='200px';
-            circle.style.height='320px';
-        }
-        console.log(circle.style.width);
-        console.log(circle.style.height);
-        
-    }
 
     function dbg(str){
         document.querySelector('#debug').innerHTML=str;
@@ -101,7 +86,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     function mu (e){
         is_active=false;
         if (traj_length<15){
-            toggle_open(c);
+            c.classList.toggle('open');
         }
         traj_length=0;
         if (e.type==='touchend'){

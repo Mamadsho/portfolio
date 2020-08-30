@@ -81,7 +81,7 @@ body {
     border: 4px solid rgba(136, 136, 136, .5);
     
 }
-.circle:hover{
+.circle:hover, .open{
     width: 200px;
     height: 320px;
     opacity: 90%;
