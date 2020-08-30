@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded',()=>{
+    function toggle_open(circle){
+        console.log('toggle called on:',circle)
+        if (circle.style.width=='200px'){
+            console.log('1');
+            circle.style.width=``;
+            circle.style.height=``;
+        }else{
+            console.log('2');
+            circle.style.width='200px';
+            circle.style.height='320px';
+        }
+        console.log(circle.style.width);
+        console.log(circle.style.height);
+        
+    }
+
     function dbg(str){
         document.querySelector('#debug').innerHTML=str;
     }
@@ -19,7 +35,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     shift_x=null;
     init_y=null;
     shift_y=null;
-    
+    traj_length=0;
+
     function mo (e){
         c=this;
         c.style.zIndex='10';
@@ -67,8 +84,10 @@ document.addEventListener('DOMContentLoaded',()=>{
 
             c.style.left=`${validate_h(r_left)}%`;
             c.style.top=`${validate_v(r_top)}%`;
+
+            traj_length+=Math.abs(shift_x)+Math.abs(shift_y);
         }
-        dbg(`touchmove init: [${init_x}, ${init_y}], shift[${shift_x}, ${shift_y}], mc[${e.clientX}, ${e.clientY}]  c: ${e.target.id}; active=${is_active};`)
+        dbg(`touchmove init: [${init_x}, ${init_y}], shift[${shift_x}, ${shift_y}], mc[${e.clientX}, ${e.clientY}]  c: ${e.target.id}; active=${is_active}; traj-length:${traj_length}`)
     }
 
 
@@ -81,6 +100,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     
     function mu (e){
         is_active=false;
+        if (traj_length<15){
+            toggle_open(c);
+        }
+        traj_length=0;
         if (e.type==='touchend'){
 
             c.style.zIndex='initial';
@@ -115,6 +138,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     document.querySelector('#container').addEventListener('mouseleave',()=>{
         console.log('! mouseleave')
         is_active=false;
+        traj_length=0;
     })
     document.querySelectorAll('*').forEach(function(Element){
         Element.ondragstart=()=>{
