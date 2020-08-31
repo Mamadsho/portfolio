@@ -1,3 +1,11 @@
+function undress(circle){
+    if (circle.querySelector('svg').getAttribute('transform')=='rotate(-90)'){
+        circle.querySelector('svg').setAttribute('transform','rotate(90)');    
+    }else{
+        circle.querySelector('svg').setAttribute('transform','rotate(-90)');
+    }
+};
+
 document.addEventListener('DOMContentLoaded',()=>{
 
     function dbg(str){
@@ -6,14 +14,14 @@ document.addEventListener('DOMContentLoaded',()=>{
     document.querySelector('#logo').style.animationPlayState='running';
     setTimeout(function(){
         document.querySelector('#logo').style.zIndex=-1;
-        
+
         document.querySelector('.modal').style.animationPlayState='running';
         setTimeout(function(){
-            document.querySelector('.modal').remove();
-        },1000);
+            document.querySelector('.modal').style.zIndex=-2;
+            //document.querySelector('.modal').remove();
+        },1000*99/100);
         
     },3000*.99)//<=This number should be change to loading time plus little in future.
-    console.log('#5');
     c={};
     is_active=false;
     init_x=null;
@@ -93,24 +101,24 @@ document.addEventListener('DOMContentLoaded',()=>{
 
             c.style.zIndex='initial';
         }
-        //console.log('c deactivated', is_active)
     }
+
+    
 
     //ADDING PROJECT ELEMENTS:
     function add_project(stl){
         const pr=document.createElement('div');
         pr.className='circle';
         pr.style=stl;
-        pr.innerHTML='<div class="modal2"></div><img src="gesture-24px.svg" style="width:35px; position:relative; left:15px; top:15px"> <h2 style="position: relative; color:white; left: 20px; top:5px;">ProjectTitle</h2><p style="position: relative; color:white; left: 10px">Project Definition</p>'
+        pr.innerHTML='<div class="modal2"></div><img src="gesture-24px.svg" style="width:35px; position:relative; left:15px; top:15px"> <h2 style="position: relative; color:white; left: 20px; top:5px;">ProjectTitle</h2><p style="position: relative; color:white; left: 10px">Project Definition</p></div>    <svg id="chevron" onclick="undress(c)" width="30px" transform="rotate(90)" style="z-index:99; position:absolute; left:160px; top:160px;" aria-hidden="true" focusable="false" viewBox="0 0 512 512"><path fill="white" d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zM273 369.9l135.5-135.5c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L256 285.1 154.4 183.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L239 369.9c9.4 9.4 24.6 9.4 34 0z"></path></svg>'
         document.querySelector('#container').append(pr);
 
     }
-    console.log('#6');
+ 
     add_project("background-color: blue; left: 80px; top: 80px;");
     add_project('');
     add_project("background-color: greenyellow; left: 180px; top: 60px;")
-    
-    console.log('#7');
+
     document.querySelectorAll('.circle').forEach(function(dragElement){
         dragElement.onmouseover=mo;
         dragElement.onmouseout=mout;
@@ -121,7 +129,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         dragElement.ontouchend=mu;
     });
     document.querySelector('#container').addEventListener('mouseleave',()=>{
-        console.log('! mouseleave')
+
         is_active=false;
         traj_length=0;
     })
