@@ -1,9 +1,15 @@
-function undress(circle){
-    if (circle.querySelector('svg').getAttribute('transform')=='rotate(-90)'){
-        circle.querySelector('svg').setAttribute('transform','rotate(90)');    
+function undress(e){
+    c=this.parentElement.parentElement;
+    console.log(this);
+    chev=c.querySelector('.chevron');
+    if (chev.getAttribute('transform')=='rotate(-90)'){
+        chev.setAttribute('transform','rotate(90)');
+        c.querySelector('.coor_orig').classList.toggle('invisible')
     }else{
-        circle.querySelector('svg').setAttribute('transform','rotate(-90)');
+        chev.setAttribute('transform','rotate(-90)');
+        c.querySelector('.coor_orig').classList.toggle('invisible')
     }
+    e.stopPropagation();
 };
 
 document.addEventListener('DOMContentLoaded',()=>{
@@ -22,6 +28,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         },1000*99/100);
         
     },3000*.99)//<=This number should be change to loading time plus little in future.
+    //c= document.querySelectorAll('.circle')[0];
     c={};
     is_active=false;
     init_x=null;
@@ -30,33 +37,25 @@ document.addEventListener('DOMContentLoaded',()=>{
     shift_y=null;
     traj_length=0;
 
-    function mo (e){
-        c=this;
-        c.style.zIndex='10';
-    };
-    
-    function mout (e){
-        c.style.zIndex='initial';
-        //is_active=false;
-        //c={};
-    }
 
     function md (e){
         if (e.type==='touchstart'){
             dbg(`c: ${c}; touchstart`)
+            //c.style.zIndex='initial'
             c=this;
             c.style.zIndex='10';
             init_x=e.touches[0].clientX;
             init_y=e.touches[0].clientY;
         }else{
             dbg(`c: ${c}; mousedown`)
-
-
+            c=this;
+            c.style.zIndex='10';
             init_x=e.clientX;
             init_y=e.clientY;
         }
 
         is_active=true;
+        e.stopPropagation();
     }
     function move(e){
         if (is_active){
@@ -72,15 +71,23 @@ document.addEventListener('DOMContentLoaded',()=>{
                 init_y=e.clientY;            
             }
 
-            r_left=100 * (c.offsetLeft + shift_x) / c.parentElement.offsetWidth;
-            r_top=100 * (c.offsetTop + shift_y) / c.parentElement.offsetHeight;
+            r_left=100 * (c.offsetLeft + shift_x) / window.innerWidth;
+            r_top=100 * (c.offsetTop + shift_y) / window.innerHeight;
 
-            c.style.left=`${validate_h(r_left)}%`;
-            c.style.top=`${validate_v(r_top)}%`;
+            var v = c.getBoundingClientRect();
+            // these are relative to the viewport, i.e. the window
+            var top = 100*(v.top+shift_y)/window.innerHeight;
+            var left = 100*(v.left+shift_x)/window.innerWidth;
+
+            if (valid(top,100*c.offsetHeight/window.innerHeight)){c.style.top=`${(r_top)}vh`;};
+            if(valid(left,100*c.offsetWidth/window.innerWidth)){c.style.left=`${(r_left)}vw`;};
+            
+            
 
             traj_length+=Math.abs(shift_x)+Math.abs(shift_y);
         }
-        dbg(`touchmove init: [${init_x}, ${init_y}], shift[${shift_x}, ${shift_y}], mc[${e.clientX}, ${e.clientY}]  c: ${e.target.id}; active=${is_active}; traj-length:${traj_length}`)
+        dbg(`touchmove init: [${init_x}, ${init_y}], shift[${shift_x}, ${shift_y}], mc[${e.clientX}, ${e.clientY}]  c: ${e.target.id}; active=${is_active}; traj-length:${traj_length}`);
+        e.stopPropagation();
     }
 
 
@@ -101,6 +108,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 
             c.style.zIndex='initial';
         }
+        e.stopPropagation();
     }
 
     
@@ -115,13 +123,26 @@ document.addEventListener('DOMContentLoaded',()=>{
 
     }
  
-    add_project("background-color: blue; left: 80px; top: 80px;");
-    add_project('');
-    add_project("background-color: greenyellow; left: 180px; top: 60px;")
+    // add_project("background-color: blue; left: 80px; top: 80px;");
+    // add_project('');
+    // add_project("background-color: greenyellow; left: 180px; top: 60px;")
+
+    document.querySelectorAll('.chevron').forEach(function(rot){
+        rot.addEventListener('click',undress);
+        rot.addEventListener('mouseup',(e)=>{
+            e.stopPropagation();
+        });
+        rot.addEventListener('mousedown',(e)=>{
+            e.stopPropagation();
+        });
+        rot.addEventListener('mousemove',(e)=>{
+            e.stopPropagation();
+        });
+    })
 
     document.querySelectorAll('.circle').forEach(function(dragElement){
-        dragElement.onmouseover=mo;
-        dragElement.onmouseout=mout;
+        //dragElement.onmouseover=mo;
+        //dragElement.onmouseout=mout;
         dragElement.onmousedown=md;
         
 
