@@ -1,35 +1,108 @@
 function undress(e){
     c=this.parentElement.parentElement;
-    console.log(this);
     chev=c.querySelector('.chevron');
     if (chev.getAttribute('transform')=='rotate(-90)'){
         chev.setAttribute('transform','rotate(90)');
-        c.querySelector('.coor_orig').classList.toggle('invisible')
+        c.querySelector('.ovv').classList.toggle('invisible');
+        document.querySelector(`#g-${c.dataset.n}`).classList.toggle('invisible');
     }else{
         chev.setAttribute('transform','rotate(-90)');
-        c.querySelector('.coor_orig').classList.toggle('invisible')
+        c.querySelector('.ovv').classList.toggle('invisible');
+        document.querySelector(`#g-${c.dataset.n}`).classList.toggle('invisible');
     }
     e.stopPropagation();
 };
 
 document.addEventListener('DOMContentLoaded',()=>{
 
+    document.querySelectorAll('.chevron').forEach(function(rot){
+        rot.addEventListener('click',undress);
+        rot.addEventListener('mouseup',(e)=>{
+            e.stopPropagation();
+        });
+        rot.addEventListener('mousedown',(e)=>{
+            e.stopPropagation();
+        });
+        rot.addEventListener('mousemove',(e)=>{
+            e.stopPropagation();
+        });
+    })
+
+    run_animation();
+
+    //DRAW THE SVG's
+
+    //POINT TO START 
+    //document.querySelectorAll('#container>.circle')[1].querySelectorAll('.ovv>.subcircles>.circle')[0].offsetLeft/window.innerWidth
+
+
+    function draw_line(p,el1,el2){
+        try {
+            let gr=document.querySelector(`#g-${p.dataset.n}`)
+            l1=100*el1.offsetLeft/window.innerWidth;
+            t1=100*el1.offsetTop/window.innerHeight;
+            l2=100*el2.offsetLeft/window.innerWidth;
+            t2=100*el2.offsetTop/window.innerHeight;
+
+            let par=p.dataset.n;
+            if (!isNaN(el1.dataset.n)){
+                e1=el1.dataset.n;
+            }else{
+                console.log(el1.dataset.n);
+                e1=0;
+            };
+            if (!isNaN(el2.dataset.n)){
+                e2=el2.dataset.n;
+            }else{
+                console.log(el2.dataset.n);
+                e2=0;
+            };
+            svg=`<line id='l${par}-${e1}-${e2}' x1='${l1}' y1='${t1}' x2='${l2}' y2='${t2}'/>`;
+            gr.innerHTML+=svg;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    var ider=0;
+    gl=document.querySelector('#gl');
+    document.querySelectorAll('#container>.circle').forEach(par=>{
+        ider++;
+        par.setAttribute('id',`p${ider}`);
+        par.dataset.n=ider;
+        cl=100*par.offsetLeft/window.innerWidth;
+        ct=100*par.offsetTop/window.innerHeight;
+        gl.innerHTML+=`<g id='g-${par.dataset.n}' transform='translate(${cl},${ct})' class='invisible'></g>`;
+        sider=0;
+        cur=par.querySelector('.modal2');
+        par.querySelectorAll('.ovv>.subcircles>.circle').forEach(scir=>{
+            sider++;
+            scir.setAttribute('id',`c${par.dataset.n}-${sider}`);
+            scir.dataset.p=par.dataset.n;
+            scir.dataset.n=sider;
+            if(sider==1){
+                scir.dataset.before=0;
+                par.dataset.after=sider;
+            }else{
+                scir.dataset.before=cur.dataset.n;
+                cur.dataset.after=sider;};
+            
+            draw_line(par,cur,scir);
+            cur=scir;            
+        })
+        try{cur.dataset.after=0;}catch{console.log('notink')};
+        draw_line(par,cur,par.querySelector('.modal2'));
+    });
+
+
+
+
+
     function dbg(str){
         document.querySelector('#debug').innerHTML=str;
     }
-    document.querySelector('#logo').style.animationPlayState='running';
-    setTimeout(function(){
-        document.querySelector('#logo').style.zIndex=-1;
-
-        document.querySelector('.modal').style.animationPlayState='running';
-        setTimeout(function(){
-            document.querySelector('.modal').style.zIndex=-2;
-            //document.querySelector('.modal').remove();
-        },1000*99/100);
-        
-    },3000*.99)//<=This number should be change to loading time plus little in future.
-    //c= document.querySelectorAll('.circle')[0];
-    c={};
+    c= document.querySelectorAll('.circle')[0];
+    //c={};
     is_active=false;
     init_x=null;
     shift_x=null;
@@ -37,17 +110,23 @@ document.addEventListener('DOMContentLoaded',()=>{
     shift_y=null;
     traj_length=0;
 
+    child_move=false;
+    b_line={};
+    a_line={};
+    g_obj={};
+
 
     function md (e){
         if (e.type==='touchstart'){
             dbg(`c: ${c}; touchstart`)
-            //c.style.zIndex='initial'
+            c.style.zIndex='initial'
             c=this;
             c.style.zIndex='10';
             init_x=e.touches[0].clientX;
             init_y=e.touches[0].clientY;
         }else{
             dbg(`c: ${c}; mousedown`)
+            c.style.zIndex='initial'
             c=this;
             c.style.zIndex='10';
             init_x=e.clientX;
@@ -55,6 +134,18 @@ document.addEventListener('DOMContentLoaded',()=>{
         }
 
         is_active=true;
+
+        if (c.id[0]=='c'){ //if CHILD NODE
+            console.log('is child');
+            child_move=true;
+            b_line=document.querySelector(`#l${c.dataset.p}-${c.dataset.before}-${c.dataset.n}`);
+            a_line=document.querySelector(`#l${c.dataset.p}-${c.dataset.n}-${c.dataset.after}`);
+
+        }else{ //PARENT NODE
+            console.log('is parent');
+            child_move=false;
+            g_obj=document.querySelector(`#g-${c.dataset.n}`);
+        };
         e.stopPropagation();
     }
     function move(e){
@@ -79,9 +170,20 @@ document.addEventListener('DOMContentLoaded',()=>{
             var top = 100*(v.top+shift_y)/window.innerHeight;
             var left = 100*(v.left+shift_x)/window.innerWidth;
 
-            if (valid(top,100*c.offsetHeight/window.innerHeight)){c.style.top=`${(r_top)}vh`;};
-            if(valid(left,100*c.offsetWidth/window.innerWidth)){c.style.left=`${(r_left)}vw`;};
+            if (valid(top,100*c.offsetHeight/window.innerHeight, shift_y)){c.style.top=`${(r_top)}vh`;};
+            if(valid(left,100*c.offsetWidth/window.innerWidth,shift_x)){c.style.left=`${(r_left)}vw`;};
             
+
+            if (child_move){
+                b_line.setAttribute('x2',100*c.offsetLeft/window.innerWidth);
+                b_line.setAttribute('y2',100*c.offsetTop/window.innerHeight);
+
+                a_line.setAttribute('x1',100*c.offsetLeft/window.innerWidth);
+                a_line.setAttribute('y1',100*c.offsetTop/window.innerHeight);
+                
+            }else{
+                g_obj.setAttribute('transform',`translate(${100*c.offsetLeft/window.innerWidth},${100*c.offsetTop/window.innerHeight})`);
+            };
             
 
             traj_length+=Math.abs(shift_x)+Math.abs(shift_y);
@@ -102,43 +204,16 @@ document.addEventListener('DOMContentLoaded',()=>{
         is_active=false;
         if (traj_length<15){
             c.classList.toggle('open');
+            c.style.zIndex='initial';
         }
         traj_length=0;
         if (e.type==='touchend'){
-
             c.style.zIndex='initial';
         }
         e.stopPropagation();
     }
 
-    
 
-    //ADDING PROJECT ELEMENTS:
-    function add_project(stl){
-        const pr=document.createElement('div');
-        pr.className='circle';
-        pr.style=stl;
-        pr.innerHTML='<div class="modal2"></div><img src="gesture-24px.svg" style="width:35px; position:relative; left:15px; top:15px"> <h2 style="position: relative; color:white; left: 20px; top:5px;">ProjectTitle</h2><p style="position: relative; color:white; left: 10px">Project Definition</p></div>    <svg id="chevron" onclick="undress(c)" width="30px" transform="rotate(90)" style="z-index:99; position:absolute; left:160px; top:160px;" aria-hidden="true" focusable="false" viewBox="0 0 512 512"><path fill="white" d="M504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zM273 369.9l135.5-135.5c9.4-9.4 9.4-24.6 0-33.9l-17-17c-9.4-9.4-24.6-9.4-33.9 0L256 285.1 154.4 183.5c-9.4-9.4-24.6-9.4-33.9 0l-17 17c-9.4 9.4-9.4 24.6 0 33.9L239 369.9c9.4 9.4 24.6 9.4 34 0z"></path></svg>'
-        document.querySelector('#container').append(pr);
-
-    }
- 
-    // add_project("background-color: blue; left: 80px; top: 80px;");
-    // add_project('');
-    // add_project("background-color: greenyellow; left: 180px; top: 60px;")
-
-    document.querySelectorAll('.chevron').forEach(function(rot){
-        rot.addEventListener('click',undress);
-        rot.addEventListener('mouseup',(e)=>{
-            e.stopPropagation();
-        });
-        rot.addEventListener('mousedown',(e)=>{
-            e.stopPropagation();
-        });
-        rot.addEventListener('mousemove',(e)=>{
-            e.stopPropagation();
-        });
-    })
 
     document.querySelectorAll('.circle').forEach(function(dragElement){
         //dragElement.onmouseover=mo;

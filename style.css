@@ -35,7 +35,7 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    z-index: 997;
+    z-index: 1;
     background-color: white;
     animation: modal_backing 1s forwards;
     animation-play-state: paused;
@@ -46,7 +46,7 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    z-index: 97;
+    z-index: 1;
     background-color: rgba(255, 255, 255, 0.1);
 }
 #logo_container{
@@ -55,6 +55,7 @@ body {
     align-items: center;
     justify-content: center;
     margin: 0;
+    z-index: 1;
 }
 #logo{
     position: absolute;
@@ -64,7 +65,7 @@ body {
     -webkit-user-drag: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-    z-index: 998;
+    z-index: 2;
     animation: logo_backing 3s forwards;
     animation-play-state: paused;
 }
@@ -78,16 +79,32 @@ body {
     top:50%;
     width:60px;
     height:60px;
-    border-radius: 32px;
-    background-color:red;
     opacity: 65%;
-    border: 4px solid rgba(136, 136, 136, .5);
+    
+    
+    
+    
+    
+}
+#links{
+    width: 100vw;
+    height: 100vh;
+    position:absolute;
+    left:30;
+    top:30;
+    opacity: .35;
 }
 .ovh{
+    left: -4px;
+    top: -4px;
     position: absolute;
     overflow: hidden;
     width: 100%;
     height: 100%;
+}
+.circle, .ovh{
+    border-radius: 32px;
+    border: 4px solid rgba(136, 136, 136, .5);
 }
 .open{
     width: 200px;
