@@ -73,13 +73,14 @@ body {
     user-select: none;
 }
 .circle{
-    transition: width 0.3s, height 0.3s;
+    transition: width 0.3s, height 0.3s, filter 0.3s;
     position:absolute;
     left: 50%;
     top:50%;
     width:60px;
     height:60px;
-    opacity: 65%;
+    /* opacity: 65%; */
+    filter: sepia(1);
     
     
     
@@ -109,9 +110,10 @@ body {
 .open{
     width: 200px;
     height: 320px;
-    opacity: 90%;
+    /* opacity: 90%; */
     border-color: rgba(0, 0, 0, 0.671);
-    transition: width 0.7s, height 0.7s, opacity 0.7s, border-color 0.7s; 
+    transition: width 0.7s, height 0.7s, opacity 0.7s, border-color 0.7s, filter 0.7s; 
+    filter: sepia(.1);
 }
 
 @keyframes modal_backing{
