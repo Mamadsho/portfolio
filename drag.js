@@ -56,13 +56,15 @@ function create_project_circles(){
             }else{
                 var b=Math.round(Math.random()*256);
             }
-            subcircles+=`<div class='circle' data-loaded="0" style="left: ${(f1(Math.random()-.5))*20}vw; top:${(f1(Math.random()-.5))*20}vh;">
+            a=2*Math.PI*Math.random();
+            r=10+2.5*Math.random();
+            subcircles+=`<div class='circle' data-loaded="0" style="left: ${Math.cos(a)*r}vw; top:${Math.sin(a)*r}vh;">
             <div class="ovh" style=" background-color: rgb(${r}, ${g}, ${b});">
             ${scdata}
             </div>
             </div>`;
         };
-        circles=`<div class="circle" data-loaded="1" style="left: ${Math.random()*93}vw; top: ${Math.random()*90}vh;">
+        circles=`<div class="circle" data-loaded="1" data-zi="10" style="left: ${Math.random()*93}vw; top: ${Math.random()*90}vh;">
         <div class='ovv invisible'>
             <div class="subcircles">
             ${subcircles}
@@ -86,6 +88,7 @@ function load_images(c){
     c.querySelectorAll('.placeholder').forEach(el=>{
         let image = document.createElement('img');
         image.classList.toggle('invisible');
+        image.classList.toggle('pht');
         image.src = el.dataset.url;
         // assign and onload event handler
         image.addEventListener('load', (event) => {
@@ -118,7 +121,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             resize_mode=false;
             console.log('resize mode: false')
             is_active=false;
-            c.style.zIndex='initial';
+            //c.style.zIndex='initial';
             e.stopPropagation();
         });
         resz.addEventListener('mousedown',(e)=>{
@@ -217,26 +220,26 @@ document.addEventListener('DOMContentLoaded',()=>{
     function md (e){
         if (e.type==='touchstart'){
             dbg(`c: ${c}; touchstart`)
-            c.style.zIndex='initial'
+            //c.style.zIndex='initial'
             if(resize_mode){
                 c=e.target.parentElement.parentElement;
                 console.log('c remains same')
             }else{
                 c=this;
             }
-            c.style.zIndex='10';
+            //c.style.zIndex='10';
             init_x=e.touches[0].clientX;
             init_y=e.touches[0].clientY;
         }else{
             dbg(`c: ${c}; mousedown`)
-            c.style.zIndex='initial'
+            //c.style.zIndex='initial'
             if(resize_mode){
                 c=e.target.parentElement.parentElement;
                 console.log('c remains same')
             }else{
                 c=this;
             }
-            c.style.zIndex='10';
+            //c.style.zIndex='10';
             init_x=e.clientX;
             init_y=e.clientY;
         }
@@ -246,11 +249,15 @@ document.addEventListener('DOMContentLoaded',()=>{
         
 
         if (c.id[0]=='c'){ //if CHILD NODE
+            c.parentElement.parentElement.parentElement.dataset.zi++;
+            c.style.zIndex=c.parentElement.parentElement.parentElement.dataset.zi;
             child_move=true;
             b_line=document.querySelector(`#l${c.dataset.p}-${c.dataset.before}-${c.dataset.n}`);
             a_line=document.querySelector(`#l${c.dataset.p}-${c.dataset.n}-${c.dataset.after}`);
 
         }else{ //PARENT NODE
+            c.dataset.zi++;
+            c.style.zIndex=c.dataset.zi;
             child_move=false;
             g_obj=document.querySelector(`#g-${c.dataset.n}`);
         };
@@ -337,12 +344,12 @@ document.addEventListener('DOMContentLoaded',()=>{
                     c.style.width=c.dataset.def_w;
                 };
                 c.querySelector('.resize').classList.toggle('invisible');};
-            c.style.zIndex='initial';
+            //c.style.zIndex='initial';
             c.classList.toggle('open');
         }
         traj_length=0;
         if (e.type==='touchend'){
-            c.style.zIndex='initial';
+            //c.style.zIndex='initial';
         }
         e.stopPropagation();
     }
