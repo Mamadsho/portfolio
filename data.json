@@ -1,0 +1,63 @@
+{
+    "Terminal Park":{
+        "icon":"projects/aetp/icon.svg",
+        "title": "AET Park",
+        "text":[
+                "Involved:<ul><li>Mamadsho</li><li>Dilmurod</li></ul>",
+                "Date start: Sep 21, 2020",
+                "Status: Active"
+            ],
+        "subcircles":[
+        {
+            "icon":"graphics/render.svg",
+            "image":["Render 1","projects/aetp/render1.jpeg"]
+        },
+        {
+            "icon":"graphics/render.svg",
+            "image":["Render 2","projects/aetp/render2.jpeg"]
+        },
+        {
+            "icon":"graphics/render.svg",
+            "image":["Render 2","projects/aetp/render2.jpeg"]
+        },
+        {
+            "icon":"graphics/render.svg",
+            "image":["Render 2","projects/aetp/render2.jpeg"]
+        },
+        {
+            "icon":"graphics/render.svg",
+            "image":["Render 2","projects/aetp/render2.jpeg"]
+        },
+        {
+            "icon":"graphics/render.svg",
+            "image":["Render 2","projects/aetp/render2.jpeg"]
+        },
+        {
+            "icon":"graphics/render.svg",
+            "image":["Render 3","projects/aetp/render3.jpeg"]
+        }]
+    },
+    "University Hall":{
+        "icon":"projects/uh/icon.svg",
+        "title": "University Hall",
+        "text":[
+            "Involved: <ul><li>Mamadsho</li><li>Dilmurod</li></ul>",
+            "Date start: Sep 22, 2020",
+            "Status: Active"
+            ],
+        "subcircles":[
+        {
+            "icon":"graphics/render.svg",
+            "image":["Render 1","projects/uh/render1.jpeg"],
+            "text":["Some random text goes here","We never had text here","<ul><li>Moreover</li><li>Intruding some</li><li>HTML right here@!</li></ul>"]
+        },
+        {
+            "icon":"graphics/render.svg",
+            "image":["Render 2","projects/uh/render2.png"]
+        },
+        {
+            "icon":"graphics/render.svg",
+            "image":["Render 3","projects/uh/render3.jpeg"]
+        }]
+    }
+}
