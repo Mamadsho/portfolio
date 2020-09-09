@@ -24,7 +24,7 @@ function htmlise(type,data){
         return `<img src="${data}" class="icon">`;
     };
     if (type=='image'){
-        return `<p>${data[0]}</p><div class='placeholder' data-url="${data[1]}"><img src='graphics/load.svg' width='40px'></div>`;
+        return `<div class='placeholder' data-url="${data[1]}"><img src='graphics/load.svg' width='40px'></div><p>${data[0]}</p>`;
     };
     if (type=='title'){
         return `<h2>${data}</h2>`;
@@ -36,6 +36,8 @@ function htmlise(type,data){
             console.log(text);
         };
         return text;
+    }else{
+        return ('')
     };
 };
 function f1(x){
@@ -51,26 +53,44 @@ function create_project_circles(){
             };
             let r=Math.round(Math.random()*256);
             let g=Math.round(Math.random()*256);
-            if (r>150&&g>150){
-                var b=Math.round(Math.random()*120);
+            let b=Math.round(Math.random()*256);
+
+            if ((299*r/256+587*g/256+114*b/256)<400){
+                var t_color='white';
             }else{
-                var b=Math.round(Math.random()*256);
+                var t_color='black';
             }
+
             a=2*Math.PI*Math.random();
-            r=10+2.5*Math.random();
-            subcircles+=`<div class='circle' data-loaded="0" style="left: ${Math.cos(a)*r}vw; top:${Math.sin(a)*r}vh;">
-            <div class="ovh" style=" background-color: rgb(${r}, ${g}, ${b});">
+            rd=10+2.5*Math.random();
+            if (res[c]['subcircles'][sc]["defsize"]){
+                var temp2=`data-def_w="${res[c]['subcircles'][sc]["defsize"][0]}" data-def_h="${res[c]['subcircles'][sc]["defsize"][1]}"`;
+            }else{
+                var temp2='';
+            }
+            subcircles+=`<div class='circle' ${temp2} data-loaded="0" data-load_activated="0" style="left: ${Math.cos(a)*rd}vw; top:${Math.sin(a)*rd}vh;">
+            <div class="ovh" style="color:${t_color}; background-color: rgb(${r}, ${g}, ${b});">
             ${scdata}
             </div>
             </div>`;
         };
-        circles=`<div class="circle" data-loaded="1" data-zi="10" style="left: ${Math.random()*93}vw; top: ${Math.random()*90}vh;">
+        let r=Math.round(Math.random()*256);
+        let g=Math.round(Math.random()*256);
+        let b=Math.round(Math.random()*256);
+
+        if ((299*r/256+587*g/256+114*b/256)<400){
+            var t_color='white';
+        }else{
+            var t_color='black';
+        }
+        
+        circles=`<div class="circle"  data-loaded="1" data-load_activated="1" data-zi="10" style="left: ${Math.random()*93}vw; top: ${Math.random()*90}vh;">
         <div class='ovv invisible'>
             <div class="subcircles">
             ${subcircles}
             </div>
         </div>
-        <div class="ovh" style="background-color: rgb(${Math.round(Math.random()*256)}, ${Math.round(Math.random()*256)}, ${Math.round(Math.random()*256)});">
+        <div class="ovh" style="color:${t_color}; background-color: rgb(${r}, ${g}, ${b});">
             <div class="modal2"></div>
             <img src="${res[c]["icon"]}" class="icon">
             <h2>${res[c]["title"]}</h2>
@@ -87,17 +107,19 @@ function create_project_circles(){
 function load_images(c){
     c.querySelectorAll('.placeholder').forEach(el=>{
         let image = document.createElement('img');
-        image.classList.toggle('invisible');
-        image.classList.toggle('pht');
+        image.classList.add('invisible');
+        image.classList.add('pht');
         image.src = el.dataset.url;
         // assign and onload event handler
         image.addEventListener('load', (event) => {
             el.remove();
-            image.classList.toggle('invisible');
+            c.dataset.loaded='1'
+            image.classList.remove('invisible');
             console.log('The image has been loaded');
         });
         // add logo to the document
         el.parentNode.insertBefore(image, el.nextSibling);
+        c.dataset.load_activated='1';
     })
 };
 
@@ -329,19 +351,26 @@ document.addEventListener('DOMContentLoaded',()=>{
         if (traj_length<15){
             
             
-            if (c.dataset.loaded=='0'){
+            if (c.dataset.load_activated=='0'){
                 load_images(c);
-                c.dataset.loaded='1';
             }
             if(child_move){
                 if(c.classList.contains('open')){
                     c.dataset.def_w=c.offsetWidth;
                     c.dataset.def_h=c.offsetHeight;
                     c.style.width='';
-                    c.style.height=''; 
+                    c.style.height='';
+                    if(c.dataset.loaded=="1"){
+                        console.log('is open. data is loaded. time to act.');
+                        c.querySelector('.pht').classList.add('invisible');
+                    }
                 }else{
                     c.style.height=c.dataset.def_h;
                     c.style.width=c.dataset.def_w;
+                    if(c.dataset.loaded=="1"){
+                        console.log('shit.');
+                        c.querySelector('.pht').classList.remove('invisible');
+                    }
                 };
                 c.querySelector('.resize').classList.toggle('invisible');};
             //c.style.zIndex='initial';

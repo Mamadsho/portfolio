@@ -47,6 +47,7 @@
             ],
         "subcircles":[
         {
+            "defsize":[600,800],
             "icon":"graphics/render.svg",
             "image":["Render 1","projects/uh/render1.jpeg"],
             "text":["Some random text goes here","We never had text here","<ul><li>Moreover</li><li>Intruding some</li><li>HTML right here@!</li></ul>"]
