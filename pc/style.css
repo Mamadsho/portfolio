@@ -149,6 +149,16 @@ body{
 #profile_page::-webkit-scrollbar{
     width: 10px;
 }
+#profile_page::-webkit-scrollbar-thumb{
+    background-color: #b978e6c9;
+    border-radius: 20px;
+    box-shadow: 3px 20px 12px inset #f1b8b8a6;
+}
+#profile_page::-webkit-scrollbar-track{
+    background-color: #6a8cc05e;
+    margin: 45px 0px;
+    border-radius: 20px;
+}
 #profile_page > *{
     margin: 2.5px;
     overflow-y: scroll;
