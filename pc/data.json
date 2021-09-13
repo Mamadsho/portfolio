@@ -1,0 +1,147 @@
+{
+    "Profile":{   
+    },
+    "Projects":[
+        [{"ru":"Арена", "en":"Arena","tj":"Варзишгоҳ"},
+            {
+                "type":"title",
+                "low_res":"projects/arena/titleLR.jpg",
+                "high_res":"projects/arena/titleHR.jpg"
+            },{
+                "type":"video",
+                "src":"https://player.vimeo.com/video/597929589?h=8739182c4b",
+                "desc" : "<h1>Comment Title</h1><p>Some general Video description of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"projects/arena/1LR.jpg",
+                "high_res":"projects/arena/1HR.jpg",
+                "desc" : "<h1 class='langy' data-ru='Заголовок Описания' data-en='Comment Title' data-tj='Мавзӯи Таснифот'>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"projects/arena/2LR.jpg",
+                "high_res":"projects/arena/2HR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"projects/arena/3LR.jpg",
+                "high_res":"projects/arena/3HR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
+                "type":"html",
+                "inner":"<h1>Page Title</h1><p>Some general project level desctiption probabaly goes here.</p>"
+            }
+        ],
+        [{"ru":"ТРК", "en":"Mall","tj":"ТРК"},
+            {
+                "type":"title",
+                "low_res":"projects/mall/titleLR.jpg",
+                "high_res":"projects/mall/titleHR.jpg"
+            },{
+                "type":"image"
+            },{
+                "type":"image"
+            },{
+                "type":"title"
+            }
+        ],
+        [{"ru":"СТО", "en":"Car Service Station","tj":"СТО"},
+            {
+                "type":"title",
+                "low_res":"projects/sto/titleLR.jpg",
+                "high_res":"projects/sto/titleHR.jpg"
+            },{
+                "type":"image"
+            },{
+                "type":"image"
+            },{
+                "type":"title"
+            },{
+                "type":"image"
+            },{
+                "type":"title"
+            }
+        ],
+        [{"ru":"БТРК", "en":"SuperMall","tj":"БТРК"},
+            {
+                "type":"title",
+                "low_res":"projects/supermall/titleLR.jpg",
+                "high_res":"projects/supermall/titleHR.jpg"
+            },{
+                "type":"image"
+            },{
+                "type":"title"
+            },{
+                "type":"image"
+            }
+        ],
+        [{"ru":"ВДНХ", "en":"VDNH","tj":"ВДНХ"},
+            {
+                "type":"title",
+                "low_res":"projects/vdnh/titleLR.jpg",
+                "high_res":"projects/vdnh/titleHR.jpg"
+            },{
+                "type":"image"
+            },{
+                "type":"title"
+            }
+        ],
+        [{"ru":"Национальный Парк", "en":"National Park","tj":"Боғи Миллӣ"},
+            {
+                "type":"title",
+                "low_res":"projects/park/titleLR.jpg",
+                "high_res":"projects/park/titleHR.jpg"
+            }
+        ]
+    ],
+    "More":[
+        [{"ru":"АренаMORE", "en":"ArenaMORE","tj":"ВарзишгоҳMORE"},
+            {
+                "type":"title",
+                "low_res":"projects/mall/titleLR.jpg",
+                "high_res":"projects/mall/titleHR.jpg"
+            },{
+                "type":"video",
+                "src":"https://player.vimeo.com/video/597929589?h=8739182c4b",
+                "desc" : "<h1>Comment Title</h1><p>Some general Video description of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"projects/arena/1LR.jpg",
+                "high_res":"projects/arena/1HR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"projects/arena/2LR.jpg",
+                "high_res":"projects/arena/2HR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"projects/arena/3LR.jpg",
+                "high_res":"projects/arena/3HR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
+                "type":"html",
+                "inner":"<h1>Page Title</h1><p>Some general project level desctiption probabaly goes here.</p>"
+            }
+        ],
+        [{"ru":"ТРКMORE", "en":"MallMORE","tj":"ТРКMORE"},
+            {
+                "type":"title",
+                "low_res":"projects/arena/titleLR.jpg",
+                "high_res":"projects/arena/titleHR.jpg"
+            },{
+                "type":"image"
+            },{
+                "type":"image"
+            },{
+                "type":"title"
+            }
+        ],
+        [{"ru":"Национальный ПаркMORE", "en":"National ParkMORE","tj":"Боғи МиллӣMORE"},
+            {
+                "type":"title",
+                "low_res":"projects/park/titleLR.jpg",
+                "high_res":"projects/park/titleHR.jpg"
+            }
+        ]
+    ]
+}

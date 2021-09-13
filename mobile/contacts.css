@@ -1,0 +1,37 @@
+.contact_item_icon {
+    width: 35px;
+    height: 35px;
+}
+.contact_item{
+    justify-content: left
+}
+.contact_item > .skill_name{
+    width: min-content;
+}
+#phone *{
+    font-size: 20px;
+}
+#phone .skill_logo:before{
+    mask-image:url('projects/home/contacts/phone.png');
+    -webkit-mask-image:url('projects/home/contacts/phone.png');
+}
+#mail .skill_logo:before{
+    mask-image:url('projects/home/contacts/mail.png');
+    mask-repeat: no-repeat;
+    mask-size: 70%;
+    -webkit-mask-image:url('projects/home/contacts/mail.png');
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: 70%;
+}
+#facebook .skill_logo:before{
+    mask-image: url('projects/home/contacts/fb.png');
+    -webkit-mask-image: url('projects/home/contacts/fb.png');
+}
+#github .skill_logo:before{
+    mask-image: url('projects/home/contacts/github.png');
+    -webkit-mask-image: url('projects/home/contacts/github.png');
+}
+#pinterest .skill_logo:before{
+    mask-image: url('projects/home/contacts/pinterest.png');
+    -webkit-mask-image: url('projects/home/contacts/pinterest.png');
+}

@@ -1,0 +1,128 @@
+{
+    "Home":[
+        {"name":"Home",
+            "type":"html",
+            "icon":"projects/home/icons/home.png",
+            "color":"#ff6b6b",
+            "inner":{
+                "en":"<div class='flexers'><div class='photo' style='background-image:url(\"photo.png\"); background-position:center; background-size:cover'></div><div class='name'><h1 style='margin-top: 0px; margin-bottom: 4.5px;'>Mamadsho <br> Nazaramonov</h1><hr style='margin:0'><p style='margin-top: 3px;'>Architecture and Math Enthusiast</p></div></div><div class='itemlist'><div id='lang_toggle'><div class='itemkey'>Languages</div><div class='itemvalue' style='background-color: inherit;padding: 0;'><div class='value'><span class='option'><div class='option_key'>Русский</div><span class='lang' id='ru'></span></span><span class='option'><div class='option_key'>English</div><span class='lang' id='en'></span></span><span class='option'><div class='option_key'>Тоҷикӣ</div><span class='lang' id='tj'></span></span></div></div></div><div><div class='itemkey'>Finished</div><div class='itemvalue'>Tajik Technical University</div></div><div><div class='itemkey'>Lives in</div><div class='itemvalue'>Vahdat, Tajistan</div></div><div style='margin-bottom:32px'><div class='itemkey'>Date of Birth</div><div class='itemvalue'>May 27, 1998</div></div></div></div></div>",
+                "ru":"<div class='flexers'><div class='photo' style='background-image:url(\"photo.png\"); background-position:center; background-size:cover'></div><div class='name'><h1 style='margin-top: 0px; margin-bottom: 4.5px;'>Мамадшо <br> Назарамонов</h1><hr style='margin:0'><p style='margin-top: 3px;'>Architecture and Math Enthusiast</p></div></div><div class='itemlist'><div id='lang_toggle'><div class='itemkey'>Языки</div><div class='itemvalue' style='background-color: inherit;padding: 0;'><div class='value'><span class='option'><div class='option_key'>Русский</div><span class='lang' id='ru'></span></span><span class='option'><div class='option_key'>English</div><span class='lang' id='en'></span></span><span class='option'><div class='option_key'>Тоҷикӣ</div><span class='lang' id='tj'></span></span></div></div></div><div><div class='itemkey'>Окончил</div><div class='itemvalue'>Таджикском Техническом Университете</div></div><div><div class='itemkey'>Живу в</div><div class='itemvalue'>Вахдате, Таджикистан</div></div><div style='margin-bottom:32px'><div class='itemkey'>Родился</div><div class='itemvalue'>27 Мая 1998г</div></div></div></div></div>",
+                "tj":"<div class='flexers'><div class='photo' style='background-image:url(\"photo.png\"); background-position:center; background-size:cover'></div><div class='name'><h1 style='margin-top: 0px; margin-bottom: 4.5px;'>Мамадшо <br> Назарамонов</h1><hr style='margin:0'><p style='margin-top: 3px;'>Architecture and Math Enthusiast</p></div></div><div class='itemlist'><div id='lang_toggle'><div class='itemkey'>Забонҳо</div><div class='itemvalue' style='background-color: inherit;padding: 0;'><div class='value'><span class='option'><div class='option_key'>Русский</div><span class='lang' id='ru'></span></span><span class='option'><div class='option_key'>English</div><span class='lang' id='en'></span></span><span class='option'><div class='option_key'>Тоҷикӣ</div><span class='lang' id='tj'></span></span></div></div></div><div><div class='itemkey'>Маълумот</div><div class='itemvalue'>Донишгоҳи Техникии Тоҷикистон</div></div><div><div class='itemkey'>Ҷои зист</div><div class='itemvalue'>Ваҳдат, Тоҷикистон</div></div><div style='margin-bottom:32px'><div class='itemkey'>Таваллуд</div><div class='itemvalue'>27 Май 1998с</div></div></div></div></div>"
+            }
+        },{"name":"SoftwareSkills",
+            "type":"html",
+            "icon":"projects/home/icons/skills.png",
+            "color":"#db8787",
+            "inner":{
+                "en":"<h1>Skills&Softwares</h1><div class='itemlist'><div><div class='itemkey'><div id='photoshop' class='skill_logo'></div><span class='skill_name'>Photoshop</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='blender' class='skill_logo'></div><span class='skill_name'>Blender</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='autocad' class='skill_logo'></div><span class='skill_name'>AutoCAD</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div></div></div><div><div class='itemkey'><div id='revit' class='skill_logo'></div><span class='skill_name'>Revit</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='mdesigner' class='skill_logo'></div><span class='skill_name'>Marvelous Designer</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='twinmotion' class='skill_logo'></div><span class='skill_name'>Twinmotion</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div id='last_skill_c'><div class='itemkey'><div id='spainter' class='skill_logo'></div><span class='skill_name'>Substance Painter</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active' ></div><div class='skill_dash'></div><div class='skill_dash'></div></div></div></div>",
+                "ru":"<h1>Навыки и Программы</h1><div class='itemlist'><div><div class='itemkey'><div id='photoshop' class='skill_logo'></div><span class='skill_name'>Photoshop</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='blender' class='skill_logo'></div><span class='skill_name'>Blender</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='autocad' class='skill_logo'></div><span class='skill_name'>AutoCAD</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div></div></div><div><div class='itemkey'><div id='revit' class='skill_logo'></div><span class='skill_name'>Revit</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='mdesigner' class='skill_logo'></div><span class='skill_name'>Marvelous Designer</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='twinmotion' class='skill_logo'></div><span class='skill_name'>Twinmotion</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div id='last_skill_c'><div class='itemkey'><div id='spainter' class='skill_logo'></div><span class='skill_name'>Substance Painter</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active' ></div><div class='skill_dash'></div><div class='skill_dash'></div></div></div></div>",
+                "tj":"<h1>Маҳорат ва Барномаҳо</h1><div class='itemlist'><div><div class='itemkey'><div id='photoshop' class='skill_logo'></div><span class='skill_name'>Photoshop</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='blender' class='skill_logo'></div><span class='skill_name'>Blender</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='autocad' class='skill_logo'></div><span class='skill_name'>AutoCAD</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div></div></div><div><div class='itemkey'><div id='revit' class='skill_logo'></div><span class='skill_name'>Revit</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='mdesigner' class='skill_logo'></div><span class='skill_name'>Marvelous Designer</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='twinmotion' class='skill_logo'></div><span class='skill_name'>Twinmotion</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div id='last_skill_c'><div class='itemkey'><div id='spainter' class='skill_logo'></div><span class='skill_name'>Substance Painter</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active' ></div><div class='skill_dash'></div><div class='skill_dash'></div></div></div></div>"
+            }
+        },{"name":"Interests",
+            "type":"html",
+            "icon":"projects/home/icons/interests.png",
+            "color":"#db8787",
+            "inner":{
+                "en":"<h1>Interests</h1><div class='itemlist' id='interests'><span>VR/AR</span><span>AI</span><span>Site Planning</span><span style='width: 215px;'>Architecture</span><span style='width: 125px;'>Design</span><span>Workflow Study/Dev</span><span>Programming</span><span>Data Analysis</span><span>Math/PhysX</span><span>Politics/Economy</span><span>Management</span></div>",
+                "ru":"<h1>Интересы</h1><div class='itemlist' id='interests'><span>VR/AR</span><span>ИИ</span><span>Градостроительство</span><span style='width: 215px;'>Архитектура</span><span style='width: 125px;'>Дизайн</span><span>Методологии</span><span>Программирование</span><span>Анализ Данный</span><span>Математика/Физика</span><span>Политика/Экономика</span><span>Менеджмент</span></div>",
+                "tj":"<h1>Майлу Рағбат</h1><div class='itemlist' id='interests'><span>VR/AR</span><span>AI</span><span>Шаҳрсозӣ</span><span style='width: 215px;'>Меъморӣ</span><span style='width: 125px;'>Дизайн</span><span>Мотодологияҳо</span><span>Барномасозӣ</span><span>Таҳлили маълумот</span><span>Математика/Физика</span><span>Сиёсат/Иқтисод</span><span>Идора</span></div>"
+            }
+        },{"name":"Contacts",
+            "type":"html",
+            "icon":"projects/home/icons/contacts.png",
+            "color":"#db8787",
+            "inner":{
+                "en":"<h1>Contacts</h1><div class='itemlist'><div id='phone' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='tel:+992100500000'><span>+992100500000</span></a></span></div><div id='mail' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='mailto:mamadsho.nazaramonov@gmail.com'><span style='display: inline-block;'>mamadsho.nazaramonov</span><span style='display: inline-block;'>@gmail.com</span></a></span></div><div class='contact_item' id='facebook'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://fb.com/mamadshos'><span>fb.com/mamadshos</span></a></span></div><div id='github' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://github.com/mamadsho'><span>github.com/mamadsho</span></a></span></div><div id='pinterest' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://www.pinterest.com/mamadshons'><span>@mamadshons</span></a></span></div></div>",
+                "ru":"<h1>Контакты</h1><div class='itemlist'><div id='phone' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='tel:+992100500000'><span>+992100500000</span></a></span></div><div id='mail' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='mailto:mamadsho.nazaramonov@gmail.com'><span style='display: inline-block;'>mamadsho.nazaramonov</span><span style='display: inline-block;'>@gmail.com</span></a></span></div><div class='contact_item' id='facebook'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://fb.com/mamadshos'><span>fb.com/mamadshos</span></a></span></div><div id='github' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://github.com/mamadsho'><span>github.com/mamadsho</span></a></span></div><div id='pinterest' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://www.pinterest.com/mamadshons'><span>@mamadshons</span></a></span></div></div>",
+                "tj":"<h1>Тамос</h1><div class='itemlist'><div id='phone' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='tel:+992100500000'><span>+992100500000</span></a></span></div><div id='mail' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='mailto:mamadsho.nazaramonov@gmail.com'><span style='display: inline-block;'>mamadsho.nazaramonov</span><span style='display: inline-block;'>@gmail.com</span></a></span></div><div class='contact_item' id='facebook'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://fb.com/mamadshos'><span>fb.com/mamadshos</span></a></span></div><div id='github' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://github.com/mamadsho'><span>github.com/mamadsho</span></a></span></div><div id='pinterest' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://www.pinterest.com/mamadshons'><span>@mamadshons</span></a></span></div></div>"
+            }
+        },{"name":"Settings",
+            "type":"html",
+            "icon":"projects/home/icons/settings.png",
+            "color":"#db8787",
+            "inner":{
+                "en":"<h1>Settings</h1><div class='itemlist'><div id='lang_toggle'><div class='itemkey'>Languages</div><div class='itemvalue' style='background-color: inherit;padding: 0;'><div class='value'><span class='option'><div class='option_key'>Русский</div><span class='lang' id='ru'></span></span><span class='option'><div class='option_key'>English</div><span class='lang' id='en'></span></span><span class='option'><div class='option_key'>Тоҷикӣ</div><span class='lang' id='tj'></span></span></div></div></div><div id='fs_toggle'><div class='itemkey'>Fullscreen</div><div class='itemvalue' style='background-color: inherit;padding: 0;'><div class='value'><span class='option'><div class='option_key'>ON</div><span class='lang' id='on'></span></span><span class='option'><div class='option_key'>OFF</div><span class='lang' id='off'></span></span></div></div>",
+                "ru":"<h1>Настройки</h1><div class='itemlist'><div id='lang_toggle'><div class='itemkey'>Языки</div><div class='itemvalue' style='background-color: inherit;padding: 0;'><div class='value'><span class='option'><div class='option_key'>Русский</div><span class='lang' id='ru'></span></span><span class='option'><div class='option_key'>English</div><span class='lang' id='en'></span></span><span class='option'><div class='option_key'>Тоҷикӣ</div><span class='lang' id='tj'></span></span></div></div></div><div id='fs_toggle'><div class='itemkey'>На весь экран</div><div class='itemvalue' style='background-color: inherit;padding: 0;'><div class='value'><span class='option'><div class='option_key'>ВКЛ</div><span class='lang' id='on'></span></span><span class='option'><div class='option_key'>ОТКЛ</div><span class='lang' id='off'></span></span></div></div>",
+                "tj":"<h1>Ҷуркуниҳо</h1><div class='itemlist'><div id='lang_toggle'><div class='itemkey'>Забонҳо</div><div class='itemvalue' style='background-color: inherit;padding: 0;'><div class='value'><span class='option'><div class='option_key'>Русский</div><span class='lang' id='ru'></span></span><span class='option'><div class='option_key'>English</div><span class='lang' id='en'></span></span><span class='option'><div class='option_key'>Тоҷикӣ</div><span class='lang' id='tj'></span></span></div></div></div><div id='fs_toggle'><div class='itemkey'>Тамоми экран</div><div class='itemvalue' style='background-color: inherit;padding: 0;'><div class='value'><span class='option'><div class='option_key'>Фаъол</div><span class='lang' id='on'></span></span><span class='option'><div class='option_key'>Нофаъол</div><span class='lang' id='off'></span></span></div></div>"
+            }
+        }
+    ],
+    "STO":[
+        {
+            "type":"html",
+            "icon":"projects/sto/sto.png",
+            "color":"#51dfdf",
+            "inner":{
+                "en":"<h1>Automobile Repair Shop</h1><div class='softwares'><div style='background-image: url(&quot;projects/home/skills/icons/revit.png&quot;);border-color: #04174c;background-size: 113%;background-position: -3px -3px;background-color: #e9f4ff;'></div><div style='background-image: url(&quot;projects/home/skills/icons/autocad.png&quot;);border-color: #e54145;background-size: 111%;background-position: -1px 1px;background-color: #fafafa;'></div><div style='background-image: url(&quot;projects/home/skills/icons/photoshop.png&quot;);border-color: #3bcbf6;background-size: 110%;background-position: center;'></div></div><ul class='tep'><li>Effective Area: 5000 м2</li><li>Volume: --- м3</li><li>Cars: 50 units</li></ul><p class='timeCreated'>May, 2019</p>",
+                "ru":"<h1>Станция технического обслуживания автомобилей</h1><div class='softwares'><div style='background-image: url(&quot;projects/home/skills/icons/revit.png&quot;);border-color: #04174c;background-size: 113%;background-position: -3px -3px;background-color: #e9f4ff;'></div><div style='background-image: url(&quot;projects/home/skills/icons/autocad.png&quot;);border-color: #e54145;background-size: 111%;background-position: -1px 1px;background-color: #fafafa;'></div><div style='background-image: url(&quot;projects/home/skills/icons/photoshop.png&quot;);border-color: #3bcbf6;background-size: 110%;background-position: center;'></div></div><ul class='tep'><li>Полезная Площадь: 5000 м2</li><li>Объем: --- м3</li><li>Машин: 50 ед</li></ul><p class='timeCreated'>Май, 2019</p>"
+            }
+        },{
+            "type": "image",
+            "icon":"projects/sto/icon3.svg",
+            "color":"#2e9f9f",
+            "image": "projects/sto/img.jpg",
+            "desc":{
+                "ru":"<p>ЗдесьЪ было бы описание</p>",
+                "en":"<p>Here goes some desc</p>"
+            }
+        },{
+            "type": "image",
+            "icon":"projects/sto/icon3.svg",
+            "color":"#2e9f9f",
+            "image": "projects/sto/img.jpg",
+            "desc":{
+                "ru":"<p>ЗдесьЪ было бы описание</p>",
+                "en":"<p>Here would go some desc</p>"
+            }
+        },{
+            "type": "video",
+            "icon":"projects/sto/icon3.svg",
+            "color":"#2e9f9f",
+            "src": "https://player.vimeo.com/video/597929589?h=8739182c4b",
+            "orientation": "h",
+            "desc":{
+                "ru":"<p>ЗдесьЪ было бы описание</p>",
+                "en":"<p>Here would go some desc</p>",
+                "tj":"<p>Ана шуд маълум..</p>"
+            }
+        }
+    ],
+    "Assets":[
+        {
+            "type":"html",
+            "icon":"projects/assets/assets.png",
+            "color":"#a6a6ff",
+            "inner":{
+                "en":"<h1>Assets</h1><div class='softwares'><div style='background-image: url(&quot;projects/home/skills/icons/blender.png&quot;);border-color: #e8873b;background-size: 113%;background-position: -3px -3px;background-color: #f7f4e5;'></div><div style='background-image: url(&quot;projects/home/skills/icons/spainter.png&quot;);border-color: #e22c3a;background-size: 107%;background-position: -2px -2px;background-color: #fff9f9;'></div><div style='background-image: url(&quot;projects/home/skills/icons/mdesigner.png&quot;);border-color: #f9c236;background-size: 104%;background-position: 0px -1px;background-color: #242424;'></div></div><div class='tep projectInfo'><p>In this section some 3d assets are shown, through which I've been testing some workflows such as PBR, Cloth Simulations</p></div><p class='timeCreated'>- 2020</p>",
+                "ru":"<h1>Станция технического обслуживания автомобилей</h1><div class='softwares'><div style='background-image: url(&quot;projects/home/skills/icons/revit.png&quot;);border-color: #04174c;background-size: 113%;background-position: -3px -3px;background-color: #e9f4ff;'></div><div style='background-image: url(&quot;projects/home/skills/icons/autocad.png&quot;);border-color: #e54145;background-size: 111%;background-position: -1px 1px;background-color: #fafafa;'></div><div style='background-image: url(&quot;projects/home/skills/icons/photoshop.png&quot;);border-color: #3bcbf6;background-size: 110%;background-position: center;'></div></div><ul class='tep'><li>Площадь: --- м2</li><li>Объем: --- м3</li><li>Машин: 50 ед</li></ul><p class='timeCreated'>- 2020</p>"
+            }
+        },{
+            "type": "image",
+            "icon":"graphics/rendering.png",
+            "color":"#7373d7",
+            "image": "projects/assets/sarazm_pot.jpg",
+            "desc":{
+                "ru":"<h2>Древний Сосуд</h2><ul><li>Моделирование в Blender</li><li>Текстуры в SubstancePainter</li><li>Рендер движок: Cycles</li></ul><p>Подготовлен для проекта по виртуальноё реконструкции древнего прото-города Саразм</p>",
+                "en":"<h2>Ancient Pottery</h2><ul><li>Sculpted in Blender</li><li>Textured in SubstancePainter</li><li>RenderEngine: Cycles</li></ul><p>Made for project for Virtual Reconstructioin of Ancient Proto-urban site of Sarazm</p>"
+            }
+        },{
+            "type": "image",
+            "icon":"graphics/rendering.png",
+            "color":"#7373d7",
+            "image": "projects/assets/bowlingPins.jpg",
+            "desc":{
+                "ru":"<h2>Боулинг</h2><ul><li>Сцена выполнена в Blender-е</li><li>Рендер движок: Cycles</li></ul>",
+                "en":"<h2>Bowling</h2><ul><li>Scene is done in Blender</li><li>RenderEngine: Cycles</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"graphics/rendering.png",
+            "color":"#7373d7",
+            "image": "projects/sto/img.jpg",
+            "desc":{
+                "ru":"<p>Здесь было описание</p>",
+                "en":"<p>Here goes some desc</p>"
+            }
+        }
+    ]
+}
