@@ -10,25 +10,25 @@
             },{
                 "type":"video",
                 "src":"https://player.vimeo.com/video/597929589?h=8739182c4b",
-                "desc" : "<h1>Comment Title</h1><p>Some general Video description of one goes here</p>"
+                "desc" : "<h1 class='langy' data-ru='<span style=\"display: inline-block\">Парамет</span><span style=\"display:inline-block\">рический</span> Фасад' data-tj='Намои <span style=\"display: inline-block\">парамет</span><span style=\"display: inline-block\">рикӣ</span>' data-en='Parametric Facade'></h1><p class='langy' data-ru='<ul><li>Программа: Blender</li><li>Техники: <ul><li>Шейдер-ноды</li><li>Процедурные Текстуры</li><li>Рисование текстур</li></ul></li> <li>Рендер-движок: EEVEE</li></ul>'data-tj='<ul><li>Барнома: Blender</li><li>Усул: <ul><li>Шейдер-нодҳо</li><li>Текстураҳои ҷараёнӣ</li><li>Рангкунии текстураҳо</li></ul></li> <li>Рендер-муҳаррик: EEVEE</li></ul>'data-en='<ul><li>Software: Blender</li><li>Techniques: <ul><li>Shader-nodes</li><li>Procedural Textures</li><li>Texture Painting</li></ul></li> <li>Render-engine: EEVEE</li></ul>'></p>"
             },{
                 "type":"image",
                 "low_res":"projects/arena/1LR.jpg",
                 "high_res":"projects/arena/1HR.jpg",
-                "desc" : "<h1 class='langy' data-ru='Заголовок Описания' data-en='Comment Title' data-tj='Мавзӯи Таснифот'>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+                "desc" : "<h1 class='langy' data-ru='CВ Фасад' data-en='NE Facade' data-tj='Намои ШШ'></h1>             <ul><li class='langy' data-tj='Барнома: Blender' data-ru='Программа: Blender' data-en='Software: Blender'></li><li class='langy' data-tj='Рендер-муҳаррик: Cycles' data-ru='Рендер-движок: Cycles' data-en='Render Engine: Cycles'></li></ul>"
             },{
                 "type":"image",
                 "low_res":"projects/arena/2LR.jpg",
                 "high_res":"projects/arena/2HR.jpg",
-                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+                "desc" : "<h1 class='langy' data-ru='Восточный Фасад' data-tj='Намои Шарқӣ' data-en='Eastern Facade'></h1><ul><li class='langy' data-tj='Барнома: Blender' data-ru='Программа: Blender' data-en='Software: Blender'></li><li class='langy' data-tj='Рендер-муҳаррик: Cycles' data-ru='Рендер-движок: Cycles' data-en='Render Engine: Cycles'></li></ul>"
             },{
                 "type":"image",
                 "low_res":"projects/arena/3LR.jpg",
                 "high_res":"projects/arena/3HR.jpg",
-                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+                "desc" : "<h1 class='langy' data-ru='Скетч' data-tj='Скетч' data-en='Sketch'></h1>                             <ul><li class='langy' data-ru='Программа: Krita' data-tj='Барнома: Krita' data-en='Software: Krita'></li></ul>"
             },{
                 "type":"html",
-                "inner":"<h1>Page Title</h1><p>Some general project level desctiption probabaly goes here.</p>"
+                "inner":"<h1 class='langy' data-ru='Теннисный Комплекс' data-en='Tennis Stadium' data-tj='Қасри Теннис'></h1><div class='langy' data-ru='<ul><li>Расположение: г. Душанбе</li><li>Плошадь застройки: ---м. кв.</li><li>Программы: Blender</li><li>Июн 2021</li></ul>' data-en='<ul><li>Location: Dushanbe </li><li>Construction area: ---m. sq.</li><li>Softwares: Blender</li><li> June 2021</li></ul>' data-tj='<ul><li>Мавзеъ: ш. Душанбе</li><li>Масоҳати сохтмон: ---м. кв.</li><li>Барномаҳо: Blender</li><li>Июнь 2021</li></ul>'></div>"
             }
         ],
         [{"ru":"ТРК", "en":"Mall","tj":"ТРК"},
@@ -37,11 +37,12 @@
                 "low_res":"projects/mall/titleLR.jpg",
                 "high_res":"projects/mall/titleHR.jpg"
             },{
-                "type":"image"
+                "type":"video",
+                "src":"https://player.vimeo.com/video/604150284",
+                "desc":"<h1 class='langy' data-ru='ТРК' data-en='Mall' data-tj='ТРК'></h1><p class='langy' data-ru='<ul><li>Программы: <ul><li>Blender</li><li>Twinmotion</li><li>ArchiCAD</li></ul></li></ul>'data-tj='<ul><li>Барномаҳо: <ul><li>Blender</li><li>Twinmotion</li><li>ArchiCAD</li></ul></li></ul>' data-en='<ul><li>Softwares: <ul><li>Blender</li><li>Twinmotion</li><li>ArchiCAD</li></ul></li></ul>'></p>"
             },{
-                "type":"image"
-            },{
-                "type":"title"
+                "type":"html",
+                "inner":"<h1 class='langy' data-ru='Визуализация Торгово-Развлекательного Комплекса' data-en='Mall. Visualisation' data-tj='Визуализатсияи Маркази Дилхушӣ ва Савдо'></h1>"
             }
         ],
         [{"ru":"СТО", "en":"Car Service Station","tj":"СТО"},
@@ -50,15 +51,25 @@
                 "low_res":"projects/sto/titleLR.jpg",
                 "high_res":"projects/sto/titleHR.jpg"
             },{
-                "type":"image"
+                "type":"image",
+                "low_res":"projects/sto/1LR.jpg",
+                "high_res":"projects/sto/1HR.jpg"
             },{
-                "type":"image"
+                "type":"image",
+                "low_res":"projects/sto/2LR.jpg",
+                "high_res":"projects/sto/2HR.jpg"
+                
             },{
-                "type":"title"
+                "type":"image",
+                "low_res":"projects/sto/3LR.jpg",
+                "high_res":"projects/sto/3HR.jpg"
             },{
-                "type":"image"
+                "type":"image",
+                "low_res":"projects/sto/4LR.jpg",
+                "high_res":"projects/sto/4HR.jpg"
             },{
-                "type":"title"
+                "type":"html",
+                "inner":""
             }
         ],
         [{"ru":"БТРК", "en":"SuperMall","tj":"БТРК"},
@@ -80,9 +91,28 @@
                 "low_res":"projects/vdnh/titleLR.jpg",
                 "high_res":"projects/vdnh/titleHR.jpg"
             },{
-                "type":"image"
+                "type":"image",
+                "low_res":"projects/vdnh/NightPerspectiveLR.jpg",
+                "high_res":"projects/vdnh/NightPerspectiveHR.jpg",
+                "desc" : "<h1 class='langy' data-ru='Скетч' data-tj='Скетч' data-en='Sketch'></h1>                             <ul><li class='langy' data-ru='Программа: Krita' data-tj='Барнома: Krita' data-en='Software: Krita'></li></ul>"
             },{
-                "type":"title"
+                "type":"image",
+                "low_res":"projects/vdnh/DayPerspectiveLR.jpg",
+                "high_res":"projects/vdnh/DayPerspectiveHR.jpg",
+                "desc" : "<h1 class='langy' data-ru='Скетч' data-tj='Скетч' data-en='Sketch'></h1>                             <ul><li class='langy' data-ru='Программа: Krita' data-tj='Барнома: Krita' data-en='Software: Krita'></li></ul>"
+            },{
+                "type":"image",
+                "low_res":"projects/vdnh/DayFrontLR.jpg",
+                "high_res":"projects/vdnh/DayFrontHR.jpg",
+                "desc" : "<h1 class='langy' data-ru='Скетч' data-tj='Скетч' data-en='Sketch'></h1>                             <ul><li class='langy' data-ru='Программа: Krita' data-tj='Барнома: Krita' data-en='Software: Krita'></li></ul>"
+            },{
+                "type":"image",
+                "low_res":"projects/vdnh/ExistingFrontLR.jpg",
+                "high_res":"projects/vdnh/ExistingFrontHR.jpg",
+                "desc" : "<h1 class='langy' data-ru='Вид существующего здания' data-tj='Намои бинои вуҷуддошта' data-en='Front View of Existing Building'></h1><ul><li class='langy' data-ru='Источник: Яндекс Карты' data-tj='Манбаъ: Яндекс Карты' data-en='Source: Yandex Map'></li></ul>"
+            },{
+                "type":"html",
+                "inner":"<h1 class='langy' data-ru='Реконструкция Павильона Таджикистана на ВДНХ' data-en='Reconstruction of Tajik Pavillion in VDNH' data-tj='Азнавбарқароркунии Павилони Тоҷикистон дар ВДНХ'></h1>"
             }
         ],
         [{"ru":"Национальный Парк", "en":"National Park","tj":"Боғи Миллӣ"},
