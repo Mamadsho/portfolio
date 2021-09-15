@@ -6,28 +6,28 @@ document.addEventListener('DOMContentLoaded',()=>{
     req.onreadystatechange=()=>{
         data=JSON.parse(req.responseText);
 
-        // HERE THE ACTION HAPPENS
-        // 
-        place_dots();
-        activate_dots();
-        document.querySelectorAll('.pages').forEach((active_pages)=>{    
-            place_pages(active_pages);
+        
+        document.querySelectorAll('.pages').forEach((pages)=>{    
+            if (pages.id != 'profile_pages'){
+                place_pages(pages);
+                place_dots(pages);
+                activate_dots(pages);
+            };
         });
     };
     req.send();
 })
-function place_dots(){
-    document.querySelectorAll('.pages').forEach((active_pages)=>{
-        for (pr in data[active_pages.dataset.relatedData]){
-            let dots = active_pages.querySelector('.dots');
+function place_dots(pages){
+        for (pr in data[pages.dataset.relatedData]){
+            let dots = pages.querySelector('.dots');
             let dot = document.createElement('div');
             dot.classList.add('dot');
-            dot.dataset.index = f(data[active_pages.dataset.relatedData].length-pr,data[active_pages.dataset.relatedData].length);
+            dot.dataset.index = f(data[pages.dataset.relatedData].length-pr,data[pages.dataset.relatedData].length);
             dots.appendChild(dot);
         }
-        active_pages.querySelector('.dot').classList.add('active_dot');
-    });
-}
+        pages.querySelector('.dot').classList.add('active_dot');
+};
+
 function place_pages(pages){
 
     let r3= pages.querySelector('.right3');
@@ -122,8 +122,8 @@ function fill_page(page, lang){
         page.classList.add('image_page', 'video_page')
 
         let vid=document.createElement('iframe');
-        vid.setAttribute('src',source.src);
-        vid.setAttribute('allow','');
+        vid.setAttribute('src',source.src+"?h=8739182c4b&autoplay=1");//as if it means autoplay, remove vimeo and more
+        vid.setAttribute('allow','autoplay; fullscreen');
         vid.setAttribute('allowfullscreen','');
         vid.classList.add('video_viewer');
 

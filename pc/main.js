@@ -23,25 +23,44 @@ function lets_go(){
 
 function activate_headers(){
     document.querySelectorAll('.header_item').forEach((header)=>{
-        header.addEventListener('click',function () {
-            document.querySelectorAll('.header_item').forEach((h)=>{
-                h.classList.remove('active_header')
-            })
-            this.classList.add('active_header')
-            document.querySelector('.vp').style.left=this.dataset.position;
-            active_pages = document.querySelector(this.dataset.relatedPages);
-        })
+        header.addEventListener('click',open_pages_header)
     });
     document.querySelectorAll('#header .cross').forEach((cross)=>{
         cross.addEventListener('click',close_project)
     })
 }
 
+function open_pages_header (e) {
+    header = this;
+    let pages = document.querySelector(header.dataset.relatedPages);
+    open_pages(pages, header);
+}
+function open_pages_pages (e){
+    if (!e.target.classList.contains('active_pages')&&e.target.classList.contains('pages')){;
+        let pages = this;
+        let header = document.querySelector(pages.dataset.relatedHeader);
+        open_pages(pages, header);
+    }
+}
+function open_pages(pages,header){
+    document.querySelectorAll('.header_item').forEach((h)=>{
+        h.classList.remove('active_header')
+    })
+    header.classList.add('active_header')
+    document.querySelector('.vp').style.left=header.dataset.position;
+    document.querySelectorAll('.pages').forEach((h)=>{
+        h.classList.remove('active_pages')
+    })
+    pages.classList.add('active_pages');
+    active_pages = pages;
+}
+
 function activate_pages(){
     document.querySelectorAll('.pages').forEach((pages_cont)=>{
+        pages_cont.addEventListener('click', open_pages_pages);
         pages_cont.addEventListener('wheel', wheel_listener);
         pages_cont.addEventListener('click', click_listener);
-        document.addEventListener('keydown',enter_project)// not necessarily here, but...
+        document.addEventListener('keydown',enter_project);// not necessarily here, but...
     });
 };
 function enter_project(e){
@@ -235,6 +254,7 @@ function open_project(project){
     })
 
     document.addEventListener('keydown', esc); //close project
+    document.addEventListener('click',mouse_out)
 
     document.addEventListener('keydown', space) // show description
 
@@ -277,6 +297,9 @@ function open_project(project){
 }
 function esc (e){
     if(e.code=='Escape') close_project();
+}
+function mouse_out(e){
+    if(e.target.classList.contains('pages')) close_project();
 }
 function space(e){
     if(e.code=='Space'&&active_pages.querySelector('.active .desc')){

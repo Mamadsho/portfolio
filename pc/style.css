@@ -179,6 +179,16 @@ body{
     height: 80%;
     width: 100%;
 }
+.pages:not(.active_pages):after{
+    content: '';
+    position: absolute;
+    left:0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    background-color: transparent;
+    z-index: 4;
+}
 .page_z{
     position: absolute;
     border-radius: 45px;
@@ -554,6 +564,9 @@ a{
     height: 100%;
     color: #333;
     white-space: normal;
+}
+.image_page .desc *:not(h1){
+    text-align: left;
 }
 .image_page .desc > *{
     padding-right: 50px;

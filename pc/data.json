@@ -131,7 +131,7 @@
                 "high_res":"projects/mall/titleHR.jpg"
             },{
                 "type":"video",
-                "src":"https://player.vimeo.com/video/597929589?h=8739182c4b",
+                "src":"https://player.vimeo.com/video/597929589",
                 "desc" : "<h1>Comment Title</h1><p>Some general Video description of one goes here</p>"
             },{
                 "type":"image",
