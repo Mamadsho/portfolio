@@ -232,6 +232,8 @@ function activate_lang_toggle(){
 
 function open_project(project){
 
+
+
     //header assignment
     let header = document.querySelector('#header');
     if (header.classList.contains('open')){return null};
@@ -255,8 +257,11 @@ function open_project(project){
 
     document.addEventListener('keydown', esc); //close project
     document.addEventListener('click',mouse_out)
-
     document.addEventListener('keydown', space) // show description
+
+    document.querySelectorAll('.pages').forEach((p)=>{
+        p.removeEventListener('click',open_pages_pages)
+    })
 
     //centering active_dot
     let active_dot = active_pages.querySelector('.active_dot');
@@ -299,7 +304,8 @@ function esc (e){
     if(e.code=='Escape') close_project();
 }
 function mouse_out(e){
-    if(e.target.classList.contains('pages')) close_project();
+    tmp = e.target;
+    if(!e.target.closest('.page_z')) close_project();
 }
 function space(e){
     if(e.code=='Space'&&active_pages.querySelector('.active .desc')){
@@ -317,6 +323,15 @@ function close_project(){
         let dots = active_pages.querySelector('.dots');
         dots.classList.remove('open');
 
+        document.removeEventListener('keydown', esc);
+        document.removeEventListener('click',mouse_out);
+        document.removeEventListener('keydown', space);
+
+        document.querySelectorAll('.pages').forEach((p)=>{
+            p.addEventListener('click',open_pages_pages);
+        })
+
+
         let active_header = header.querySelector('.active_header');
         active_header.querySelector('.project_name').style = null;
         active_header.querySelector('.project_name').style.transition = 'width .5s';
@@ -324,7 +339,6 @@ function close_project(){
             bar.style.transition = 'width 0.1s .7s, margin 0.2s .6s';
         })
 
-        document.removeEventListener('keydown', esc);
 
         let active_dot =active_pages.querySelector('.active_dot'); 
         let removees = [...active_dot.children];
