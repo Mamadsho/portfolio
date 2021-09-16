@@ -122,7 +122,7 @@ function fill_page(page, lang){
         page.classList.add('image_page', 'video_page')
 
         let vid=document.createElement('iframe');
-        vid.setAttribute('src',source.src+"?h=8739182c4b&autoplay=1");//as if it means autoplay, remove vimeo and more
+        vid.setAttribute('src',source.src+"?h=8739182c4b&autoplay=1&loop=1");//as if it means autoplay, remove vimeo and more
         vid.setAttribute('allow','autoplay; fullscreen');
         vid.setAttribute('allowfullscreen','');
         vid.classList.add('video_viewer');

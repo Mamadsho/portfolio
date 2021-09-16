@@ -37,6 +37,16 @@
                 "low_res":"projects/mall/titleLR.jpg",
                 "high_res":"projects/mall/titleHR.jpg"
             },{
+                "type":"image",
+                "low_res":"projects/mall/SPLR.jpg",
+                "high_res":"projects/mall/SPHR.jpg",
+                "desc":"<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"projects/mall/FFLR.jpg",
+                "high_res":"projects/mall/FFHR.jpg",
+                "desc":"<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
                 "type":"video",
                 "src":"https://player.vimeo.com/video/604150284",
                 "desc":"<h1 class='langy' data-ru='ТРК' data-en='Mall' data-tj='ТРК'></h1><p class='langy' data-ru='<ul><li>Программы: <ul><li>Blender</li><li>Twinmotion</li><li>ArchiCAD</li></ul></li></ul>'data-tj='<ul><li>Барномаҳо: <ul><li>Blender</li><li>Twinmotion</li><li>ArchiCAD</li></ul></li></ul>' data-en='<ul><li>Softwares: <ul><li>Blender</li><li>Twinmotion</li><li>ArchiCAD</li></ul></li></ul>'></p>"
@@ -90,6 +100,11 @@
                 "type":"title",
                 "low_res":"projects/vdnh/titleLR.jpg",
                 "high_res":"projects/vdnh/titleHR.jpg"
+            },{
+                "type":"image",
+                "low_res":"projects/vdnh/DescriptionLR.jpg",
+                "high_res":"projects/vdnh/DescriptionHR.jpg",
+                "desc" : "<h1 class='langy' data-ru='Скетч' data-tj='Скетч' data-en='Sketch'></h1>                             <ul><li class='langy' data-ru='Программа: Krita' data-tj='Барнома: Krita' data-en='Software: Krita'></li></ul>"
             },{
                 "type":"image",
                 "low_res":"projects/vdnh/NightPerspectiveLR.jpg",

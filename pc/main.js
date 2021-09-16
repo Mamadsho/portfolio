@@ -189,9 +189,16 @@ async function move_p_page_by_dot(e){
 async function move_to_first_p_page(callback){
     const pages = active_pages;
     const dots = active_pages.querySelector('.dots .active_dot');
+
+    // removing listeners that might interfere with the f move_to_first_p_page animation
     dots.querySelectorAll('.active_dot .dot').forEach((dot)=>{
         dot.removeEventListener('click',move_p_page_by_dot);
     })
+    document.querySelectorAll('.pages').forEach((pages_cont)=>{
+        pages_cont.removeEventListener('wheel', wheel_listener);
+    })
+    document.removeEventListener('keydown',move_by_arrows)
+
     const active_dot = dots.querySelector('.active_dot .active_dot');
     const n = 0;
     const a = [...dots.children].indexOf(active_dot);
@@ -208,9 +215,19 @@ async function move_to_first_p_page(callback){
         }
         
     }
+
+    // bringing back listeners that were remove earliar in function
     dots.querySelectorAll('.active_dot .dot').forEach((dot)=>{
         dot.addEventListener('click',move_p_page_by_dot);
     })
+    setTimeout(()=>{
+        document.querySelectorAll('.pages').forEach((pages_cont)=>{
+            pages_cont.addEventListener('wheel', wheel_listener);
+            pages_cont.addEventListener('click', click_listener);
+            
+        });
+        document.addEventListener('keydown',move_by_arrows);
+    },350)
     callback();
 }
 
@@ -327,9 +344,11 @@ function close_project(){
         document.removeEventListener('click',mouse_out);
         document.removeEventListener('keydown', space);
 
-        document.querySelectorAll('.pages').forEach((p)=>{
-            p.addEventListener('click',open_pages_pages);
-        })
+        setTimeout(()=>{
+            document.querySelectorAll('.pages').forEach((p)=>{
+                p.addEventListener('click',open_pages_pages);
+            })
+        },350)
 
 
         let active_header = header.querySelector('.active_header');
