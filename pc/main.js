@@ -292,11 +292,26 @@ function open_project(project){
     //creating subdots
     let n_pr_pages = data[active_pages.dataset.relatedData][parseInt(project.dataset.index)].length-1;
     active_dot.style.width = n_pr_pages*8; //HARDCODE
-    for (let index = 0; index < n_pr_pages; index++) {
+    for (let index = 0; index < n_pr_pages; index++) {  //got lil bit lucky here
+
+        //geopardy because of wrong order of pages
+        ind = pages_geopardy(index+1, n_pr_pages);
+
+        let pg_type = data[active_pages.dataset.relatedData][parseInt(project.dataset.index)][ind].type;
+        // console.log(pg_type);
         let dot = document.createElement('div');
         dot.classList.add('dot');
         active_dot.appendChild(dot);
-    }
+        if (pg_type == 'image'){
+            dot.classList.add('image_dot')
+        }else if (pg_type == 'video'){
+            dot.classList.add('video_dot')
+        }else if (pg_type == 'title'){
+            dot.classList.add('title_dot')
+        }else if (pg_type == 'html'){
+            dot.classList.add('html_dot')
+        }
+    };
         
     let dots = active_pages.querySelector('.dots');
     setTimeout(()=>{
@@ -318,12 +333,18 @@ function open_project(project){
     })
 
 }
+
+function pages_geopardy(i, n){
+    if (i==1) return 1;
+    return n-i+2;
+}
+
 function esc (e){
     if(e.code=='Escape') close_project();
 }
 function mouse_out(e){
     tmp = e.target;
-    if(!e.target.closest('.page_z')) close_project();
+    if(!e.target.closest('.page_z, .dots')) close_project();
 }
 function space(e){
     if(e.code=='Space'&&active_pages.querySelector('.active .desc')){

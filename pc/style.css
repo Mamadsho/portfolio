@@ -399,7 +399,19 @@ body{
     filter: brightness(.6);
 }
 
-.active_dot .active_dot.dot{
+.open .active_dot .dot.image_dot{
+    /* filter: hue-rotate(30deg) brightness(.6); */
+}
+.open .active_dot .dot.title_dot{
+    /* filter: hue-rotate(15deg) brightness(.6); */
+}.open .active_dot .dot.video_dot{
+    filter: hue-rotate(90deg) brightness(.6);
+}.open .active_dot .dot.html_dot{
+    filter: brightness(.35);
+}
+
+
+.open .active_dot .active_dot.dot{
     transform: scale(1.5);
     filter: brightness(1.6);
 }
