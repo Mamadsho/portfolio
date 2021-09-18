@@ -273,10 +273,11 @@ function open_project(project){
     })
 
     document.addEventListener('keydown', esc); //close project
-    document.addEventListener('click',mouse_out)
+    
     document.addEventListener('keydown', space) // show description
 
     document.querySelectorAll('.pages').forEach((p)=>{
+        p.addEventListener('click',mouse_out)
         p.removeEventListener('click',open_pages_pages)
     })
 
@@ -341,11 +342,12 @@ function close_project(){
         dots.classList.remove('open');
 
         document.removeEventListener('keydown', esc);
-        document.removeEventListener('click',mouse_out);
+        
         document.removeEventListener('keydown', space);
 
         setTimeout(()=>{
             document.querySelectorAll('.pages').forEach((p)=>{
+                p.removeEventListener('click',mouse_out);
                 p.addEventListener('click',open_pages_pages);
             })
         },350)
