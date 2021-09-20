@@ -82,17 +82,31 @@
                 "inner":""
             }
         ],
-        [{"ru":"БТРК", "en":"SuperMall","tj":"БТРК"},
+        [{"ru":"Смотровая площадка", "en":"Park Viewing Area","tj":"Майдончаи тамошокунӣ"},
             {
                 "type":"title",
-                "low_res":"projects/supermall/titleLR.jpg",
-                "high_res":"projects/supermall/titleHR.jpg"
+                "low_res":"projects/qurghan/titleLR.jpg",
+                "high_res":"projects/qurghan/titleHR.jpg"
             },{
-                "type":"image"
+                "type":"video",
+                "src":"https://player.vimeo.com/video/608466545",
+                "desc" : "<h1>Comment Title</h1><p>Some general Video description of one goes here</p>"
             },{
-                "type":"title"
+                "type":"image",
+                "low_res":"projects/qurghan/4LR.jpg",
+                "high_res":"projects/qurghan/4HR.jpg"
             },{
-                "type":"image"
+                "type":"image",
+                "low_res":"projects/qurghan/3LR.jpg",
+                "high_res":"projects/qurghan/3HR.jpg"
+            },{
+                "type":"image",
+                "low_res":"projects/qurghan/2LR.jpg",
+                "high_res":"projects/qurghan/2HR.jpg"
+            },{
+                "type":"image",
+                "low_res":"projects/qurghan/1LR.jpg",
+                "high_res":"projects/qurghan/1HR.jpg"
             }
         ],
         [{"ru":"ВДНХ", "en":"VDNH","tj":"ВДНХ"},
@@ -188,11 +202,11 @@
         ]
     ],
     "More":[
-        [{"ru":"АренаMORE", "en":"ArenaMORE","tj":"ВарзишгоҳMORE"},
+        [{"ru":"Ассеты", "en":"Assets","tj":"Ассетҳо"},
             {
                 "type":"title",
-                "low_res":"projects/mall/titleLR.jpg",
-                "high_res":"projects/mall/titleHR.jpg"
+                "low_res":"more/assets/titleLR.jpg",
+                "high_res":"more/assets/titleHR.jpg"
             },{
                 "type":"video",
                 "src":"https://player.vimeo.com/video/597929589",
