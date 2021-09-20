@@ -438,7 +438,7 @@ body{
     margin-left: 0px;
     margin-right: 5px;
 }
-#langbox{
+.langbox{
     position: relative;
     text-align: right;
     text-align: -webkit-right;
@@ -504,11 +504,12 @@ a{
 #phone *{
     font-size: 20px;
 }
-#phone .lang:before{
+#phone .lang:before, #phone .skill_logo:before{
     mask-image:url('phone.png');
     -webkit-mask-image:url('phone.png');
 }
-#mail .lang:before{
+
+#mail .lang:before, #mail .skill_logo:before{
     mask-image:url('mail.png');
     mask-repeat: no-repeat;
     mask-size: 70%;
@@ -516,17 +517,22 @@ a{
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-size: 70%;
 }
-#facebook .lang:before{
+
+#facebook .lang:before, #facebook .skill_logo:before{
     mask-image: url('fb.png');
     -webkit-mask-image: url('fb.png');
 }
-#github .lang:before{
+#github .lang:before, #github .skill_logo:before{
     mask-image: url('github.png');
     -webkit-mask-image: url('github.png');
 }
-#pinterest .lang:before{
+#pinterest .lang:before, #pinterest .skill_logo:before{
     mask-image: url('pinterest.png');
     -webkit-mask-image: url('pinterest.png');
+}
+#artstation .lang:before, #artstation .skill_logo:before{
+    mask-image: url('artstation.png');
+    -webkit-mask-image: url('artstation.png');
 }
 
 
@@ -696,7 +702,7 @@ a{
     background-color: #4e4f59;
     padding: 7px;
     border-radius: 20px;
-    margin-bottom:35px;
+    /* margin-bottom:35px; */
     color: white;
 }
 
@@ -710,3 +716,9 @@ a{
     background-attachment: fixed;
     margin: 4px;
 }
+
+.contact_item .contact_item_icon{
+    width: 30px;
+    height: 30px;
+}
+

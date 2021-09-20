@@ -208,47 +208,106 @@
                 "low_res":"more/assets/titleLR.jpg",
                 "high_res":"more/assets/titleHR.jpg"
             },{
-                "type":"video",
-                "src":"https://player.vimeo.com/video/597929589",
-                "desc" : "<h1>Comment Title</h1><p>Some general Video description of one goes here</p>"
-            },{
                 "type":"image",
-                "low_res":"projects/arena/1LR.jpg",
-                "high_res":"projects/arena/1HR.jpg",
+                "low_res":"more/assets/knifeLR.jpg",
+                "high_res":"more/assets/knifeHR.jpg",
                 "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
             },{
                 "type":"image",
-                "low_res":"projects/arena/2LR.jpg",
-                "high_res":"projects/arena/2HR.jpg",
+                "low_res":"more/assets/lojkaLR.jpg",
+                "high_res":"more/assets/lojkaHR.jpg",
                 "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
             },{
                 "type":"image",
-                "low_res":"projects/arena/3LR.jpg",
-                "high_res":"projects/arena/3HR.jpg",
+                "low_res":"more/assets/bowlingLR.jpg",
+                "high_res":"more/assets/bowlingHR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"more/assets/toqisLR.jpg",
+                "high_res":"more/assets/toqisHR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"more/assets/GuyJomaChortarkLR.jpg",
+                "high_res":"more/assets/GuyJomaChortarkHR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"more/assets/GirlAtlasLR.jpg",
+                "high_res":"more/assets/GirlAtlasHR.jpg",
                 "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
             },{
                 "type":"html",
                 "inner":"<h1>Page Title</h1><p>Some general project level desctiption probabaly goes here.</p>"
             }
         ],
-        [{"ru":"ТРКMORE", "en":"MallMORE","tj":"ТРКMORE"},
+        [{"ru":"Рисунки", "en":"Drawings","tj":"Расмҳо"},
             {
                 "type":"title",
-                "low_res":"projects/arena/titleLR.jpg",
-                "high_res":"projects/arena/titleHR.jpg"
+                "low_res":"more/drawings/titleLR.jpg",
+                "high_res":"more/drawings/titleHR.jpg"
             },{
-                "type":"image"
+                "type":"image",
+                "low_res":"more/drawings/1LR.jpg",
+                "high_res":"more/drawings/1HR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
             },{
-                "type":"image"
+                "type":"image",
+                "low_res":"more/drawings/2LR.jpg",
+                "high_res":"more/drawings/2HR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
             },{
-                "type":"title"
+                "type":"image",
+                "low_res":"more/drawings/3LR.jpg",
+                "high_res":"more/drawings/3HR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"more/drawings/4LR.jpg",
+                "high_res":"more/drawings/4HR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"more/drawings/5LR.jpg",
+                "high_res":"more/drawings/5HR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
             }
         ],
-        [{"ru":"Национальный ПаркMORE", "en":"National ParkMORE","tj":"Боғи МиллӣMORE"},
+        [{"ru":"Скетчи и Концепты", "en":"Sketches&Concepts","tj":"Скетчҳо ва Консептҳо"},
             {
                 "type":"title",
-                "low_res":"projects/park/titleLR.jpg",
-                "high_res":"projects/park/titleHR.jpg"
+                "low_res":"more/sketches/titleLR.jpg",
+                "high_res":"more/sketches/titleHR.jpg"
+            },{
+                "type":"video",
+                "src":"https://player.vimeo.com/video/609963596",
+                "desc" : "<h1>Comment Title</h1><p>Some general Video description of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"more/sketches/5LR.jpg",
+                "high_res":"more/sketches/5HR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"more/sketches/1LR.jpg",
+                "high_res":"more/sketches/1HR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"more/sketches/2LR.jpg",
+                "high_res":"more/sketches/2HR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"more/sketches/3LR.jpg",
+                "high_res":"more/sketches/3HR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
+            },{
+                "type":"image",
+                "low_res":"more/sketches/4LR.jpg",
+                "high_res":"more/sketches/4HR.jpg",
+                "desc" : "<h1>Comment Title</h1><p>Some general desctiption of one goes here</p>"
             }
         ]
     ]

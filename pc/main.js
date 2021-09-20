@@ -241,10 +241,12 @@ function activate_contacts_toggle(){
 }
 
 function activate_lang_toggle(){
-    document.querySelectorAll('#langbox .option').forEach((x)=>{
+    document.querySelectorAll('.langbox .option').forEach((x)=>{
         x.addEventListener('click',toggle_lang);
     })
-    document.querySelector('#langbox #'+lang).closest('.option').classList.add('active_option')
+    document.querySelectorAll('.langbox').forEach((lngbox)=>{
+        lngbox.querySelector('#'+lang).closest('.option').classList.add('active_option');
+    });
 }
 
 function open_project(project){
@@ -713,11 +715,15 @@ function toggle_contact(){
 
 function toggle_lang(e){
     e.preventDefault();
-    this.parentElement.querySelectorAll('.option').forEach((o)=>{
-        o.classList.remove('active_option');
-    })
-    this.classList.add('active_option');
+    let langboxes = document.querySelectorAll('.langbox')
     lang = this.dataset.lang;
+    for (langbox of langboxes){
+        langbox.querySelectorAll('.option').forEach((o)=>{
+            o.classList.remove('active_option');
+        });
+        langbox.querySelector('#'+lang).parentElement.classList.add('active_option');
+
+    }    
 
     setTimeout(()=>{
         header_lang(lang);
