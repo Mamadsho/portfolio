@@ -551,8 +551,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image_lr": "/portfolio/pc/more/assets/GirlAtlasLR.jpg",
-            "image_hr": "/portfolio/pc/more/assets/GirlAtlasHR.jpg",
+            "image_lr": "/portfolio/pc/more/assets/GirlAtlasLRmobile.jpg",
+            "image_hr": "/portfolio/pc/more/assets/GirlAtlasHRmobile.jpg",
             "desc":{
                 "ru":"<h1 >Национальное платье Атлас</h1><ul>    <li >Рендер Движок: Cycles</li>    <li >Модель девушки из Marvelous Designer</li></ul>",
                 "en":"<h1 >National Atlas Dress</h1><ul>    <li >Render Engine: Cycles</li>    <li >Girl Model from Marvelous Designer</li></ul>",
