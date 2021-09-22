@@ -61,7 +61,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/arena/titleHR.jpg",
+            "image_lr": "/portfolio/pc/projects/arena/titleLR.jpg",
+            "image_hr": "/portfolio/pc/projects/arena/titleHR.jpg",
             "desc":{
                 "ru":"<h1 >CВ Фасад</h1> <ul><li >Программа: Blender</li><li >Рендер-движок: Cycles</li></ul>",
                 "en":"<h1 >NE Facade</h1> <ul><li >Software: Blender</li><li >Render Engine: Cycles</li></ul>",
@@ -71,7 +72,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/arena/3HR.jpg",
+            "image_lr": "/portfolio/pc/projects/arena/3LR.jpg",
+            "image_hr": "/portfolio/pc/projects/arena/3HR.jpg",
             "desc":{
                 "ru":"<h1 >CВ Фасад</h1> <ul><li >Программа: Blender</li><li >Рендер-движок: Cycles</li></ul>",
                 "en":"<h1 >NE Facade</h1> <ul><li >Software: Blender</li><li >Render Engine: Cycles</li></ul>",
@@ -81,7 +83,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/arena/2HR.jpg",
+            "image_lr": "/portfolio/pc/projects/arena/2LR.jpg",
+            "image_hr": "/portfolio/pc/projects/arena/2HR.jpg",
             "desc":{
                 "ru":"<h1 >Восточный Фасад</h1><ul><li >Программа: Blender</li><li >Рендер-движок: Cycles</li></ul>",
                 "en":"<h1 >Eastern Facade</h1><ul><li >Software: Blender</li><li >Render Engine: Cycles</li></ul>",
@@ -91,7 +94,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/arena/1HR.jpg",
+            "image_lr": "/portfolio/pc/projects/arena/1LR.jpg",
+            "image_hr": "/portfolio/pc/projects/arena/1HR.jpg",
             "desc":{
                 "ru":"<h1  >Скетч</h1><ul><li  >Программа: Krita</li></ul>",
                 "en":"<h1  >Sketch</h1><ul><li  >Software: Krita</li></ul>",
@@ -124,7 +128,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#7373d7",
-            "image": "/portfolio/pc/projects/mall/titleHR.jpg",
+            "image_lr": "/portfolio/pc/projects/mall/titleLR.jpg",
+            "image_hr": "/portfolio/pc/projects/mall/titleHR.jpg",
             "desc":{
                 "ru":"<h1  >Передний Фасад</h1>",
                 "en":"<h1  >Front Facade</h1>",
@@ -145,7 +150,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#7373d7",
-            "image": "/portfolio/pc/projects/mall/FFHR.jpg",
+            "image_lr": "/portfolio/pc/projects/mall/FFLR.jpg",
+            "image_hr": "/portfolio/pc/projects/mall/FFHR.jpg",
             "desc":{
                 "ru":"<h1  >Передний Фасад</h1>",
                 "en":"<h1  >Front Facade</h1>",
@@ -155,7 +161,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#7373d7",
-            "image": "/portfolio/pc/projects/mall/SPHR.jpg",
+            "image_lr": "/portfolio/pc/projects/mall/SPLR.jpg",
+            "image_hr": "/portfolio/pc/projects/mall/SPHR.jpg",
             "desc":{
                 "ru":"<h1  >ГенПлан</h1><ol>    <li  >Торговый Комплекс</li>    <li  >Парковки</li>    <li  >Электроника и бытовая техника</li>    <li  >Строительный блок</li>    <li  >Овощи и Зелень</li>    <li  >Ягоды и фрукты</li>    <li  >Холодильник</li>    <li  >Производственные цеха</li>    <li  >Медпункт</li>    <li  >Жилой Комплекс</li></ol>",
                 "en":"<h1  >Site Plan. Legend</h1><ol>    <li  >Trade Mall</li>    <li  >Parking</li>    <li  >Electronics</li>    <li  >Construction Materials</li>    <li  >Vegetables</li>    <li  >Refrigerators</li>    <li  >Manufacturing Facility</li>    <li  >Fire Service</li>    <li  >First Aid Post</li>    <li  >Residential</li></ol>",
@@ -177,7 +184,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/sto/titleHR.jpg",
+            "image_lr": "/portfolio/pc/projects/sto/titleLR.jpg",
+            "image_hr": "/portfolio/pc/projects/sto/titleHR.jpg",
             "desc":{
                 "ru":"<h1  >Общий Вид</h1>",
                 "en":"<h1  >Aerial View</h1>",
@@ -187,7 +195,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/sto/4HR.jpg",
+            "image_lr": "/portfolio/pc/projects/sto/4LR.jpg",
+            "image_hr": "/portfolio/pc/projects/sto/4HR.jpg",
             "desc":{
                 "ru":"<h1  >Общий Вид</h1>",
                 "en":"<h1  >Aerial View</h1>",
@@ -197,7 +206,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/sto/3HR.jpg",
+            "image_lr": "/portfolio/pc/projects/sto/3LR.jpg",
+            "image_hr": "/portfolio/pc/projects/sto/3HR.jpg",
             "desc":{
                 "ru":"<h1  >Общий Вид</h1>",
                 "en":"<h1  >Aerial View</h1>",
@@ -207,7 +217,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/sto/2HR.jpg",
+            "image_lr": "/portfolio/pc/projects/sto/2LR.jpg",
+            "image_hr": "/portfolio/pc/projects/sto/2HR.jpg",
             "desc":{
                 "ru":"<h1  >Концепция Движения по Рампе</h1>",
                 "en":"<h1  >Concept of Motion through Ramp</h1>",
@@ -217,7 +228,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/sto/1HR.jpg",
+            "image_lr": "/portfolio/pc/projects/sto/1LR.jpg",
+            "image_hr": "/portfolio/pc/projects/sto/1HR.jpg",
             "desc":{
                 "ru":"<h1  >Скетч</h1><ul><li  >Программа: Krita</li></ul>",
                 "en":"<h1  >Sketch</h1><ul><li  >Software: Krita</li></ul>",
@@ -239,7 +251,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/qurghan/titleHR.jpg",
+            "image_lr": "/portfolio/pc/projects/qurghan/titleLR.jpg",
+            "image_hr": "/portfolio/pc/projects/qurghan/titleHR.jpg",
             "desc":{
                 "ru":"<h1  >Вид Спереди. Зима</h1>",
                 "en":"<h1  >Cold Season Look</h1>",
@@ -249,7 +262,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/qurghan/1HR.jpg",
+            "image_lr": "/portfolio/pc/projects/qurghan/1LR.jpg",
+            "image_hr": "/portfolio/pc/projects/qurghan/1HR.jpg",
             "desc":{
                 "ru":"<h1  >Вид Спереди. Зима</h1>",
                 "en":"<h1  >Cold Season Look</h1>",
@@ -259,7 +273,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/qurghan/2HR.jpg",
+            "image_lr": "/portfolio/pc/projects/qurghan/2LR.jpg",
+            "image_hr": "/portfolio/pc/projects/qurghan/2HR.jpg",
             "desc":{
                 "ru":"<h1  >Лестницы к Парку. Зима</h1>",
                 "en":"<h1  >Stairways to Park in Cold Season</h1>",
@@ -269,7 +284,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/arena/1HR.jpg",
+            "image_lr": "/portfolio/pc/projects/arena/1LR.jpg",
+            "image_hr": "/portfolio/pc/projects/arena/1HR.jpg",
             "desc":{
                 "ru":"<h1  >Закат в Парке. Крупным планом</h1>",
                 "en":"<h1  >Dusk Close Up</h1>",
@@ -279,7 +295,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/qurghan/3HR.jpg",
+            "image_lr": "/portfolio/pc/projects/qurghan/3LR.jpg",
+            "image_hr": "/portfolio/pc/projects/qurghan/3HR.jpg",
             "desc":{
                 "ru":"<h1  >Лестницы к Парку</h1>",
                 "en":"<h1  >Stairways to Park</h1>",
@@ -289,7 +306,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/qurghan/4HR.jpg",
+            "image_lr": "/portfolio/pc/projects/qurghan/4HR.jpg",
+            "image_hr": "/portfolio/pc/projects/qurghan/4HR.jpg",
             "desc":{
                 "ru":"<h1  >Лестницы к Парку</h1>",
                 "en":"<h1  >Stairways to Park</h1>",
@@ -322,7 +340,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/vdnh/titleHR.jpg",
+            "image_lr": "/portfolio/pc/projects/vdnh/titleLR.jpg",
+            "image_hr": "/portfolio/pc/projects/vdnh/titleHR.jpg",
             "desc":{
                 "ru":"<h1  >Вид Спереди. Зима</h1>",
                 "en":"<h1  >Cold Season Look</h1>",
@@ -332,7 +351,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/vdnh/ExistingFrontHR.jpg",
+            "image_lr": "/portfolio/pc/projects/vdnh/ExistingFrontLR.jpg",
+            "image_hr": "/portfolio/pc/projects/vdnh/ExistingFrontHR.jpg",
             "desc":{
                 "ru":"<h1  >Вид существующего здания</h1><ul><li  >Источник: Яндекс Карты</li></ul>",
                 "en":"<h1  >Front View of Existing Building</h1><ul><li  >Source: Yandex Maps</li></ul>",
@@ -342,7 +362,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/vdnh/DayFrontHR.jpg",
+            "image_lr": "/portfolio/pc/projects/vdnh/DayFrontLR.jpg",
+            "image_hr": "/portfolio/pc/projects/vdnh/DayFrontHR.jpg",
             "desc":{
                 "ru":"<h1  >Передний Фасад. Дневной вид</h1> <ul><li  >Рендер-движок: Cycles</li></ul>",
                 "en":"<h1  >Daytime Front View</h1> <ul><li  >Render Engine: Cycles</li></ul>",
@@ -352,7 +373,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/vdnh/DayPerspectiveHR.jpg",
+            "image_lr": "/portfolio/pc/projects/vdnh/DayPerspectiveLR.jpg",
+            "image_hr": "/portfolio/pc/projects/vdnh/DayPerspectiveHR.jpg",
             "desc":{
                 "ru":"<h1  >Перспектива. Дневной вид</h1> <ul><li  >Рендер-движок: Cycles</li></ul>",
                 "en":"<h1  >Daytime Perspective</h1> <ul><li  >Render Engine: Cycles</li></ul>",
@@ -362,7 +384,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/vdnh/NightPerspectiveHR.jpg",
+            "image_lr": "/portfolio/pc/projects/vdnh/NightPerspectiveLR.jpg",
+            "image_hr": "/portfolio/pc/projects/vdnh/NightPerspectiveHR.jpg",
             "desc":{
                 "ru":"<h1  >Перспектива. Ночной вид</h1> <ul><li  >Рендер-движок: Cycles</li></ul>",
                 "en":"<h1  >Nighttime Perspective</h1> <ul><li  >Render Engine: Cycles</li></ul>",
@@ -372,7 +395,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/vdnh/DescriptionHR.jpg",
+            "image_lr": "/portfolio/pc/projects/vdnh/DescriptionLR.jpg",
+            "image_hr": "/portfolio/pc/projects/vdnh/DescriptionHR.jpg",
             "desc":{
                 "ru":"<h1  >Референсы</h1> <ul>    <li><span  >Регистан</span><ul>        <li  >Самаркандский Купол</li>    </ul></li>    <li  >Мавзолей Сомонидов</li>    <li  >Мехраб, Метрополитен-Музей</li></ul>",
                 "en":"<h1  >References & Inspirations</h1> <ul>    <li><span  >Registan</span><ul>        <li  >Samarqandi Dome</li>    </ul></li>    <li  >Ismoil Somoni Maqbarah</li>    <li  >Mehrob, Metropolitan Museum</li></ul>",
@@ -394,7 +418,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/park/titleHR.jpg",
+            "image_lr": "/portfolio/pc/projects/park/titleLR.jpg",
+            "image_hr": "/portfolio/pc/projects/park/titleHR.jpg",
             "desc":{
                 "ru":"<h1  >Входное Здание</h1><ul>    <li  >Идея принадлежит <strong>Алиназарову Довару</strong></li>    <li  >Модель в 3dsMax-е подготовлена <strong>Алиназаровым Доваром</strong></li>    <li><span  >Программы:</span><ul>        <li>[3dsMax]*</li>        <li>Blender</li>        <li>Lumion</li>    </ul></li></ul>",
                 "en":"<h1  >Entrance</h1><ul>    <li  >Idea by <strong>Alinazarov Dovar</strong><strong>Алиназаров Довар</stong>'  >3ds Max model by <strong>Alinazarov Dovar</strong></li>    <li><span>Softwares:</span><ul>        <li>[3dsMax]*</li>        <li>Blender</li>        <li>Lumion</li>    </ul></li></ul>",
@@ -404,7 +429,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/park/2HR.jpg",
+            "image_lr": "/portfolio/pc/projects/park/2LR.jpg",
+            "image_hr": "/portfolio/pc/projects/park/2HR.jpg",
             "desc":{
                 "ru":"<h1  >Входное Здание</h1><ul>    <li  >Идея принадлежит <strong>Алиназарову Довару</strong></li>    <li  >Модель в 3dsMax-е подготовлена <strong>Алиназаровым Доваром</strong></li>    <li><span  >Программы:</span><ul>        <li>[3dsMax]*</li>        <li>Blender</li>        <li>Lumion</li>    </ul></li></ul>",
                 "en":"<h1  >Entrance</h1><ul>    <li  >Idea by <strong>Alinazarov Dovar</strong><li>3ds Max model by <strong>Alinazarov Dovar</strong></li><li><span>Softwares:</span><ul>        <li>[3dsMax]*</li>        <li>Blender</li>        <li>Lumion</li>    </ul></li></ul>",
@@ -414,7 +440,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/park/4HR.jpg",
+            "image_lr": "/portfolio/pc/projects/park/4LR.jpg",
+            "image_hr": "/portfolio/pc/projects/park/4HR.jpg",
             "desc":{
                 "ru":"<h1  >Этнографическая зона Согд</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></li>    <li><span  >Техники:</span><ul>        <li  >Запекание нормалей</li>        <li  >Проецирование текстур</li>    </ul></li></ul>",
                 "en":"<h1  >Sughd Ethnic Site</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></li>    <li><span  >Techniques:</span><ul>        <li  >Normal Baking</li>        <li  >Texture Projection</li>    </ul></li></ul>",
@@ -424,7 +451,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/park/5HR.jpg",
+            "image_lr": "/portfolio/pc/projects/park/5LR.jpg",
+            "image_hr": "/portfolio/pc/projects/park/5HR.jpg",
             "desc":{
                 "ru":"<h1  >Этнографическая зона Согд</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></li>    <li><span  >Техники:</span><ul>        <li  >Запекание нормалей</li>        <li  >Проецирование текстур</li>    </ul></li></ul>",
                 "en":"<h1  >Sughd Ethnic Site</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></li>    <li><span  >Techniques:</span><ul>        <li  >Normal Baking</li>        <li  >Texture Projection</li>    </ul></li></ul>",
@@ -434,7 +462,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/park/6HR.jpg",
+            "image_lr": "/portfolio/pc/projects/park/6LR.jpg",
+            "image_hr": "/portfolio/pc/projects/park/6HR.jpg",
             "desc":{
                 "ru":"<h1  >Этнографическая зона Согд</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>",
                 "en":"<h1  >Sughd Ethnic Site</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>",
@@ -444,7 +473,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/park/7HR.jpg",
+            "image_lr": "/portfolio/pc/projects/park/7LR.jpg",
+            "image_hr": "/portfolio/pc/projects/park/7HR.jpg",
             "desc":{
                 "ru":"<h1  >Этнографическая зона Согд</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></li>    <li><span  >Техники:</span><ul>        <li  >Запекание нормалей</li>        <li  >Проецирование текстур</li>    </ul></li></ul>",
                 "en":"<h1  >Sughd Ethnic Site</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></li>    <li><span  >Techniques:</span><ul>        <li  >Normal Baking</li>        <li  >Texture Projection</li>    </ul></li></ul>",
@@ -454,7 +484,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/park/8HR.jpg",
+            "image_lr": "/portfolio/pc/projects/park/8LR.jpg",
+            "image_hr": "/portfolio/pc/projects/park/8HR.jpg",
             "desc":{
                 "ru":"<h1  >Арена. Вид сверху</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>",
                 "en":"<h1  >Area Site Plan</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>",
@@ -464,7 +495,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/park/9HR.jpg",
+            "image_lr": "/portfolio/pc/projects/park/9LR.jpg",
+            "image_hr": "/portfolio/pc/projects/park/9HR.jpg",
             "desc":{
                 "ru":"<h1  >Арена. Перспектива</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>",
                 "en":"<h1  >Area Perspective</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>",
@@ -474,7 +506,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/park/10HR.jpg",
+            "image_lr": "/portfolio/pc/projects/park/10LR.jpg",
+            "image_hr": "/portfolio/pc/projects/park/10HR.jpg",
             "desc":{
                 "ru":"<h1  >Детская Площадка</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>",
                 "en":"<h1  >Children Playground</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>",
@@ -484,7 +517,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/projects/park/13HR.jpg",
+            "image_lr": "/portfolio/pc/projects/park/13LR.jpg",
+            "image_hr": "/portfolio/pc/projects/park/13HR.jpg",
             "desc":{
                 "ru":"<h1  >Прибережние домики</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>    <li>Photoshop</li>    </ul></ul>",
                 "en":"<h1  >Riverside Houses</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>    <li>Photoshop</li>    </ul></ul>",
@@ -517,7 +551,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/assets/titleHR.jpg",
+            "image_lr": "/portfolio/pc/more/assets/titleLR.jpg",
+            "image_hr": "/portfolio/pc/more/assets/titleHR.jpg",
             "desc":{
                 "ru":"<h1 >Нож</h1><ul> <li >Рендер Движок: EEVEE</li><li><a target='_blank' href='https://drive.google.com/file/d/1d5UP9hi0M1n363Tbs69PPuUVWiNPJ-sR/view?usp=sharing' >Исходный Файл</a></li></ul>",
                 "en":"<h1 >Knife</h1><ul> <li >Render Engine: EEVEE</li><li><a target='_blank' href='https://drive.google.com/file/d/1d5UP9hi0M1n363Tbs69PPuUVWiNPJ-sR/view?usp=sharing' >SourceFile</a></li></ul>",
@@ -527,7 +562,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/assets/GirlAtlasHR.jpg",
+            "image_lr": "/portfolio/pc/more/assets/GirlAtlasLR.jpg",
+            "image_hr": "/portfolio/pc/more/assets/GirlAtlasHR.jpg",
             "desc":{
                 "ru":"<h1 >Национальное платье Атлас</h1><ul>    <li >Рендер Движок: Cycles</li>    <li >Модель девушки из Marvelous Designer</li></ul>",
                 "en":"<h1 >National Atlas Dress</h1><ul>    <li >Render Engine: Cycles</li>    <li >Girl Model from Marvelous Designer</li></ul>",
@@ -537,7 +573,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/assets/GuyJomaChortarkHR.jpg",
+            "image_lr": "/portfolio/pc/more/assets/GuyJomaChortarkLR.jpg",
+            "image_hr": "/portfolio/pc/more/assets/GuyJomaChortarkHR.jpg",
             "desc":{
                 "ru":"<h1 >Национальный костюм Чаппан</h1><ul>    <li >Рендер Движок: Cycles</li>    <li >Модель мальчика из Marvelous Designer</li></ul>",
                 "en":"<h1 >National Chappan Dress</h1><ul>    <li >Render Engine: Cycles</li>    <li >Boy Model from Marvelous Designer</li></ul>",
@@ -547,7 +584,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/assets/toqisHR.jpg",
+            "image_lr": "/portfolio/pc/more/assets/toqisLR.jpg",
+            "image_hr": "/portfolio/pc/more/assets/toqisHR.jpg",
             "desc":{
                 "ru":"<h1 >Таджикские Национальные Тюбетейки</h1><ul> <li >Рендер Движок: Cycles</li><li><a target='_blank' href='https://drive.google.com/file/d/1SPLcHms8B_lYsdGYY8U11bK9VU99b7vp/view?usp=sharing' >Исходный Файл</a></li></ul>",
                 "en":"<h1 >Tajik National Toqis</h1><ul> <li >Render Engine: Cycles</li><li><a target='_blank' href='https://drive.google.com/file/d/1SPLcHms8B_lYsdGYY8U11bK9VU99b7vp/view?usp=sharing' >SourceFile</a></li></ul>",
@@ -557,7 +595,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/assets/bowlingHR.jpg",
+            "image_lr": "/portfolio/pc/more/assets/bowlingLR.jpg",
+            "image_hr": "/portfolio/pc/more/assets/bowlingHR.jpg",
             "desc":{
                 "ru":"<h1 >Боулинг</h1><ul> <li >Рендер Движок: Cycles</li></ul>",
                 "en":"<h1 >Bowling Scene</h1><ul> <li >Render Engine: Cycles</li></ul>",
@@ -567,7 +606,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/assets/lojkaHR.jpg",
+            "image_lr": "/portfolio/pc/more/assets/lojkaLR.jpg",
+            "image_hr": "/portfolio/pc/more/assets/lojkaHR.jpg",
             "desc":{
                 "ru":"<h1 >Ложка</h1><ul> <li >Рендер Движок: EEVEE</li><li><a target='_blank' href='https://drive.google.com/file/d/1iOCd6F2clCxNIcPtobFzXvaRQfHlngz2/view?usp=sharing' >Исходный Файл</a></li></ul>",
                 "en":"<h1 >Spoon</h1><ul> <li >Render Engine: EEVEE</li><li><a target='_blank' href='https://drive.google.com/file/d/1iOCd6F2clCxNIcPtobFzXvaRQfHlngz2/view?usp=sharing' >SourceFile</a></li></ul>",
@@ -577,7 +617,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/assets/knifeHR.jpg",
+            "image_lr": "/portfolio/pc/more/assets/knifeLR.jpg",
+            "image_hr": "/portfolio/pc/more/assets/knifeHR.jpg",
             "desc":{
                 "ru":"<h1 >Нож</h1><ul> <li >Рендер Движок: EEVEE</li><li><a target='_blank' href='https://drive.google.com/file/d/1d5UP9hi0M1n363Tbs69PPuUVWiNPJ-sR/view?usp=sharing' >Исходный Файл</a></li></ul>",
                 "en":"<h1 >Knife</h1><ul> <li >Render Engine: EEVEE</li><li><a target='_blank' href='https://drive.google.com/file/d/1d5UP9hi0M1n363Tbs69PPuUVWiNPJ-sR/view?usp=sharing' >SourceFile</a></li></ul>",
@@ -599,7 +640,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/drawings/titleHRmobile.jpg",
+            "image_lr": "/portfolio/pc/more/drawings/titleLRmobile.jpg",
+            "image_hr": "/portfolio/pc/more/drawings/titleHRmobile.jpg",
             "desc":{
                 "ru":"<h1 >мм-Да!</h1>",
                 "en":"<h1 >oh, Boy!</h1>",
@@ -609,7 +651,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/drawings/5HRmobile.jpg",
+            "image_lr": "/portfolio/pc/more/drawings/5LRmobile.jpg",
+            "image_hr": "/portfolio/pc/more/drawings/5HRmobile.jpg",
             "desc":{
                 "ru":"<h1 >мм-Да!</h1>",
                 "en":"<h1 >oh, Boy!</h1>",
@@ -619,7 +662,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/drawings/4HRmobile.jpg",
+            "image_lr": "/portfolio/pc/more/drawings/4LRmobile.jpg",
+            "image_hr": "/portfolio/pc/more/drawings/4HRmobile.jpg",
             "desc":{
                 "ru":"<h1 >та Девушка</h1>",
                 "en":"<h1 >that Girl</h1>",
@@ -629,7 +673,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/drawings/3HRmobile.jpg",
+            "image_lr": "/portfolio/pc/more/drawings/3LRmobile.jpg",
+            "image_hr": "/portfolio/pc/more/drawings/3HRmobile.jpg",
             "desc":{
                 "ru":"<h1 >Рабтия</h1>",
                 "en":"<h1 >Rabtia</h1>",
@@ -639,7 +684,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/drawings/2HRmobile.jpg",
+            "image_lr": "/portfolio/pc/more/drawings/2LRmobile.jpg",
+            "image_hr": "/portfolio/pc/more/drawings/2HRmobile.jpg",
             "desc":{
                 "ru":"<h1 >Вазира</h1>",
                 "en":"<h1 >Vazira</h1>",
@@ -649,7 +695,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/drawings/1HRmobile.jpg",
+            "image_lr": "/portfolio/pc/more/drawings/1LRmobile.jpg",
+            "image_hr": "/portfolio/pc/more/drawings/1HRmobile.jpg",
             "desc":{
                 "ru":"<h1 >Шукрона</h1>",
                 "en":"<h1 >Shukrona</h1>",
@@ -671,7 +718,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/sketches/titleHR.jpg",
+            "image_lr": "/portfolio/pc/more/sketches/1LR.jpg",
+            "image_hr": "/portfolio/pc/more/sketches/1HR.jpg",
             "desc":{
                 "ru":"<h1 >Скетч Большого ТРК</h1><ul><li >Декабрь 2020</li></ul>",
                 "en":"<h1 >Super Big Mall Sketch</h1><ul><li >December 2020</li></ul>",
@@ -681,7 +729,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/sketches/4HR.jpg",
+            "image_lr": "/portfolio/pc/more/sketches/4LR.jpg",
+            "image_hr": "/portfolio/pc/more/sketches/4HR.jpg",
             "desc":{
                 "ru":"<h1 >Скетч Большого ТРК</h1><ul><li >Декабрь 2020</li></ul>",
                 "en":"<h1 >Super Big Mall Sketch</h1><ul><li >December 2020</li></ul>",
@@ -691,7 +740,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/sketches/3HR.jpg",
+            "image_lr": "/portfolio/pc/more/sketches/3LR.jpg",
+            "image_hr": "/portfolio/pc/more/sketches/3HR.jpg",
             "desc":{
                 "ru":"<h1 >Скетч Большого ТРК</h1><ul><li >Декабрь 2020</li></ul>",
                 "en":"<h1 >Super Big Mall Sketch</h1><ul><li >December 2020</li></ul>",
@@ -701,7 +751,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/sketches/2HR.jpg",
+            "image_lr": "/portfolio/pc/more/sketches/2LR.jpg",
+            "image_hr": "/portfolio/pc/more/sketches/2HR.jpg",
             "desc":{
                 "ru":"<h1 >Скетч Большого ТРК</h1><ul><li >Январь 2021</li></ul>",
                 "en":"<h1 >Super Big Mall Sketch</h1><ul><li >January 2021</li></ul>",
@@ -711,7 +762,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/sketches/1HR.jpg",
+            "image_lr": "/portfolio/pc/more/sketches/1LR.jpg",
+            "image_hr": "/portfolio/pc/more/sketches/1HR.jpg",
             "desc":{
                 "ru":"<h1 >Скетч Большого ТРК</h1><ul><li >Январь 2021</li></ul>",
                 "en":"<h1 >Super Big Mall Sketch</h1><ul><li >January 2021</li></ul>",
@@ -721,7 +773,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "/portfolio/pc/more/sketches/5HR.jpg",
+            "image_lr": "/portfolio/pc/more/sketches/5LR.jpg",
+            "image_hr": "/portfolio/pc/more/sketches/5HR.jpg",
             "desc":{
                 "ru":"<h1 >Визуализация Водопада</h1><ul><li >Июнь 2021</li></ul>",
                 "en":"<h1 >Waterfall Viz</h1><ul><li >June 2021</li></ul>",

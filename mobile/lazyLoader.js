@@ -37,14 +37,20 @@ function lazyLoad(pr,pg){ //   pr -> Project;   pg -> Page
     if(page['type']=='image'){
         vp.innerHTML='';
 
-        //The Image
+        //The Image LR
         let img_cont=document.createElement('div');
         img_cont.id='img_cont';
+        img_cont.classList.add('blurred','grown')
         let img=document.createElement('img');
-        img.setAttribute('src',page['image']);
+        img.setAttribute('src',page['image_lr']);
         img.classList.add('image_viewer');
         img_cont.appendChild(img);
         vp.appendChild(img_cont);
+        
+        //Loading
+        let loading = document.createElement('div');
+        loading.classList.add('loading');
+        vp.appendChild(loading);
 
         //More Button
         let more_cont=document.createElement('div');
@@ -65,6 +71,11 @@ function lazyLoad(pr,pg){ //   pr -> Project;   pg -> Page
         vp.appendChild(desc_cont);
 
 
+
+        //Image HighRes
+        img_hr = new Image();
+
+        //low res onload
         img.onload=function(){
             rv=vp.offsetWidth/vp.offsetHeight;
             ri=img.offsetWidth/img.offsetHeight;
@@ -85,7 +96,25 @@ function lazyLoad(pr,pg){ //   pr -> Project;   pg -> Page
             };
             img_cont.scrollTop=(img_cont.scrollHeight-img_cont.offsetHeight)/2; //center by Y
             img_cont.scrollLeft=(img_cont.scrollWidth-img_cont.offsetWidth)/2; //center by X
+            // console.log('hello recursion')
+            img_hr.src=page['image_hr']
         }
+
+        //HighRes onload
+        img_hr.onload=function(){
+            
+            //Make it look like img - the Low res
+            img_hr.style.width = img.style.width;
+            img_hr.style.height = img.style.height;
+            for (cls of img.classList){
+                img_hr.classList.add(cls);
+            };
+
+            img.remove();
+            img_cont.appendChild(img_hr);
+            img_cont.classList.remove('blurred','grown');
+            loading.remove();
+        };
         
     }
     if(page['type']=='video'){
