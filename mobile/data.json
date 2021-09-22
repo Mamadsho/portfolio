@@ -101,7 +101,7 @@
             "type": "video",
             "icon":"video-m.png",
             "color":"#2e9f9f",
-            "src": "https://player.vimeo.com/video/597929589?h=8739182c4b",
+            "src": "https://player.vimeo.com/video/597929589",
             "orientation": "h",
             "desc":{
                 "ru":"<h1><span style=\"display: inline-block\">Парамет</span><span style=\"display:inline-block\">рический</span> Фасад</h1><ul><li>Программа: Blender</li><li>Техники: <ul><li>Шейдер-ноды</li><li>Процедурные Текстуры</li><li>Рисование текстур</li></ul></li> <li>Рендер-движок: EEVEE</li></ul>",
@@ -299,7 +299,7 @@
             "type": "video",
             "icon":"video-m.png",
             "color":"#2e9f9f",
-            "src": "https://player.vimeo.com/video/608466545?h=8739182c4b",
+            "src": "https://player.vimeo.com/video/608466545",
             "orientation": "h",
             "desc":{
                 "ru":"<h1  >Видеоклип</h1><ul><li  >Рендерер: Twinmotion</li></ul>",
@@ -494,7 +494,7 @@
             "type": "video",
             "icon":"video-m.png",
             "color":"#2e9f9f",
-            "src": "https://player.vimeo.com/video/608038972?h=8739182c4b",
+            "src": "https://player.vimeo.com/video/608038972",
             "orientation": "h",
             "desc":{
                 "ru":"<h1  >Видеоклип</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>  </ul></ul>",
@@ -731,7 +731,7 @@
             "type": "video",
             "icon":"video-m.png",
             "color":"#2e9f9f",
-            "src": "https://player.vimeo.com/video/609963596?h=8739182c4b",
+            "src": "https://player.vimeo.com/video/609963596",
             "orientation": "h",
             "desc":{
                 "ru":"<h1 >Визуализация Водопада</h1><ul><li >Июнь 2021</li></ul>",
