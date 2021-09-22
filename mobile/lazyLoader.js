@@ -130,7 +130,7 @@ function lazyLoad(pr,pg){ //   pr -> Project;   pg -> Page
         vid_cont.id='vid_cont';
         let vid=document.createElement('iframe');
         vid.setAttribute('src',page['src']+'?h=8739182c4b&autoplay=1&loop=1');
-        vid.setAttribute('allow','');
+        vid.setAttribute('allow','autoplay; fullscreen');
         vid.setAttribute('allowfullscreen','');
         vid.classList.add('video_viewer');
 
