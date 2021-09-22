@@ -31,6 +31,10 @@
     mask-image: url('projects/home/contacts/github.png');
     -webkit-mask-image: url('projects/home/contacts/github.png');
 }
+#artstation .skill_logo:before{
+    mask-image: url('projects/home/contacts/artstation.png');
+    -webkit-mask-image: url('projects/home/contacts/artstation.png');
+}
 #pinterest .skill_logo:before{
     mask-image: url('projects/home/contacts/pinterest.png');
     -webkit-mask-image: url('projects/home/contacts/pinterest.png');

@@ -32,9 +32,9 @@
             "icon":"phone-m.png",
             "color":"#db8787",
             "inner":{
-                "en":"<h1>Contacts</h1><div class='itemlist'><div id='phone' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='tel:+992100500000'><span>+992100500000</span></a></span></div><div id='mail' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='mailto:mamadsho.nazaramonov@gmail.com'><span style='display: inline-block;'>mamadsho.nazaramonov</span><span style='display: inline-block;'>@gmail.com</span></a></span></div><div class='contact_item' id='facebook'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://fb.com/mamadshos'><span>fb.com/mamadshos</span></a></span></div><div id='github' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://github.com/mamadsho'><span>github.com/mamadsho</span></a></span></div><div id='pinterest' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://www.pinterest.com/mamadshons'><span>@mamadshons</span></a></span></div></div>",
-                "ru":"<h1>Контакты</h1><div class='itemlist'><div id='phone' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='tel:+992100500000'><span>+992100500000</span></a></span></div><div id='mail' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='mailto:mamadsho.nazaramonov@gmail.com'><span style='display: inline-block;'>mamadsho.nazaramonov</span><span style='display: inline-block;'>@gmail.com</span></a></span></div><div class='contact_item' id='facebook'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://fb.com/mamadshos'><span>fb.com/mamadshos</span></a></span></div><div id='github' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://github.com/mamadsho'><span>github.com/mamadsho</span></a></span></div><div id='pinterest' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://www.pinterest.com/mamadshons'><span>@mamadshons</span></a></span></div></div>",
-                "tj":"<h1>Тамос</h1><div class='itemlist'><div id='phone' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='tel:+992100500000'><span>+992100500000</span></a></span></div><div id='mail' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='mailto:mamadsho.nazaramonov@gmail.com'><span style='display: inline-block;'>mamadsho.nazaramonov</span><span style='display: inline-block;'>@gmail.com</span></a></span></div><div class='contact_item' id='facebook'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://fb.com/mamadshos'><span>fb.com/mamadshos</span></a></span></div><div id='github' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://github.com/mamadsho'><span>github.com/mamadsho</span></a></span></div><div id='pinterest' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://www.pinterest.com/mamadshons'><span>@mamadshons</span></a></span></div></div>"
+                "en":"<h1>Contacts</h1><div class='itemlist'><div id='phone' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='tel:+992100500000'><span>+992100500000</span></a></span></div><div id='mail' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='mailto:mamadsho.nazaramonov@gmail.com'><span style='display: inline-block;'>mamadsho.nazaramonov</span><span style='display: inline-block;'>@gmail.com</span></a></span></div><div class='contact_item' id='artstation'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://mamadsho.artstation.com'><span>mamadsho.artstation.com</span></a></span></div><div id='github' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://github.com/mamadsho'><span>github.com/mamadsho</span></a></span></div><div id='pinterest' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://www.pinterest.com/mamadshons'><span>@mamadshons</span></a></span></div></div>",
+                "ru":"<h1>Контакты</h1><div class='itemlist'><div id='phone' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='tel:+992100500000'><span>+992100500000</span></a></span></div><div id='mail' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='mailto:mamadsho.nazaramonov@gmail.com'><span style='display: inline-block;'>mamadsho.nazaramonov</span><span style='display: inline-block;'>@gmail.com</span></a></span></div><div class='contact_item' id='artstation'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://mamadsho.artstation.com'><span>mamadsho.artstation.com</span></a></span></div><div id='github' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://github.com/mamadsho'><span>github.com/mamadsho</span></a></span></div><div id='pinterest' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://www.pinterest.com/mamadshons'><span>@mamadshons</span></a></span></div></div>",
+                "tj":"<h1>Тамос</h1><div class='itemlist'><div id='phone' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='tel:+992100500000'><span>+992100500000</span></a></span></div><div id='mail' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='mailto:mamadsho.nazaramonov@gmail.com'><span style='display: inline-block;'>mamadsho.nazaramonov</span><span style='display: inline-block;'>@gmail.com</span></a></span></div><div class='contact_item' id='artstation'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://mamadsho.artstation.com'><span>mamadsho.artstation.com</span></a></span></div><div id='github' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://github.com/mamadsho'><span>github.com/mamadsho</span></a></span></div><div id='pinterest' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://www.pinterest.com/mamadshons'><span>@mamadshons</span></a></span></div></div>"
             }
         },{"name":"Settings",
             "type":"html",
@@ -64,9 +64,9 @@
             "image_lr": "/portfolio/pc/projects/arena/titleLR.jpg",
             "image_hr": "/portfolio/pc/projects/arena/titleHR.jpg",
             "desc":{
-                "ru":"<h1 >CВ Фасад</h1> <ul><li >Программа: Blender</li><li >Рендер-движок: Cycles</li></ul>",
-                "en":"<h1 >NE Facade</h1> <ul><li >Software: Blender</li><li >Render Engine: Cycles</li></ul>",
-                "tj":"<h1>Намои ШШ</h1> <ul><li>Барнома: Blender</li><li>Рендер-муҳаррик: Cycles</li></ul>"
+                "ru":"<h1 >ЮВ Фасад</h1> <ul><li >Программа: Blender</li><li >Рендер-движок: Cycles</li></ul>",
+                "en":"<h1 >SE Facade</h1> <ul><li >Software: Blender</li><li >Render Engine: Cycles</li></ul>",
+                "tj":"<h1>Намои ҶШ</h1> <ul><li>Барнома: Blender</li><li>Рендер-муҳаррик: Cycles</li></ul>"
             }
         },{
             "type": "image",
@@ -75,9 +75,9 @@
             "image_lr": "/portfolio/pc/projects/arena/3LR.jpg",
             "image_hr": "/portfolio/pc/projects/arena/3HR.jpg",
             "desc":{
-                "ru":"<h1 >CВ Фасад</h1> <ul><li >Программа: Blender</li><li >Рендер-движок: Cycles</li></ul>",
-                "en":"<h1 >NE Facade</h1> <ul><li >Software: Blender</li><li >Render Engine: Cycles</li></ul>",
-                "tj":"<h1 >Намои ШШ</h1> <ul><li >Барнома: Blender</li><li >Рендер-муҳаррик: Cycles</li></ul>"
+                "ru":"<h1  >Скетч</h1><ul><li  >Программа: Krita</li></ul>",
+                "en":"<h1  >Sketch</h1><ul><li  >Software: Krita</li></ul>",
+                "tj":"<h1  >Скетч</h1><ul><li  >Барнома: Krita</li></ul>"
             }
         },{
             "type": "image",
@@ -97,9 +97,9 @@
             "image_lr": "/portfolio/pc/projects/arena/1LR.jpg",
             "image_hr": "/portfolio/pc/projects/arena/1HR.jpg",
             "desc":{
-                "ru":"<h1  >Скетч</h1><ul><li  >Программа: Krita</li></ul>",
-                "en":"<h1  >Sketch</h1><ul><li  >Software: Krita</li></ul>",
-                "tj":"<h1  >Скетч</h1><ul><li  >Барнома: Krita</li></ul>"
+                "ru":"<h1 >CВ Фасад</h1> <ul><li >Программа: Blender</li><li >Рендер-движок: Cycles</li></ul>",
+                "en":"<h1 >NE Facade</h1> <ul><li >Software: Blender</li><li >Render Engine: Cycles</li></ul>",
+                "tj":"<h1 >Намои ШШ</h1> <ul><li >Барнома: Blender</li><li >Рендер-муҳаррик: Cycles</li></ul>"
             }
         },{
             "type": "video",
@@ -131,9 +131,9 @@
             "image_lr": "/portfolio/pc/projects/mall/titleLR.jpg",
             "image_hr": "/portfolio/pc/projects/mall/titleHR.jpg",
             "desc":{
-                "ru":"<h1  >Передний Фасад</h1>",
-                "en":"<h1  >Front Facade</h1>",
-                "tj":"<h1  >Намо аз Пеш</h1>"
+                "ru":"<h1  >Перспектива</h1>",
+                "en":"<h1  >Perspective View</h1>",
+                "tj":"<h1  >Перспектива</h1>"
             }
         },{
             "type":"video",
@@ -231,9 +231,9 @@
             "image_lr": "/portfolio/pc/projects/sto/1LR.jpg",
             "image_hr": "/portfolio/pc/projects/sto/1HR.jpg",
             "desc":{
-                "ru":"<h1  >Скетч</h1><ul><li  >Программа: Krita</li></ul>",
-                "en":"<h1  >Sketch</h1><ul><li  >Software: Krita</li></ul>",
-                "tj":"<h1  >Скетч</h1><ul><li  >Барнома: Krita</li></ul>"
+                "ru":"<h1  >Общий Вид</h1>",
+                "en":"<h1  >Aerial View</h1>",
+                "tj":"<h1  >Намои Умумӣ</h1>"
             }
         }
     ],
@@ -254,9 +254,9 @@
             "image_lr": "/portfolio/pc/projects/qurghan/titleLR.jpg",
             "image_hr": "/portfolio/pc/projects/qurghan/titleHR.jpg",
             "desc":{
-                "ru":"<h1  >Вид Спереди. Зима</h1>",
-                "en":"<h1  >Cold Season Look</h1>",
-                "tj":"<h1  >Намо дар Сармо</h1>"
+                "ru":"<h1  >Вид Спереди</h1>",
+                "en":"<h1  >Front View</h1>",
+                "tj":"<h1  >Намо аз пеш</h1>"
             }
         },{
             "type": "image",
@@ -284,8 +284,8 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image_lr": "/portfolio/pc/projects/arena/1LR.jpg",
-            "image_hr": "/portfolio/pc/projects/arena/1HR.jpg",
+            "image_lr": "/portfolio/pc/projects/qurghan/3LR.jpg",
+            "image_hr": "/portfolio/pc/projects/qurghan/3HR.jpg",
             "desc":{
                 "ru":"<h1  >Закат в Парке. Крупным планом</h1>",
                 "en":"<h1  >Dusk Close Up</h1>",
@@ -295,18 +295,7 @@
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image_lr": "/portfolio/pc/projects/qurghan/3LR.jpg",
-            "image_hr": "/portfolio/pc/projects/qurghan/3HR.jpg",
-            "desc":{
-                "ru":"<h1  >Лестницы к Парку</h1>",
-                "en":"<h1  >Stairways to Park</h1>",
-                "tj":"<h1  >Зинапояҳо ба Парк</h1>"
-            }
-        },{
-            "type": "image",
-            "icon":"image-m.png",
-            "color":"#2e9f9f",
-            "image_lr": "/portfolio/pc/projects/qurghan/4HR.jpg",
+            "image_lr": "/portfolio/pc/projects/qurghan/4LR.jpg",
             "image_hr": "/portfolio/pc/projects/qurghan/4HR.jpg",
             "desc":{
                 "ru":"<h1  >Лестницы к Парку</h1>",
@@ -343,9 +332,9 @@
             "image_lr": "/portfolio/pc/projects/vdnh/titleLR.jpg",
             "image_hr": "/portfolio/pc/projects/vdnh/titleHR.jpg",
             "desc":{
-                "ru":"<h1  >Вид Спереди. Зима</h1>",
-                "en":"<h1  >Cold Season Look</h1>",
-                "tj":"<h1  >Намо дар Сармо</h1>"
+                "ru":"<h1  >Передний Фасад. Ночной Вид</h1>",
+                "en":"<h1  >Front Facade. Nighttime</h1>",
+                "tj":"<h1  >Намо аз пеш. Шабона</h1>"
             }
         },{
             "type": "image",
@@ -710,20 +699,20 @@
             "icon":"presentation-m.png",
             "color":"#51dfdf",
             "inner":{
-                "en":"<h1 >Sketches & Concepts</h1><ul>    <li><span >Softwares:</span><ul><li>Blender</li></ul></li>    <li><span >Title Page</span><ul>        <li >Concept for Vertical Farms on Tajikistan Mountainous Reliefs</li>        <li >August 2020</li>    </ul></li></ul>",
-                "ru":"<h1 >Скетчи и Концепты</h1><ul>    <li><span >Программы:</span><ul><li>Blender</li></ul></li>    <li><span >Титульный Лист</span><ul>        <li >Концепт Вертикальных Ферм на Таджикском Горном Рельефе</li>        <li >Август 2020</li>    </ul></li></ul>",
-                "tj":"<h1 >Скетчҳо ва Консептҳо</h1><ul>    <li><span >Барномаҳо:</span><ul><li>Blender</li></ul></li>    <li><span >Сарлавҳа</span><ul>        <li >Консепти Фермаҳои Амудӣ барои релефи кӯҳии Тоҷикистон</li>        <li >Август 2020</li>    </ul></li></ul>"
+                "en":"<h1 >Sketches & Concepts</h1><ul>    <li><span >Softwares:</span><ul><li>Blender</li></ul></li>  </ul>",
+                "ru":"<h1 >Скетчи и Концепты</h1><ul>    <li><span >Программы:</span><ul><li>Blender</li></ul></li>    </ul>",
+                "tj":"<h1 >Скетчҳо ва Консептҳо</h1><ul>    <li><span >Барномаҳо:</span><ul><li>Blender</li></ul></li> </ul>"
             }
         },{
             "type": "image",
             "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image_lr": "/portfolio/pc/more/sketches/1LR.jpg",
-            "image_hr": "/portfolio/pc/more/sketches/1HR.jpg",
+            "image_lr": "/portfolio/pc/more/sketches/titleLR.jpg",
+            "image_hr": "/portfolio/pc/more/sketches/titleHR.jpg",
             "desc":{
-                "ru":"<h1 >Скетч Большого ТРК</h1><ul><li >Декабрь 2020</li></ul>",
-                "en":"<h1 >Super Big Mall Sketch</h1><ul><li >December 2020</li></ul>",
-                "tj":"<h1 >Скетч барои ТРК</h1><ul><li >Декабр 2020</li></ul>"
+                "ru":"<h1 >Концепт Вертикальных Ферм на Таджикском Горном Рельефе</h1><ul><li >Август 2020</li></ul>",
+                "en":"<h1 >Concept for Vertical Farms on Tajikistan Mountainous Reliefs</h1><ul><li >August 2020</li></ul>",
+                "tj":"<h1 >Консепти Фермаҳои Амудӣ барои релефи кӯҳии Тоҷикистон</h1><ul><li >Август 2020</li></ul>"
             }
         },{
             "type": "image",
