@@ -115,10 +115,10 @@ body{
 }
 /* IF HEADER IS OPEN */
 #header.open .header_item:not(.active_header){
-    transform: translateX(-50vw);
+    transform: translateX(-70vw);
 }
 #header.open .active_header ~ .header_item{
-    transform: translateX(50vw);
+    transform: translateX(70vw);
 }
 .vp{
     position: relative;

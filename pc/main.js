@@ -97,6 +97,7 @@ function click_listener(e){
 }
 
 function wheel_listener(e){
+    if (!this.classList.contains('active_pages')) return false; // remove scroll of inactive pages
     this.removeEventListener('wheel',wheel_listener);
     if(e.deltaY>0){
         next_page(this);
