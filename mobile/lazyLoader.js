@@ -83,6 +83,8 @@ function lazyLoad(pr,pg){ //   pr -> Project;   pg -> Page
                     img.style.height=vp.offsetWidth-4;//HARDCODE
                 }
             };
+            img_cont.scrollTop=(img_cont.scrollHeight-img_cont.offsetHeight)/2; //center by Y
+            img_cont.scrollLeft=(img_cont.scrollWidth-img_cont.offsetWidth)/2; //center by X
         }
         
     }
@@ -98,7 +100,7 @@ function lazyLoad(pr,pg){ //   pr -> Project;   pg -> Page
         let vid_cont=document.createElement('div');
         vid_cont.id='vid_cont';
         let vid=document.createElement('iframe');
-        vid.setAttribute('src',page['src']);
+        vid.setAttribute('src',page['src']+'?h=8739182c4b&autoplay=1&loop=1');
         vid.setAttribute('allow','');
         vid.setAttribute('allowfullscreen','');
         vid.classList.add('video_viewer');
@@ -144,10 +146,13 @@ function lazyLoad(pr,pg){ //   pr -> Project;   pg -> Page
 
 function toggle_desc(){
     let desc_cont=document.querySelector('#desc_cont');
+    let more_butt = document.querySelector('#more');
     if (window.getComputedStyle(desc_cont).transform=='matrix(1, 0, 0, 1, 0, 0)'){
         desc_cont.style.transform='translateY(100%)';
+        more_butt.classList.remove('more_open');
     }else{
         desc_cont.style.transform='translateY(0%)';
+        more_butt.classList.add('more_open');
     }
 }
 function reloadPage(){

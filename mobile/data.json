@@ -2,7 +2,7 @@
     "Home":[
         {"name":"Home",
             "type":"html",
-            "icon":"projects/home/icons/home.png",
+            "icon":"home-m.png",
             "color":"#ff6b6b",
             "inner":{
                 "en":"<div class='flexers'><div class='photo' style='background-image:url(\"photo.png\"); background-position:center; background-size:cover'></div><div class='name'><h1 style='margin-top: 0px; margin-bottom: 4.5px;'>Mamadsho <br> Nazaramonov</h1><hr style='margin:0'><p style='margin-top: 3px;'>Architecture and Math Enthusiast</p></div></div><div class='itemlist'><div id='lang_toggle'><div class='itemkey'>Languages</div><div class='itemvalue' style='background-color: inherit;padding: 0;'><div class='value'><span class='option'><div class='option_key'>Русский</div><span class='lang' id='ru'></span></span><span class='option'><div class='option_key'>English</div><span class='lang' id='en'></span></span><span class='option'><div class='option_key'>Тоҷикӣ</div><span class='lang' id='tj'></span></span></div></div></div><div><div class='itemkey'>Finished</div><div class='itemvalue'>Tajik Technical University</div></div><div><div class='itemkey'>Lives in</div><div class='itemvalue'>Vahdat, Tajistan</div></div><div style='margin-bottom:32px'><div class='itemkey'>Date of Birth</div><div class='itemvalue'>May 27, 1998</div></div></div></div></div>",
@@ -11,25 +11,25 @@
             }
         },{"name":"SoftwareSkills",
             "type":"html",
-            "icon":"projects/home/icons/skills.png",
+            "icon":"sliders-m.png",
             "color":"#db8787",
             "inner":{
-                "en":"<h1>Skills&Softwares</h1><div class='itemlist'><div><div class='itemkey'><div id='photoshop' class='skill_logo'></div><span class='skill_name'>Photoshop</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='blender' class='skill_logo'></div><span class='skill_name'>Blender</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='autocad' class='skill_logo'></div><span class='skill_name'>AutoCAD</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div></div></div><div><div class='itemkey'><div id='revit' class='skill_logo'></div><span class='skill_name'>Revit</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='mdesigner' class='skill_logo'></div><span class='skill_name'>Marvelous Designer</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='twinmotion' class='skill_logo'></div><span class='skill_name'>Twinmotion</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div id='last_skill_c'><div class='itemkey'><div id='spainter' class='skill_logo'></div><span class='skill_name'>Substance Painter</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active' ></div><div class='skill_dash'></div><div class='skill_dash'></div></div></div></div>",
-                "ru":"<h1>Навыки и Программы</h1><div class='itemlist'><div><div class='itemkey'><div id='photoshop' class='skill_logo'></div><span class='skill_name'>Photoshop</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='blender' class='skill_logo'></div><span class='skill_name'>Blender</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='autocad' class='skill_logo'></div><span class='skill_name'>AutoCAD</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div></div></div><div><div class='itemkey'><div id='revit' class='skill_logo'></div><span class='skill_name'>Revit</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='mdesigner' class='skill_logo'></div><span class='skill_name'>Marvelous Designer</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='twinmotion' class='skill_logo'></div><span class='skill_name'>Twinmotion</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div id='last_skill_c'><div class='itemkey'><div id='spainter' class='skill_logo'></div><span class='skill_name'>Substance Painter</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active' ></div><div class='skill_dash'></div><div class='skill_dash'></div></div></div></div>",
-                "tj":"<h1>Маҳорат ва Барномаҳо</h1><div class='itemlist'><div><div class='itemkey'><div id='photoshop' class='skill_logo'></div><span class='skill_name'>Photoshop</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='blender' class='skill_logo'></div><span class='skill_name'>Blender</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='autocad' class='skill_logo'></div><span class='skill_name'>AutoCAD</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div></div></div><div><div class='itemkey'><div id='revit' class='skill_logo'></div><span class='skill_name'>Revit</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='mdesigner' class='skill_logo'></div><span class='skill_name'>Marvelous Designer</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='twinmotion' class='skill_logo'></div><span class='skill_name'>Twinmotion</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div id='last_skill_c'><div class='itemkey'><div id='spainter' class='skill_logo'></div><span class='skill_name'>Substance Painter</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active' ></div><div class='skill_dash'></div><div class='skill_dash'></div></div></div></div>"
+                "en":"<h1>Skills&Softwares</h1><div class='itemlist'><div><div class='itemkey'><div id='photoshop' class='skill_logo'></div><span class='skill_name'>Photoshop</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='blender' class='skill_logo'></div><span class='skill_name'>Blender</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='blender' class='skill_logo'></div><span class='skill_name'>Blender API</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='autocad' class='skill_logo'></div><span class='skill_name'>AutoCAD</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div></div></div><div><div class='itemkey'><div id='revit' class='skill_logo'></div><span class='skill_name'>Revit</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='twinmotion' class='skill_logo'></div><span class='skill_name'>Twinmotion</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div></div>",
+                "ru":"<h1>Навыки и Программы</h1><div class='itemlist'><div><div class='itemkey'><div id='photoshop' class='skill_logo'></div><span class='skill_name'>Photoshop</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='blender' class='skill_logo'></div><span class='skill_name'>Blender</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='blender' class='skill_logo'></div><span class='skill_name'>Blender API</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='autocad' class='skill_logo'></div><span class='skill_name'>AutoCAD</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div></div></div><div><div class='itemkey'><div id='revit' class='skill_logo'></div><span class='skill_name'>Revit</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='twinmotion' class='skill_logo'></div><span class='skill_name'>Twinmotion</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div></div>",
+                "tj":"<h1>Маҳорат ва Барномаҳо</h1><div class='itemlist'><div><div class='itemkey'><div id='photoshop' class='skill_logo'></div><span class='skill_name'>Photoshop</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='blender' class='skill_logo'></div><span class='skill_name'>Blender</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='blender' class='skill_logo'></div><span class='skill_name'>Blender API</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='autocad' class='skill_logo'></div><span class='skill_name'>AutoCAD</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div></div></div><div><div class='itemkey'><div id='revit' class='skill_logo'></div><span class='skill_name'>Revit</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div><div><div class='itemkey'><div id='twinmotion' class='skill_logo'></div><span class='skill_name'>Twinmotion</span></div><div class='itemvalue skill_level'><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash skill_dash_active'></div><div class='skill_dash'></div></div></div></div>"
             }
         },{"name":"Interests",
             "type":"html",
-            "icon":"projects/home/icons/interests.png",
+            "icon":"star-m-1.png",
             "color":"#db8787",
             "inner":{
-                "en":"<h1>Interests</h1><div class='itemlist' id='interests'><span>VR/AR</span><span>AI</span><span>Site Planning</span><span style='width: 215px;'>Architecture</span><span style='width: 125px;'>Design</span><span>Workflow Study/Dev</span><span>Programming</span><span>Data Analysis</span><span>Math/PhysX</span><span>Politics/Economy</span><span>Management</span></div>",
-                "ru":"<h1>Интересы</h1><div class='itemlist' id='interests'><span>VR/AR</span><span>ИИ</span><span>Градостроительство</span><span style='width: 215px;'>Архитектура</span><span style='width: 125px;'>Дизайн</span><span>Методологии</span><span>Программирование</span><span>Анализ Данный</span><span>Математика/Физика</span><span>Политика/Экономика</span><span>Менеджмент</span></div>",
-                "tj":"<h1>Майлу Рағбат</h1><div class='itemlist' id='interests'><span>VR/AR</span><span>AI</span><span>Шаҳрсозӣ</span><span style='width: 215px;'>Меъморӣ</span><span style='width: 125px;'>Дизайн</span><span>Мотодологияҳо</span><span>Барномасозӣ</span><span>Таҳлили маълумот</span><span>Математика/Физика</span><span>Сиёсат/Иқтисод</span><span>Идора</span></div>"
+                "en":"<h1>Interests</h1><div class='itemlist' id='interests'><span>VR/AR</span><span>AI</span><span>Site Planning</span><span style='width: 215px;'>Architecture</span><span style='width: 125px;'>Design</span><span>Visualization</span><span>Workflow Study/Dev</span><span>Programming</span><span>Data Analysis</span><span>Math/PhysX</span><span>Politics</span></div>",
+                "ru":"<h1>Интересы</h1><div class='itemlist' id='interests'><span>VR/AR</span><span>ИИ</span><span>Градостроительство</span><span style='width: 215px;'>Архитектура</span><span style='width: 125px;'>Дизайн</span><span>Визуализация</span><span>Методологии</span><span>Программирование</span><span>Анализ Данных</span><span>Математика/Физика</span><span>Политика</span></div>",
+                "tj":"<h1>Майлу Рағбат</h1><div class='itemlist' id='interests'><span>VR/AR</span><span>AI</span><span>Шаҳрсозӣ</span><span style='width: 215px;'>Меъморӣ</span><span style='width: 125px;'>Дизайн</span><span>Визуализатсия</span><span>Мотодологияҳо</span><span>Барномасозӣ</span><span>Таҳлили маълумот</span><span>Математика/Физика</span><span>Сиёсат</span></div>"
             }
         },{"name":"Contacts",
             "type":"html",
-            "icon":"projects/home/icons/contacts.png",
+            "icon":"phone-m.png",
             "color":"#db8787",
             "inner":{
                 "en":"<h1>Contacts</h1><div class='itemlist'><div id='phone' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='tel:+992100500000'><span>+992100500000</span></a></span></div><div id='mail' class='contact_item'><div class='skill_logo contact_item_icon'></div><span class='skill_name'><a href='mailto:mamadsho.nazaramonov@gmail.com'><span style='display: inline-block;'>mamadsho.nazaramonov</span><span style='display: inline-block;'>@gmail.com</span></a></span></div><div class='contact_item' id='facebook'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://fb.com/mamadshos'><span>fb.com/mamadshos</span></a></span></div><div id='github' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://github.com/mamadsho'><span>github.com/mamadsho</span></a></span></div><div id='pinterest' class='contact_item'><div><div class='skill_logo contact_item_icon'></div></div><span class='skill_name'><a href='https://www.pinterest.com/mamadshons'><span>@mamadshons</span></a></span></div></div>",
@@ -38,7 +38,7 @@
             }
         },{"name":"Settings",
             "type":"html",
-            "icon":"projects/home/icons/settings.png",
+            "icon":"gear-alt-m.png",
             "color":"#db8787",
             "inner":{
                 "en":"<h1>Settings</h1><div class='itemlist'><div id='lang_toggle'><div class='itemkey'>Languages</div><div class='itemvalue' style='background-color: inherit;padding: 0;'><div class='value'><span class='option'><div class='option_key'>Русский</div><span class='lang' id='ru'></span></span><span class='option'><div class='option_key'>English</div><span class='lang' id='en'></span></span><span class='option'><div class='option_key'>Тоҷикӣ</div><span class='lang' id='tj'></span></span></div></div></div><div id='fs_toggle'><div class='itemkey'>Fullscreen</div><div class='itemvalue' style='background-color: inherit;padding: 0;'><div class='value'><span class='option'><div class='option_key'>ON</div><span class='lang' id='on'></span></span><span class='option'><div class='option_key'>OFF</div><span class='lang' id='off'></span></span></div></div>",
@@ -47,81 +47,696 @@
             }
         }
     ],
-    "STO":[
+    "Arena":[
         {
             "type":"html",
-            "icon":"projects/sto/sto.png",
+            "icon":"presentation-m.png",
             "color":"#51dfdf",
             "inner":{
-                "en":"<h1>Automobile Repair Shop</h1><div class='softwares'><div style='background-image: url(&quot;projects/home/skills/icons/revit.png&quot;);border-color: #04174c;background-size: 113%;background-position: -3px -3px;background-color: #e9f4ff;'></div><div style='background-image: url(&quot;projects/home/skills/icons/autocad.png&quot;);border-color: #e54145;background-size: 111%;background-position: -1px 1px;background-color: #fafafa;'></div><div style='background-image: url(&quot;projects/home/skills/icons/photoshop.png&quot;);border-color: #3bcbf6;background-size: 110%;background-position: center;'></div></div><ul class='tep'><li>Effective Area: 5000 м2</li><li>Volume: --- м3</li><li>Cars: 50 units</li></ul><p class='timeCreated'>May, 2019</p>",
-                "ru":"<h1>Станция технического обслуживания автомобилей</h1><div class='softwares'><div style='background-image: url(&quot;projects/home/skills/icons/revit.png&quot;);border-color: #04174c;background-size: 113%;background-position: -3px -3px;background-color: #e9f4ff;'></div><div style='background-image: url(&quot;projects/home/skills/icons/autocad.png&quot;);border-color: #e54145;background-size: 111%;background-position: -1px 1px;background-color: #fafafa;'></div><div style='background-image: url(&quot;projects/home/skills/icons/photoshop.png&quot;);border-color: #3bcbf6;background-size: 110%;background-position: center;'></div></div><ul class='tep'><li>Полезная Площадь: 5000 м2</li><li>Объем: --- м3</li><li>Машин: 50 ед</li></ul><p class='timeCreated'>Май, 2019</p>"
+                "en":"<h1 >Tennis Stadium</h1><ul><li>Location: Dushanbe, Tajikistan</li><li >Student Project</li><li><span>Softwares:</span><ul> <li>Blender</li> <li>Revit</li></ul></li><li >June 2021</li></ul>",
+                "ru":"<h1 >Теннисный Комплекс</h1><ul><li  >Местонахождение: Душанбе, Таджикистан</li><li >Студенческий Проект</li><li><span >Программы:</span><ul><li>Blender</li><li>Revit</li></ul></li><li >Июль 2021</li></ul>",
+                "tj":"<h1>Қасри Теннис</h1><ul><li>Мавқеъ: Душанбе, Тоҷикистон</li><li>Лоиҳаи донишҷӯ</li><li><span>Барномаҳо:</span><ul><li>Blender</li><li>Revit</li></ul></li><li>Июли 2021</li></ul>"
             }
         },{
             "type": "image",
-            "icon":"projects/sto/icon3.svg",
+            "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "projects/sto/img.jpg",
+            "image": "/pc/projects/arena/titleHR.jpg",
             "desc":{
-                "ru":"<p>ЗдесьЪ было бы описание</p>",
-                "en":"<p>Here goes some desc</p>"
+                "ru":"<h1 >CВ Фасад</h1> <ul><li >Программа: Blender</li><li >Рендер-движок: Cycles</li></ul>",
+                "en":"<h1 >NE Facade</h1> <ul><li >Software: Blender</li><li >Render Engine: Cycles</li></ul>",
+                "tj":"<h1>Намои ШШ</h1> <ul><li>Барнома: Blender</li><li>Рендер-муҳаррик: Cycles</li></ul>"
             }
         },{
             "type": "image",
-            "icon":"projects/sto/icon3.svg",
+            "icon":"image-m.png",
             "color":"#2e9f9f",
-            "image": "projects/sto/img.jpg",
+            "image": "/pc/projects/arena/3HR.jpg",
             "desc":{
-                "ru":"<p>ЗдесьЪ было бы описание</p>",
-                "en":"<p>Here would go some desc</p>"
+                "ru":"<h1 >CВ Фасад</h1> <ul><li >Программа: Blender</li><li >Рендер-движок: Cycles</li></ul>",
+                "en":"<h1 >NE Facade</h1> <ul><li >Software: Blender</li><li >Render Engine: Cycles</li></ul>",
+                "tj":"<h1 >Намои ШШ</h1> <ul><li >Барнома: Blender</li><li >Рендер-муҳаррик: Cycles</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/arena/2HR.jpg",
+            "desc":{
+                "ru":"<h1 >Восточный Фасад</h1><ul><li >Программа: Blender</li><li >Рендер-движок: Cycles</li></ul>",
+                "en":"<h1 >Eastern Facade</h1><ul><li >Software: Blender</li><li >Render Engine: Cycles</li></ul>",
+                "tj":"<h1 >Намои Шарқӣ</h1><ul><li >Барнома: Blender</li><li >Рендер-муҳаррик: Cycles</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/arena/1HR.jpg",
+            "desc":{
+                "ru":"<h1  >Скетч</h1><ul><li  >Программа: Krita</li></ul>",
+                "en":"<h1  >Sketch</h1><ul><li  >Software: Krita</li></ul>",
+                "tj":"<h1  >Скетч</h1><ul><li  >Барнома: Krita</li></ul>"
             }
         },{
             "type": "video",
-            "icon":"projects/sto/icon3.svg",
+            "icon":"video-m.png",
             "color":"#2e9f9f",
             "src": "https://player.vimeo.com/video/597929589?h=8739182c4b",
             "orientation": "h",
             "desc":{
-                "ru":"<p>ЗдесьЪ было бы описание</p>",
-                "en":"<p>Here would go some desc</p>",
-                "tj":"<p>Ана шуд маълум..</p>"
+                "ru":"<h1><span style=\"display: inline-block\">Парамет</span><span style=\"display:inline-block\">рический</span> Фасад</h1><ul><li>Программа: Blender</li><li>Техники: <ul><li>Шейдер-ноды</li><li>Процедурные Текстуры</li><li>Рисование текстур</li></ul></li> <li>Рендер-движок: EEVEE</li></ul>",
+                "en":"<h1>Parametric Facade</h1><ul><li>Software: Blender</li><li>Techniques: <ul><li>Shader-nodes</li><li>Procedural Textures</li><li>Texture Painting</li></ul></li> <li>Render-engine: EEVEE</li></ul>",
+                "tj":"<h1>Намои <span style=\"display: inline-block\">парамет</span><span style=\"display: inline-block\">рикӣ</span></h1><ul><li>Барнома: Blender</li><li>Усул: <ul><li>Шейдер-нодҳо</li><li>Текстураҳои ҷараёнӣ</li><li>Рангкунии текстураҳо</li></ul></li> <li>Рендер-муҳаррик: EEVEE</li></ul>"
+            }
+        }
+    ],
+    "Mall":[
+        {
+            "type":"html",
+            "icon":"presentation-m.png",
+            "color":"#a6a6ff",
+            "inner":{
+                "en":"<h1  >Mall Visualization</h1><ul>    <li  >Location: Dushanbe, Tajikistan</li>    <li  >As Proposal by LLC Memori Asr</li> <li><span  >Softwares:</span><ul>     <li>AutoCAD</li> <li>[ArchiCAD]*</li>   <li>Blender</li>        <li>Twinmotion</li>  <li>Photoshop</li>  </ul></li>    <li  >February 2021</li></ul>",
+                "ru":"<h1  >Визуализация ТРК</h1><ul>    <li  >Местонахождение: Душанбе, Таджикистан</li>    <li  >Эскизное предложение от ООО Меъмори Аср</li> <li><span  >Программы:</span><ul>     <li>AutoCAD</li> <li>[ArchiCAD]*</li>   <li>Blender</li>        <li>Twinmotion</li>  <li>Photoshop</li>  </ul></li>    <li  >Февраль 2021</li></ul>",
+                "tj":"<h1  >Визуализатсияи ТРК</h1><ul>    <li  >Мавқеъ: Душанбе, Тоҷикистон</li>    <li  >Лоиҳаи ангоравӣ барои ҶДММ Меъмори Аср</li> <li><span  >Барномаҳо:</span><ul>     <li>AutoCAD</li> <li>[ArchiCAD]*</li>   <li>Blender</li>        <li>Twinmotion</li>  <li>Photoshop</li>  </ul></li>    <li  >Феврал 2021</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#7373d7",
+            "image": "/pc/projects/mall/titleHR.jpg",
+            "desc":{
+                "ru":"<h1  >Передний Фасад</h1>",
+                "en":"<h1  >Front Facade</h1>",
+                "tj":"<h1  >Намо аз Пеш</h1>"
+            }
+        },{
+            "type":"video",
+            "icon":"video-m.png",
+            "color":"#2e9f9f",
+            "orientation": "h",
+            "src":"https://player.vimeo.com/video/604150284",
+            "desc":{
+                "ru":"<h1 >Видеоклип</h1><ul><li >Рендерер: Twinmotion</li></ul>",
+                "en":"<h1 >Movie</h1><ul><li >Renderer: Twinmotion</li></ul>",
+                "tj":"<h1 >Навор</h1><ul><li >Рендер-муҳаррик: Twinmotion</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#7373d7",
+            "image": "/pc/projects/mall/FFHR.jpg",
+            "desc":{
+                "ru":"<h1  >Передний Фасад</h1>",
+                "en":"<h1  >Front Facade</h1>",
+                "tj":"<h1  >Намо аз Пеш</h1>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#7373d7",
+            "image": "/pc/projects/mall/SPHR.jpg",
+            "desc":{
+                "ru":"<h1  >ГенПлан</h1><ol>    <li  >Торговый Комплекс</li>    <li  >Парковки</li>    <li  >Электроника и бытовая техника</li>    <li  >Строительный блок</li>    <li  >Овощи и Зелень</li>    <li  >Ягоды и фрукты</li>    <li  >Холодильник</li>    <li  >Производственные цеха</li>    <li  >Медпункт</li>    <li  >Жилой Комплекс</li></ol>",
+                "en":"<h1  >Site Plan. Legend</h1><ol>    <li  >Trade Mall</li>    <li  >Parking</li>    <li  >Electronics</li>    <li  >Construction Materials</li>    <li  >Vegetables</li>    <li  >Refrigerators</li>    <li  >Manufacturing Facility</li>    <li  >Fire Service</li>    <li  >First Aid Post</li>    <li  >Residential</li></ol>",
+                "tj":"<h1  >Нақшаи Генералӣ</h1><ol>    <li  >Маркази Савдо</li>    <li  >Парковкаҳо</li>    <li  >Электроника</li>    <li  >Масолеҳи сохтмон</li>    <li  >Сабзавот ва гиёҳҳо</li>    <li  >Меваҳо</li>    <li  >Яхдонҳо</li>    <li  >Сехҳои истеҳсолотӣ</li>    <li  >Бунгоҳи Тиббӣ</li>    <li  >Хонаҳои Истикоматӣ</li></ol>"
+            }
+        }
+    ],
+    "STO":[
+        {
+            "type":"html",
+            "icon":"presentation-m.png",
+            "color":"#51dfdf",
+            "inner":{
+                "en":"<h1  >Car Service Station</h1><ul>   <li  >Student Project</li>    <li><span  >Main Concept:</span><ul>        <li  >Drive-Through</li>        <li  >Single way ramp</li> </ul></li>    <li><span  >Softwares:</span><ul>        <li>AutoCAD</li>    <li>Revit</li> <li>Photoshop</li>    </ul></li>    <li  >March 2021</li></ul>",
+                "ru":"<h1  >Станция Технического Обслуживания Автомобилей</h1><ul>   <li  >Студенческий проект</li>    <li><span  >Основная Концепция:</span><ul>        <li  >Драйв-Тру</li>        <li  >Односторонее движение по рампе</li> </ul></li>    <li><span  >Программы:</span><ul>        <li>AutoCAD</li>    <li>Revit</li> <li>Photoshop</li>    </ul></li>    <li  >Март 2021</li></ul>",
+                "tj":"<h1  >Нуқтаи Таъмири Автомобилҳо</h1><ul>   <li  >Лоиҳаи донишҷӯ</li>    <li><span  >Консепсияи Асосӣ:</span><ul>        <li  >Драйв-Тру</li>        <li  >Ҳаракати якҷониба дар Рампа</li> </ul></li>    <li><span  >Барномаҳо:</span><ul>        <li>AutoCAD</li>    <li>Revit</li> <li>Photoshop</li>    </ul></li>    <li  >Март 2021</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/sto/titleHR.jpg",
+            "desc":{
+                "ru":"<h1  >Общий Вид</h1>",
+                "en":"<h1  >Aerial View</h1>",
+                "tj":"<h1  >Намои Умумӣ</h1>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/sto/4HR.jpg",
+            "desc":{
+                "ru":"<h1  >Общий Вид</h1>",
+                "en":"<h1  >Aerial View</h1>",
+                "tj":"<h1  >Намои Умумӣ</h1>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/sto/3HR.jpg",
+            "desc":{
+                "ru":"<h1  >Общий Вид</h1>",
+                "en":"<h1  >Aerial View</h1>",
+                "tj":"<h1  >Намои Умумӣ</h1>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/sto/2HR.jpg",
+            "desc":{
+                "ru":"<h1  >Концепция Движения по Рампе</h1>",
+                "en":"<h1  >Concept of Motion through Ramp</h1>",
+                "tj":"<h1  >Консепсияи ҳаракат дар Рампа</h1>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/sto/1HR.jpg",
+            "desc":{
+                "ru":"<h1  >Скетч</h1><ul><li  >Программа: Krita</li></ul>",
+                "en":"<h1  >Sketch</h1><ul><li  >Software: Krita</li></ul>",
+                "tj":"<h1  >Скетч</h1><ul><li  >Барнома: Krita</li></ul>"
+            }
+        }
+    ],
+    "Qurghan":[
+        {
+            "type":"html",
+            "icon":"presentation-m.png",
+            "color":"#51dfdf",
+            "inner":{
+                "en":"<h1  >Bokhtar Central Park</h1><ul>    <li  >Location: Bokhtar, Tajikistan</li>    <li  >As Proposal by OJSC SANIIOSP</li>    <li><span  >Main Ideas:</span><ul>        <li  >Design-Formulating for future constructions of the area</li>        <li  >A Bright and Welcoming Attraction</li>        <li  >An Inspirational Form</li>    </ul></li>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Twinmotion</li>    </ul></li>    <li  >March 2021</li></ul>",
+                "ru":"<h1  >Парк, Бохтар</h1><ul>    <li  >Местонахождение: Бохтар, Таджикистан</li>    <li  >Эскизное предложение от ОАО САНИИОСП</li>    <li><span  >Основные Идеи:</span><ul>        <li  >Определяющая Дизайн дальнейших построек в местности</li>        <li  >Яркая и Привлекательная Достопримечательность</li>        <li  >Вдохновляющая форма</li>    </ul></li>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Twinmotion</li>    </ul></li>    <li  >Март 2021</li></ul>",
+                "tj":"<h1  >Парк, Бохтар</h1><ul>    <li  >Мавқеъ: Бохтар, Тоҷикистон</li>    <li  >Лоиҳаи ангоравӣ барои ҶСК ПИЛҶ САНИИОСП</li>    <li><span  >Идеяҳои Асосӣ:</span><ul>        <li  >Муайянкунандаи сохтмонҳои ояндаи маҳал</li>        <li  >Нуқтаи равшан ва пешвозгиранда</li>        <li  >Шакли илҳомбахш</li>    </ul></li>    <li><span  >Барномаҳо:</span><ul>        <li>Blender</li>        <li>Twinmotion</li>    </ul></li>    <li  >Март 2021</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/qurghan/titleHR.jpg",
+            "desc":{
+                "ru":"<h1  >Вид Спереди. Зима</h1>",
+                "en":"<h1  >Cold Season Look</h1>",
+                "tj":"<h1  >Намо дар Сармо</h1>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/qurghan/1HR.jpg",
+            "desc":{
+                "ru":"<h1  >Вид Спереди. Зима</h1>",
+                "en":"<h1  >Cold Season Look</h1>",
+                "tj":"<h1  >Намо дар Сармо</h1>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/qurghan/2HR.jpg",
+            "desc":{
+                "ru":"<h1  >Лестницы к Парку. Зима</h1>",
+                "en":"<h1  >Stairways to Park in Cold Season</h1>",
+                "tj":"<h1  >Зинапояҳо ба Парк. Зимистон</h1>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/arena/1HR.jpg",
+            "desc":{
+                "ru":"<h1  >Закат в Парке. Крупным планом</h1>",
+                "en":"<h1  >Dusk Close Up</h1>",
+                "tj":"<h1  >Ғуруб дар Парк, Акси Наздик</h1>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/qurghan/3HR.jpg",
+            "desc":{
+                "ru":"<h1  >Лестницы к Парку</h1>",
+                "en":"<h1  >Stairways to Park</h1>",
+                "tj":"<h1  >Зинапояҳо ба Парк</h1>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/qurghan/4HR.jpg",
+            "desc":{
+                "ru":"<h1  >Лестницы к Парку</h1>",
+                "en":"<h1  >Stairways to Park</h1>",
+                "tj":"<h1  >Зинапояҳо ба Парк</h1>"
+            }
+        },{
+            "type": "video",
+            "icon":"video-m.png",
+            "color":"#2e9f9f",
+            "src": "https://player.vimeo.com/video/608466545?h=8739182c4b",
+            "orientation": "h",
+            "desc":{
+                "ru":"<h1  >Видеоклип</h1><ul><li  >Рендерер: Twinmotion</li></ul>",
+                "en":"<h1  >Movie</h1><ul><li  >Renderer: Twinmotion</li></ul>",
+                "tj":"<h1  >Навор</h1><ul><li  >Рендер-муҳаррик: Twinmotion</li></ul>"
+            }
+        }
+    ],
+    "VDNH":[
+        {
+            "type":"html",
+            "icon":"presentation-m.png",
+            "color":"#51dfdf",
+            "inner":{
+                "en":"<h1  >Reconstruction of Tajik Pavilion in VDNH</h1>   <ul>        <li  >Location: Moscow, Russian Federation</li>        <li  >As Proposal by OJSC SANIIOSP</li>        <li><span  >Main Ideas:</span><ul>            <li><span  >Preservation of Architectural Structure</span><ul>                <li  >Vertical Glazing</li>                <li  >Inner Planning</li>            </ul></li>            <li  >Introduction of Historic Tajik Architecture</li>            <li  >Joyful Appearance</li>            <li><span  >ViewPoints Specific Design</span><ul>                <li  >Front - NE</li>                <li  >Corner - Eastern</li>            </ul></li>        </ul></li>        <li><span  >Softwares:</span>            <ul>                <li>Blender</li>                <li>Revit</li>                <li>Photoshop</li>            </ul>        </li>        <li  >July 2021</li>    </ul>",
+                "ru":"<h1  >Реконструкция павильона Таджикистана на ВДНХ</h1>   <ul>        <li  >Местонахождение: Москва, Российская Федерация</li>        <li  >Эскизное предложение от ОАО НИИ САНИИОСП</li>        <li><span  >Основные идеи:</span><ul>            <li><span  >Сохранение архитектурной структуры</span><ul>                <li  >Вертикальное остекление</li>                <li  >Внутренняя планировка</li>            </ul></li>            <li  >Внедрение таджикской исторической архитектуры</li>            <li  >Красочный внешний вид</li>            <li><span  >Дизайн ориентированный на определённые точки зрения</span><ul>                <li  >Передний - СВ</li>                <li  >Угловой - Восточный</li>            </ul></li>        </ul></li>        <li><span  >Программы:</span>            <ul>                <li>Blender</li>                <li>Revit</li>                <li>Photoshop</li>            </ul>        </li>        <li  >Июль 2021</li>    </ul>",
+                "tj":"<h1  >Азнавбарқароркунии павилони Тоҷикистон дар ВДНХ</h1>   <ul>        <li  >Мавқеъ: Москва, Федерацияи Россия</li>        <li  >Лоиҳаи ангоравӣ барои ҶСК ПИЛҶ САНИИОСП</li>        <li><span  >Идеяҳои асосӣ</span><ul>            <li><span  >Нигоҳдории сохтори меъморӣ</span><ul>                <li  >Шишабандии амудӣ</li>                <li  >Тарҳи дарунӣ</li>            </ul></li>            <li  >Воридкунии Меъмории Таърихии Миллӣ</li>            <li  >Намуди зоҳирии рангин</li>            <li><span  >Дизайни вобаста аз нуқтаҳои назар</span><ul>                <li  >Пеш - ШШ</li>                <li  >Кунҷӣ - Шарқӣ</li>            </ul></li>        </ul></li>        <li><span  >Барномаҳо:</span>            <ul>                <li>Blender</li>                <li>Revit</li>                <li>Photoshop</li>            </ul>        </li>        <li  >Июли 2021</li>    </ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/vdnh/titleHR.jpg",
+            "desc":{
+                "ru":"<h1  >Вид Спереди. Зима</h1>",
+                "en":"<h1  >Cold Season Look</h1>",
+                "tj":"<h1  >Намо дар Сармо</h1>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/vdnh/ExistingFrontHR.jpg",
+            "desc":{
+                "ru":"<h1  >Вид существующего здания</h1><ul><li  >Источник: Яндекс Карты</li></ul>",
+                "en":"<h1  >Front View of Existing Building</h1><ul><li  >Source: Yandex Maps</li></ul>",
+                "tj":"<h1  >Намои бинои вуҷуддошта</h1><ul><li  >Манбаъ: Яндекс Карты</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/vdnh/DayFrontHR.jpg",
+            "desc":{
+                "ru":"<h1  >Передний Фасад. Дневной вид</h1> <ul><li  >Рендер-движок: Cycles</li></ul>",
+                "en":"<h1  >Daytime Front View</h1> <ul><li  >Render Engine: Cycles</li></ul>",
+                "tj":"<h1  >Намои пеш. Рӯзона</h1> <ul><li  >Рендер-муҳаррик: Cycles</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/vdnh/DayPerspectiveHR.jpg",
+            "desc":{
+                "ru":"<h1  >Перспектива. Дневной вид</h1> <ul><li  >Рендер-движок: Cycles</li></ul>",
+                "en":"<h1  >Daytime Perspective</h1> <ul><li  >Render Engine: Cycles</li></ul>",
+                "tj":"<h1  >Перспектива. Рӯзона</h1> <ul><li  >Рендер-муҳаррик: Cycles</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/vdnh/NightPerspectiveHR.jpg",
+            "desc":{
+                "ru":"<h1  >Перспектива. Ночной вид</h1> <ul><li  >Рендер-движок: Cycles</li></ul>",
+                "en":"<h1  >Nighttime Perspective</h1> <ul><li  >Render Engine: Cycles</li></ul>",
+                "tj":"<h1  >Перспектива. Шабона</h1> <ul><li  >Рендер-муҳаррик: Cycles</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/vdnh/DescriptionHR.jpg",
+            "desc":{
+                "ru":"<h1  >Референсы</h1> <ul>    <li><span  >Регистан</span><ul>        <li  >Самаркандский Купол</li>    </ul></li>    <li  >Мавзолей Сомонидов</li>    <li  >Мехраб, Метрополитен-Музей</li></ul>",
+                "en":"<h1  >References & Inspirations</h1> <ul>    <li><span  >Registan</span><ul>        <li  >Samarqandi Dome</li>    </ul></li>    <li  >Ismoil Somoni Maqbarah</li>    <li  >Mehrob, Metropolitan Museum</li></ul>",
+                "tj":"<h1  >Намунаҳо</h1> <ul>    <li><span  >Регистон</span><ul>        <li  >Гунбази Самарқандӣ</li>    </ul></li>    <li  >Мақбараи Исмоили Сомонӣ</li>    <li  >Меҳроб, Осорхонаи Метрополитен</li></ul>"
+            }
+        }
+    ],
+    "Park":[
+        {
+            "type":"html",
+            "icon":"presentation-m.png",
+            "color":"#51dfdf",
+            "inner":{
+                "en":"<h1  >National Park</h1>  <ul>        <li  >Proposed Location: Dushanbe, Tajikistan</li>        <li  >As Proposal by OJSC SANIIOSP</li>        <li  >!!! DISCLAIMER The Author Entrance Model (On Title Page) is <strong>Alinazarov Dovar</strong><li><span>Softwares:</span>            <ul>                <li>AutoCAD</li>                <li>[3dsMax]*</li>                <li>Blender</li>                <li>Lumion</li>                <li>Lightroom</li>            </ul>        </li>        <li  >June 2021</li>    </ul>",
+                "ru":"<h1  >Национальный парк</h1>  <ul>        <li  >Предложенное местонахождение: Душанбе, Таджикистан</li>        <li  >Эскизное предложение от ОАО НИИ САНИИОСП</li>        <li  >Дисклеймер!!! Автором модели входного здания является <strong>Алиназаров Довар</strong></li>        <li><span  >Программы:</span>            <ul>                <li>AutoCAD</li>                <li>[3dsMax]*</li>                <li>Blender</li>                <li>Lumion</li>                <li>Lightroom</li>            </ul>        </li>        <li  >Июнь 2021</li>    </ul>",
+                "tj":"<h1  >Боғи миллӣ</h1>  <ul>        <li  >Мавқеи пешбинишуда: Душанбе, Тоҷикистон</li>        <li  >Лоиҳаи ангоравӣ барои ҶСК ПИЛҶ САНИИОСП</li>        <li  >Дисклеймер: Муаллифи бинои даромад <strong>Алиназаров Довар</strong></li>        <li><span  >Боғи миллӣ</span>            <ul>                <li>AutoCAD</li>                <li>[3dsMax]*</li>                <li>Blender</li>                <li>Lumion</li>                <li>Lightroom</li>            </ul>        </li>        <li  >Июни 2021</li>    </ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/park/titleHR.jpg",
+            "desc":{
+                "ru":"<h1  >Входное Здание</h1><ul>    <li  >Идея принадлежит <strong>Алиназарову Довару</strong></li>    <li  >Модель в 3dsMax-е подготовлена <strong>Алиназаровым Доваром</strong></li>    <li><span  >Программы:</span><ul>        <li>[3dsMax]*</li>        <li>Blender</li>        <li>Lumion</li>    </ul></li></ul>",
+                "en":"<h1  >Entrance</h1><ul>    <li  >Idea by <strong>Alinazarov Dovar</strong><strong>Алиназаров Довар</stong>'  >3ds Max model by <strong>Alinazarov Dovar</strong></li>    <li><span>Softwares:</span><ul>        <li>[3dsMax]*</li>        <li>Blender</li>        <li>Lumion</li>    </ul></li></ul>",
+                "tj":"<h1  >Бинои Даромад</h1><ul>    <li  >Идея аз они <strong>Алиназаров Довар</stong><strong>Алиназарову Довару</strong>'></li>    <li  >Модели 3dsMax аз они <strong>Алиназаров Довар</strong></li>    <li><span  >Барномаҳо:</span><ul>        <li>[3dsMax]*</li>        <li>Blender</li>        <li>Lumion</li>    </ul></li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/park/2HR.jpg",
+            "desc":{
+                "ru":"<h1  >Входное Здание</h1><ul>    <li  >Идея принадлежит <strong>Алиназарову Довару</strong></li>    <li  >Модель в 3dsMax-е подготовлена <strong>Алиназаровым Доваром</strong></li>    <li><span  >Программы:</span><ul>        <li>[3dsMax]*</li>        <li>Blender</li>        <li>Lumion</li>    </ul></li></ul>",
+                "en":"<h1  >Entrance</h1><ul>    <li  >Idea by <strong>Alinazarov Dovar</strong><li>3ds Max model by <strong>Alinazarov Dovar</strong></li><li><span>Softwares:</span><ul>        <li>[3dsMax]*</li>        <li>Blender</li>        <li>Lumion</li>    </ul></li></ul>",
+                "tj":"<h1  >Бинои Даромад</h1><ul>    <li  >Идея аз они <strong>Алиназаров Довар</stong></li>    <li  >Модели 3dsMax аз они <strong>Алиназаров Довар</strong></li>    <li><span  >Барномаҳо:</span><ul>        <li>[3dsMax]*</li>        <li>Blender</li>        <li>Lumion</li>    </ul></li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/park/4HR.jpg",
+            "desc":{
+                "ru":"<h1  >Этнографическая зона Согд</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></li>    <li><span  >Техники:</span><ul>        <li  >Запекание нормалей</li>        <li  >Проецирование текстур</li>    </ul></li></ul>",
+                "en":"<h1  >Sughd Ethnic Site</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></li>    <li><span  >Techniques:</span><ul>        <li  >Normal Baking</li>        <li  >Texture Projection</li>    </ul></li></ul>",
+                "tj":"<h1  >Мавзеи этнографии Суғд</h1><ul>    <li><span  >Барномаҳо:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></li>    <li><span  >Усулҳо:</span><ul>        <li  >Пухтани нормалҳо</li>        <li  >Проексиякунии текстураҳо</li>    </ul></li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/park/5HR.jpg",
+            "desc":{
+                "ru":"<h1  >Этнографическая зона Согд</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></li>    <li><span  >Техники:</span><ul>        <li  >Запекание нормалей</li>        <li  >Проецирование текстур</li>    </ul></li></ul>",
+                "en":"<h1  >Sughd Ethnic Site</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></li>    <li><span  >Techniques:</span><ul>        <li  >Normal Baking</li>        <li  >Texture Projection</li>    </ul></li></ul>",
+                "tj":"<h1  >Мавзеи этнографии Суғд</h1><ul>    <li><span  >Барномаҳо:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></li>    <li><span  >Усулҳо:</span><ul>        <li  >Пухтани нормалҳо</li>        <li  >Проексиякунии текстураҳо</li>    </ul></li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/park/6HR.jpg",
+            "desc":{
+                "ru":"<h1  >Этнографическая зона Согд</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>",
+                "en":"<h1  >Sughd Ethnic Site</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>",
+                "tj":"<h1  >Мавзеи этнографии Суғд</h1><ul>    <li><span  >Барномаҳо:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/park/7HR.jpg",
+            "desc":{
+                "ru":"<h1  >Этнографическая зона Согд</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></li>    <li><span  >Техники:</span><ul>        <li  >Запекание нормалей</li>        <li  >Проецирование текстур</li>    </ul></li></ul>",
+                "en":"<h1  >Sughd Ethnic Site</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></li>    <li><span  >Techniques:</span><ul>        <li  >Normal Baking</li>        <li  >Texture Projection</li>    </ul></li></ul>",
+                "tj":"<h1  >Мавзеи этнографии Суғд</h1><ul>    <li><span  >Барномаҳо:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></li>    <li><span  >Усулҳо:</span><ul>        <li  >Пухтани нормалҳо</li>        <li  >Проексиякунии текстураҳо</li>    </ul></li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/park/8HR.jpg",
+            "desc":{
+                "ru":"<h1  >Арена. Вид сверху</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>",
+                "en":"<h1  >Area Site Plan</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>",
+                "tj":"<h1  >Арена. Намо аз боло</h1><ul>    <li><span  >Барномаҳо:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/park/9HR.jpg",
+            "desc":{
+                "ru":"<h1  >Арена. Перспектива</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>",
+                "en":"<h1  >Area Perspective</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>",
+                "tj":"<h1  >Арена. Перспектива</h1><ul>    <li><span  >Барномаҳо:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/park/10HR.jpg",
+            "desc":{
+                "ru":"<h1  >Детская Площадка</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>",
+                "en":"<h1  >Children Playground</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>",
+                "tj":"<h1  >Майдончаи кӯдакона</h1><ul>    <li><span  >Барномаҳо:</span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/projects/park/13HR.jpg",
+            "desc":{
+                "ru":"<h1  >Прибережние домики</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>    <li>Photoshop</li>    </ul></ul>",
+                "en":"<h1  >Riverside Houses</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>    <li>Photoshop</li>    </ul></ul>",
+                "tj":"<h1  >Хоначаҳои лаби дарё</h1><ul>    <li><span  >Барномаҳо:</span><ul>        <li>Blender</li>        <li>Lumion</li>    <li>Photoshop</li>    </ul></ul>"
+            }
+        },{
+            "type": "video",
+            "icon":"video-m.png",
+            "color":"#2e9f9f",
+            "src": "https://player.vimeo.com/video/608038972?h=8739182c4b",
+            "orientation": "h",
+            "desc":{
+                "ru":"<h1  >Видеоклип</h1><ul>    <li><span  >Программы:</span><ul>        <li>Blender</li>        <li>Lumion</li>  </ul></ul>",
+                "en":"<h1  >Movie</h1><ul>    <li><span  >Softwares:</span><ul>        <li>Blender</li>        <li>Lumion</li>  </ul></ul>",
+                "tj":"<h1  >Навор</h1><ul>    <li><span  >Барномаҳо:</span><ul>        <li>Blender</li>        <li>Lumion</li>  </ul></ul>"
             }
         }
     ],
     "Assets":[
         {
             "type":"html",
-            "icon":"projects/assets/assets.png",
-            "color":"#a6a6ff",
+            "icon":"presentation-m.png",
+            "color":"#51dfdf",
             "inner":{
-                "en":"<h1>Assets</h1><div class='softwares'><div style='background-image: url(&quot;projects/home/skills/icons/blender.png&quot;);border-color: #e8873b;background-size: 113%;background-position: -3px -3px;background-color: #f7f4e5;'></div><div style='background-image: url(&quot;projects/home/skills/icons/spainter.png&quot;);border-color: #e22c3a;background-size: 107%;background-position: -2px -2px;background-color: #fff9f9;'></div><div style='background-image: url(&quot;projects/home/skills/icons/mdesigner.png&quot;);border-color: #f9c236;background-size: 104%;background-position: 0px -1px;background-color: #242424;'></div></div><div class='tep projectInfo'><p>In this section some 3d assets are shown, through which I've been testing some workflows such as PBR, Cloth Simulations</p></div><p class='timeCreated'>- 2020</p>",
-                "ru":"<h1>Станция технического обслуживания автомобилей</h1><div class='softwares'><div style='background-image: url(&quot;projects/home/skills/icons/revit.png&quot;);border-color: #04174c;background-size: 113%;background-position: -3px -3px;background-color: #e9f4ff;'></div><div style='background-image: url(&quot;projects/home/skills/icons/autocad.png&quot;);border-color: #e54145;background-size: 111%;background-position: -1px 1px;background-color: #fafafa;'></div><div style='background-image: url(&quot;projects/home/skills/icons/photoshop.png&quot;);border-color: #3bcbf6;background-size: 110%;background-position: center;'></div></div><ul class='tep'><li>Площадь: --- м2</li><li>Объем: --- м3</li><li>Машин: 50 ед</li></ul><p class='timeCreated'>- 2020</p>"
+                "en":"<h1 >Assets</h1><ul>    <li><span >Pot (Project: Sarazm)</span><ul>        <li><a target='_blank' href='https://drive.google.com/file/d/1mLv9LGqWv-TPN9X9xbcYBwXXxUe36oJw/view?usp=sharing' >SourceFile</a></li>    </ul></li>    <li >Tajik National Clothing</li>    <li><span >Tajik National Toqis</span><ul>        <li><a target='_blank' href='https://drive.google.com/file/d/1SPLcHms8B_lYsdGYY8U11bK9VU99b7vp/view?usp=sharing' >SourceFile</a></li>    </ul></li>    <li >Bowling Scene</li>    <li><span >Spoon</span><ul>        <li><a target='_blank' href='https://drive.google.com/file/d/1iOCd6F2clCxNIcPtobFzXvaRQfHlngz2/view?usp=sharing' >SourceFile</a></li>    </ul></li>    <li><span >Knife</span><ul>        <li><a target='_blank' href='https://drive.google.com/file/d/1d5UP9hi0M1n363Tbs69PPuUVWiNPJ-sR/view?usp=sharing' >SourceFile</a></li>    </ul></li></ul><p >Software: Blender</p>",
+                "ru":"<h1 >Ассеты</h1><ul>    <li><span >Кувшин (Проект: Саразм)</span><ul>        <li><a target='_blank' href='https://drive.google.com/file/d/1mLv9LGqWv-TPN9X9xbcYBwXXxUe36oJw/view?usp=sharing' >Исходный Файл</a></li>    </ul></li>    <li >Таджикская Национальная Одежда</li>    <li><span >Таджикские Национальные Тюбетейки</span><ul>        <li><a target='_blank' href='https://drive.google.com/file/d/1SPLcHms8B_lYsdGYY8U11bK9VU99b7vp/view?usp=sharing' >Исходный Файл</a></li>    </ul></li>    <li >Боулинг</li>    <li><span >Ложка</span><ul>        <li><a target='_blank' href='https://drive.google.com/file/d/1iOCd6F2clCxNIcPtobFzXvaRQfHlngz2/view?usp=sharing' >Исходный Файл</a></li>    </ul></li>    <li><span >Нож</span><ul>        <li><a target='_blank' href='https://drive.google.com/file/d/1d5UP9hi0M1n363Tbs69PPuUVWiNPJ-sR/view?usp=sharing' >Исходный Файл</a></li>    </ul></li></ul><p >Программа: Blender</p>",
+                "tj":"<h1 >Ассетҳо</h1><ul>    <li><span >Кӯза (Барнома: Саразм)</span><ul>        <li><a target='_blank' href='https://drive.google.com/file/d/1mLv9LGqWv-TPN9X9xbcYBwXXxUe36oJw/view?usp=sharing' >МанбаъФайл</a></li>    </ul></li>    <li >Либоси Миллии Тоҷикӣ</li>    <li><span >Кӯлоҳҳои Миллии Тоҷикӣ</span><ul>        <li><a target='_blank' href='https://drive.google.com/file/d/1SPLcHms8B_lYsdGYY8U11bK9VU99b7vp/view?usp=sharing' >МанбаъФайл</a></li>    </ul></li>    <li >Боулинг</li>    <li><span >Қошуқ</span><ul>        <li><a target='_blank' href='https://drive.google.com/file/d/1iOCd6F2clCxNIcPtobFzXvaRQfHlngz2/view?usp=sharing' >МанбаъФайл</a></li>    </ul></li>    <li><span >Корд</span><ul>        <li><a target='_blank' href='https://drive.google.com/file/d/1d5UP9hi0M1n363Tbs69PPuUVWiNPJ-sR/view?usp=sharing' >МанбаъФайл</a></li>    </ul></li></ul><p >Барнома: Blender</p>"
             }
         },{
             "type": "image",
-            "icon":"graphics/rendering.png",
-            "color":"#7373d7",
-            "image": "projects/assets/sarazm_pot.jpg",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/assets/titleHR.jpg",
             "desc":{
-                "ru":"<h2>Древний Сосуд</h2><ul><li>Моделирование в Blender</li><li>Текстуры в SubstancePainter</li><li>Рендер движок: Cycles</li></ul><p>Подготовлен для проекта по виртуальноё реконструкции древнего прото-города Саразм</p>",
-                "en":"<h2>Ancient Pottery</h2><ul><li>Sculpted in Blender</li><li>Textured in SubstancePainter</li><li>RenderEngine: Cycles</li></ul><p>Made for project for Virtual Reconstructioin of Ancient Proto-urban site of Sarazm</p>"
+                "ru":"<h1 >Нож</h1><ul> <li >Рендер Движок: EEVEE</li><li><a target='_blank' href='https://drive.google.com/file/d/1d5UP9hi0M1n363Tbs69PPuUVWiNPJ-sR/view?usp=sharing' >Исходный Файл</a></li></ul>",
+                "en":"<h1 >Knife</h1><ul> <li >Render Engine: EEVEE</li><li><a target='_blank' href='https://drive.google.com/file/d/1d5UP9hi0M1n363Tbs69PPuUVWiNPJ-sR/view?usp=sharing' >SourceFile</a></li></ul>",
+                "tj":"<h1 >Корд</h1><ul> <li >Рендер Муҳаррик: EEVEE</li><li><a target='_blank' href='https://drive.google.com/file/d/1d5UP9hi0M1n363Tbs69PPuUVWiNPJ-sR/view?usp=sharing' >МанбаъФайл</a></li></ul>"
             }
         },{
             "type": "image",
-            "icon":"graphics/rendering.png",
-            "color":"#7373d7",
-            "image": "projects/assets/bowlingPins.jpg",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/assets/GirlAtlasHR.jpg",
             "desc":{
-                "ru":"<h2>Боулинг</h2><ul><li>Сцена выполнена в Blender-е</li><li>Рендер движок: Cycles</li></ul>",
-                "en":"<h2>Bowling</h2><ul><li>Scene is done in Blender</li><li>RenderEngine: Cycles</li></ul>"
+                "ru":"<h1 >Национальное платье Атлас</h1><ul>    <li >Рендер Движок: Cycles</li>    <li >Модель девушки из Marvelous Designer</li></ul>",
+                "en":"<h1 >National Atlas Dress</h1><ul>    <li >Render Engine: Cycles</li>    <li >Girl Model from Marvelous Designer</li></ul>",
+                "tj":"<h1 >Куртаи Миллии Атлас</h1><ul>    <li >Рендер Муҳаррик: Cycles</li>    <li >Модели духтар аз Marvelous Designer</li></ul>"
             }
         },{
             "type": "image",
-            "icon":"graphics/rendering.png",
-            "color":"#7373d7",
-            "image": "projects/sto/img.jpg",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/assets/GuyJomaChortarkHR.jpg",
             "desc":{
-                "ru":"<p>Здесь было описание</p>",
-                "en":"<p>Here goes some desc</p>"
+                "ru":"<h1 >Национальный костюм Чаппан</h1><ul>    <li >Рендер Движок: Cycles</li>    <li >Модель мальчика из Marvelous Designer</li></ul>",
+                "en":"<h1 >National Chappan Dress</h1><ul>    <li >Render Engine: Cycles</li>    <li >Boy Model from Marvelous Designer</li></ul>",
+                "tj":"<h1 >Чаппани Миллӣ</h1><ul>    <li >Рендер Муҳаррик: Cycles</li>    <li >Модели писар аз Marvelous Designer</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/assets/toqisHR.jpg",
+            "desc":{
+                "ru":"<h1 >Таджикские Национальные Тюбетейки</h1><ul> <li >Рендер Движок: Cycles</li><li><a target='_blank' href='https://drive.google.com/file/d/1SPLcHms8B_lYsdGYY8U11bK9VU99b7vp/view?usp=sharing' >Исходный Файл</a></li></ul>",
+                "en":"<h1 >Tajik National Toqis</h1><ul> <li >Render Engine: Cycles</li><li><a target='_blank' href='https://drive.google.com/file/d/1SPLcHms8B_lYsdGYY8U11bK9VU99b7vp/view?usp=sharing' >SourceFile</a></li></ul>",
+                "tj":"<h1 >Кӯлоҳҳои Миллии Тоҷикӣ</h1><ul> <li >Рендер Муҳаррик: Cycles</li><li><a target='_blank' href='https://drive.google.com/file/d/1SPLcHms8B_lYsdGYY8U11bK9VU99b7vp/view?usp=sharing' >МанбаъФайл</a></li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/assets/bowlingHR.jpg",
+            "desc":{
+                "ru":"<h1 >Боулинг</h1><ul> <li >Рендер Движок: Cycles</li></ul>",
+                "en":"<h1 >Bowling Scene</h1><ul> <li >Render Engine: Cycles</li></ul>",
+                "tj":"<h1 >Боулинг</h1><ul> <li >Рендер Муҳаррик: Cycles</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/assets/lojkaHR.jpg",
+            "desc":{
+                "ru":"<h1 >Ложка</h1><ul> <li >Рендер Движок: EEVEE</li><li><a target='_blank' href='https://drive.google.com/file/d/1iOCd6F2clCxNIcPtobFzXvaRQfHlngz2/view?usp=sharing' >Исходный Файл</a></li></ul>",
+                "en":"<h1 >Spoon</h1><ul> <li >Render Engine: EEVEE</li><li><a target='_blank' href='https://drive.google.com/file/d/1iOCd6F2clCxNIcPtobFzXvaRQfHlngz2/view?usp=sharing' >SourceFile</a></li></ul>",
+                "tj":"<h1 >Қошуқ</h1><ul> <li >Рендер Муҳаррик: EEVEE</li><li><a target='_blank' href='https://drive.google.com/file/d/1iOCd6F2clCxNIcPtobFzXvaRQfHlngz2/view?usp=sharing' >МанбаъФайл</a></li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/assets/knifeHR.jpg",
+            "desc":{
+                "ru":"<h1 >Нож</h1><ul> <li >Рендер Движок: EEVEE</li><li><a target='_blank' href='https://drive.google.com/file/d/1d5UP9hi0M1n363Tbs69PPuUVWiNPJ-sR/view?usp=sharing' >Исходный Файл</a></li></ul>",
+                "en":"<h1 >Knife</h1><ul> <li >Render Engine: EEVEE</li><li><a target='_blank' href='https://drive.google.com/file/d/1d5UP9hi0M1n363Tbs69PPuUVWiNPJ-sR/view?usp=sharing' >SourceFile</a></li></ul>",
+                "tj":"<h1 >Корд</h1><ul> <li >Рендер Муҳаррик: EEVEE</li><li><a target='_blank' href='https://drive.google.com/file/d/1d5UP9hi0M1n363Tbs69PPuUVWiNPJ-sR/view?usp=sharing' >МанбаъФайл</a></li></ul>"
+            }
+        }
+    ],
+    "Drawings":[
+        {
+            "type":"html",
+            "icon":"presentation-m.png",
+            "color":"#51dfdf",
+            "inner":{
+                "en":"<h1 >Drawings</h1><p style='font-style:italic; line-height: 200%' >Every time I have a drawing instrument on my hand, at some point I just start drawing faces. I do not pay it enough attention, neither am much interested, but still keep doing it mechanically. This lets me rest a bit, but does not seem to be much productive in terms of improvements. As a result, all my drawings are very static and similar. Nonetheless I thought it would be nice to share some of those.</p><ul><li><span >For drawing I use:</span><ul>    <li>Sketchbook Pro</li>    <li>Krita</li>    <li>WriteApp by StylusLabs</li></ul></li></ul>",
+                "ru":"<h1 >Рисунки</h1><p style='font-style:italic; line-height: 200%' >Каждый раз когда я беру в руках какой-нибудь инструмент для рисования, в какой-то момент я начинаю просто рисовать лица. Я этому не обращаю много внимания, не проявляю и большого интереса, но тем не менее продолжаю делать это механически. Это мне позволяет немножко отдыхать или отвлечься, но оно, кажется, не столь продуктивно в плане улучшения навыков. В результате, все мои рисунки очень статичны и однообразны. Не смотря на это я подумал что было бы хорошо поделиться некоторыми из них.</p><ul><li><span >Для рисования я использую:</span><ul>    <li>Sketchbook Pro</li>    <li>Krita</li>    <li>WriteApp by StylusLabs</li></ul></li></ul>",
+                "tj":"<h1 >Расмҳо</h1><p style='font-style:italic; line-height: 200%' >Ҳар маротибае, ки ман ба даст ягон олоти расмкашӣ гирам, дар нуктае огоҳ мешавам, ки ман акси инсонеро кашида истодаам. Ман ба он бисёр аҳамият намедиҳам, на хоҳиши зиёде барои ташаккули он дорам, вале новобаста аз ин, онро ба таври механикӣ давом медиҳам. Ман аз он каме роҳат мебарам, вале он, монанде, барои ташаккули  маҳоратҳоям ҳеҷ саҳме намегузорад. Дар натиҷа расмҳоям беҳаракат ва монанд метобанд. Ба ин нигоҳ накарда, гумон мебарам, ки бад нахоҳад шуд агар баъзеи онҳоро пешкаши тамошо намоям.</p><ul><li><span >Барои расмкашӣ ман аз барномаҳои зерин истифода мебарам:</span><ul>    <li>Sketchbook Pro</li>    <li>Krita</li>    <li>WriteApp by StylusLabs</li></ul></li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/drawings/titleHRmobile.jpg",
+            "desc":{
+                "ru":"<h1 >мм-Да!</h1>",
+                "en":"<h1 >oh, Boy!</h1>",
+                "tj":"<h1 >вай, Бачча!</h1>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/drawings/5HRmobile.jpg",
+            "desc":{
+                "ru":"<h1 >мм-Да!</h1>",
+                "en":"<h1 >oh, Boy!</h1>",
+                "tj":"<h1 >вай, Бачча!</h1>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/drawings/4HRmobile.jpg",
+            "desc":{
+                "ru":"<h1 >та Девушка</h1>",
+                "en":"<h1 >that Girl</h1>",
+                "tj":"<h1 >ҳамон Духтар</h1>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/drawings/3HRmobile.jpg",
+            "desc":{
+                "ru":"<h1 >Рабтия</h1>",
+                "en":"<h1 >Rabtia</h1>",
+                "tj":"<h1 >Рабтия</h1>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/drawings/2HRmobile.jpg",
+            "desc":{
+                "ru":"<h1 >Вазира</h1>",
+                "en":"<h1 >Vazira</h1>",
+                "tj":"<h1 >Вазира</h1>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/drawings/1HRmobile.jpg",
+            "desc":{
+                "ru":"<h1 >Шукрона</h1>",
+                "en":"<h1 >Shukrona</h1>",
+                "tj":"<h1 >Шукрона</h1>"
+            }
+        }
+    ],
+    "Sketches":[
+        {
+            "type":"html",
+            "icon":"presentation-m.png",
+            "color":"#51dfdf",
+            "inner":{
+                "en":"<h1 >Sketches & Concepts</h1><ul>    <li><span >Softwares:</span><ul><li>Blender</li></ul></li>    <li><span >Title Page</span><ul>        <li >Concept for Vertical Farms on Tajikistan Mountainous Reliefs</li>        <li >August 2020</li>    </ul></li></ul>",
+                "ru":"<h1 >Скетчи и Концепты</h1><ul>    <li><span >Программы:</span><ul><li>Blender</li></ul></li>    <li><span >Титульный Лист</span><ul>        <li >Концепт Вертикальных Ферм на Таджикском Горном Рельефе</li>        <li >Август 2020</li>    </ul></li></ul>",
+                "tj":"<h1 >Скетчҳо ва Консептҳо</h1><ul>    <li><span >Барномаҳо:</span><ul><li>Blender</li></ul></li>    <li><span >Сарлавҳа</span><ul>        <li >Консепти Фермаҳои Амудӣ барои релефи кӯҳии Тоҷикистон</li>        <li >Август 2020</li>    </ul></li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/sketches/titleHR.jpg",
+            "desc":{
+                "ru":"<h1 >Скетч Большого ТРК</h1><ul><li >Декабрь 2020</li></ul>",
+                "en":"<h1 >Super Big Mall Sketch</h1><ul><li >December 2020</li></ul>",
+                "tj":"<h1 >Скетч барои ТРК</h1><ul><li >Декабр 2020</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/sketches/4HR.jpg",
+            "desc":{
+                "ru":"<h1 >Скетч Большого ТРК</h1><ul><li >Декабрь 2020</li></ul>",
+                "en":"<h1 >Super Big Mall Sketch</h1><ul><li >December 2020</li></ul>",
+                "tj":"<h1 >Скетч барои ТРК</h1><ul><li >Декабр 2020</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/sketches/3HR.jpg",
+            "desc":{
+                "ru":"<h1 >Скетч Большого ТРК</h1><ul><li >Декабрь 2020</li></ul>",
+                "en":"<h1 >Super Big Mall Sketch</h1><ul><li >December 2020</li></ul>",
+                "tj":"<h1 >Скетч барои ТРК</h1><ul><li >Декабр 2020</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/sketches/2HR.jpg",
+            "desc":{
+                "ru":"<h1 >Скетч Большого ТРК</h1><ul><li >Январь 2021</li></ul>",
+                "en":"<h1 >Super Big Mall Sketch</h1><ul><li >January 2021</li></ul>",
+                "tj":"<h1 >Скетч барои ТРК</h1><ul><li >Январ 2021</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/sketches/1HR.jpg",
+            "desc":{
+                "ru":"<h1 >Скетч Большого ТРК</h1><ul><li >Январь 2021</li></ul>",
+                "en":"<h1 >Super Big Mall Sketch</h1><ul><li >January 2021</li></ul>",
+                "tj":"<h1 >Скетч барои ТРК</h1><ul><li >Январ 2021</li></ul>"
+            }
+        },{
+            "type": "image",
+            "icon":"image-m.png",
+            "color":"#2e9f9f",
+            "image": "/pc/more/sketches/5HR.jpg",
+            "desc":{
+                "ru":"<h1 >Визуализация Водопада</h1><ul><li >Июнь 2021</li></ul>",
+                "en":"<h1 >Waterfall Viz</h1><ul><li >June 2021</li></ul>",
+                "tj":"<h1 >Визуализатсияи Шаршара</h1><ul><li >Июн 2021</li></ul>"
+            }
+        },{
+            "type": "video",
+            "icon":"video-m.png",
+            "color":"#2e9f9f",
+            "src": "https://player.vimeo.com/video/609963596?h=8739182c4b",
+            "orientation": "h",
+            "desc":{
+                "ru":"<h1 >Визуализация Водопада</h1><ul><li >Июнь 2021</li></ul>",
+                "en":"<h1 >Waterfall Viz</h1><ul><li >June 2021</li></ul>",
+                "tj":"<h1 >Визуализатсияи Шаршара</h1><ul><li >Июн 2021</li></ul>"
             }
         }
     ]

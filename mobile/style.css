@@ -218,20 +218,25 @@
 }
 #more_cont{
     position: absolute;
-    right: 0;
-    bottom: 0;
+    right: 50%;
+    bottom: 25px;
     z-index: 1;
 }
 #more{
-    background-image: url('info.png');
-    background-size: contain;
-    background-color: #7C92E5;
+    mask-image: url('icons/chevron-up-m.png');
+    mask-size: contain;
+    -webkit-mask-image: url('icons/chevron-up-m.png');
+    -webkit-mask-size: contain;
+    background-color: aliceblue;
     position: fixed;
-    transform: translate(calc(-60px + 50%),calc(-60px + 50%));
+    transform: translate(-50%,0);
     width: 25px;
     height: 25px;
-    border-radius: 50%;
-    border: 2px solid #8d868e;
+    transition: background-color .7s, transform .7s;
+}
+#more.more_open{
+    background-color:rgb(100, 100, 100);
+    transform: translate(-50%,0) rotate(180deg);
 }
 #desc_cont{
     position: absolute;
