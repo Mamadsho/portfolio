@@ -198,6 +198,7 @@
     height: 100%;
     overflow: scroll;
     transition: filter .3s, transform .3s;
+    touch-action: pinch-zoom;
 }
 #vid_cont{
     position: absolute;
