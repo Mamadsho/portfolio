@@ -1,6 +1,12 @@
 function lazyLoad(pr,pg){ //   pr -> Project;   pg -> Page
     let vp=document.querySelector('#vp');
     page=data[pr][pg]
+
+    if (vp.querySelector('.image_viewer')){
+        console.log('cancelling image load: ', vp.querySelector('.image_viewer').src )
+        vp.querySelector('.image_viewer').src='';
+    }
+
     if(page['type']=='html'){
         let container=document.createElement('div');
         container.classList.add('html_container');
