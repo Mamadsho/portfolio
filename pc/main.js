@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     },2000)// Time for loading and More
 })
 
+// activates all elements of the page
 function lets_go(){
     activate_headers();
     activate_pages();
@@ -21,6 +22,7 @@ function lets_go(){
     activate_lang_toggle();
 }
 
+// set up click eventListeners
 function activate_headers(){
     document.querySelectorAll('.header_item').forEach((header)=>{
         header.addEventListener('click',open_pages_header)
@@ -30,11 +32,14 @@ function activate_headers(){
     })
 }
 
+// open pages via header
 function open_pages_header (e) {
     header = this;
     let pages = document.querySelector(header.dataset.relatedPages);
     open_pages(pages, header);
 }
+
+// open pages via pages viewport
 function open_pages_pages (e){
     if (!e.target.classList.contains('active_pages')&&e.target.classList.contains('pages')){;
         let pages = this;
@@ -42,12 +47,16 @@ function open_pages_pages (e){
         open_pages(pages, header);
     }
 }
+
+// open pages main function
 function open_pages(pages,header){
     document.querySelectorAll('.header_item').forEach((h)=>{
         h.classList.remove('active_header')
     })
     header.classList.add('active_header')
     document.querySelector('.vp').style.left=header.dataset.position;
+      //header contains position as dataset
+
     document.querySelectorAll('.pages').forEach((h)=>{
         h.classList.remove('active_pages')
     })
@@ -60,8 +69,8 @@ function activate_pages(){
         pages_cont.addEventListener('click', open_pages_pages);
         pages_cont.addEventListener('wheel', wheel_listener);
         pages_cont.addEventListener('click', click_listener);
-        document.addEventListener('keydown',enter_project);// not necessarily here, but...
     });
+    document.addEventListener('keydown',enter_project);// not necessarily here, but...
 };
 function enter_project(e){
     this.removeEventListener('keydown',enter_project);
@@ -145,7 +154,7 @@ async function move_page_by_dot(e){
     const a = [...dots.children].indexOf(active_dot);
     for (let step = 0; step < Math.abs(n-a); step++) {
         if(n-a>0){
-            
+
             next_page(pages);
             await new Promise(r => setTimeout(r,150));
             // next_dot(pages); moved inside next_page
@@ -154,7 +163,7 @@ async function move_page_by_dot(e){
             await new Promise(r => setTimeout(r, 150));
             // prev_dot(pages); moved inside prev_page
         }
-        
+
     }
     for (el of dots.children){
         el.addEventListener('click', move_page_by_dot)
@@ -171,7 +180,7 @@ async function move_p_page_by_dot(e){
     const a = [...dots.children].indexOf(active_dot);
     for (let step = 0; step < Math.abs(n-a); step++) {
         if(n-a>0){
-            
+
             next_p_page(pages);
             await new Promise(r => setTimeout(r,150));
             // next_dot(pages); moved inside next_page
@@ -180,7 +189,7 @@ async function move_p_page_by_dot(e){
             await new Promise(r => setTimeout(r, 150));
             // prev_dot(pages); moved inside prev_page
         }
-        
+
     }
     dots.querySelectorAll('.active_dot .dot').forEach((dot)=>{
         dot.addEventListener('click',move_p_page_by_dot);
@@ -205,7 +214,7 @@ async function move_to_first_p_page(callback){
     const a = [...dots.children].indexOf(active_dot);
     for (let step = 0; step < Math.abs(n-a); step++) {
         if(n-a>0){
-            
+
             next_p_page(pages);
             await new Promise(r => setTimeout(r,150));
             // next_dot(pages); moved inside next_page
@@ -214,7 +223,7 @@ async function move_to_first_p_page(callback){
             await new Promise(r => setTimeout(r, 150));
             // prev_dot(pages); moved inside prev_page
         }
-        
+
     }
 
     // bringing back listeners that were remove earliar in function
@@ -225,7 +234,7 @@ async function move_to_first_p_page(callback){
         document.querySelectorAll('.pages').forEach((pages_cont)=>{
             pages_cont.addEventListener('wheel', wheel_listener);
             pages_cont.addEventListener('click', click_listener);
-            
+
         });
         document.addEventListener('keydown',move_by_arrows);
     },350)
@@ -276,7 +285,7 @@ function open_project(project){
     })
 
     document.addEventListener('keydown', esc); //close project
-    
+
     document.addEventListener('keydown', space) // show description
 
     document.querySelectorAll('.pages').forEach((p)=>{
@@ -315,13 +324,13 @@ function open_project(project){
             dot.classList.add('html_dot')
         }
     };
-        
+
     let dots = active_pages.querySelector('.dots');
     setTimeout(()=>{
         active_pages.classList.add('open');
         dots.classList.add('open');
     },10);
-    
+
     //make first subdot active
     setTimeout(()=>{
         if(active_dot.parentElement.classList.contains('open')){ //project could be closed before timeout of 600
@@ -359,14 +368,14 @@ function close_project(){
     header.classList.remove('open');
 
     move_to_first_p_page(()=>{
-            
+
         active_pages.classList.remove('open');
 
         let dots = active_pages.querySelector('.dots');
         dots.classList.remove('open');
 
         document.removeEventListener('keydown', esc);
-        
+
         document.removeEventListener('keydown', space);
 
         setTimeout(()=>{
@@ -385,7 +394,7 @@ function close_project(){
         })
 
 
-        let active_dot =active_pages.querySelector('.active_dot'); 
+        let active_dot =active_pages.querySelector('.active_dot');
         let removees = [...active_dot.children];
         for (dot of removees){
             dot.remove();
@@ -405,25 +414,25 @@ function create_p_pages(project){
     let l2 = active_pages.insertBefore(new_page(), project);
     l2.dataset.p_index = f(-2, pr_length)+1;
     l2.classList.add('left2','z2','p_page');
-    
+
 
     let l1 = active_pages.insertBefore(new_page(), project);
     l1.dataset.p_index = f(-1, pr_length)+1;
     l1.classList.add('left1','z3', 'p_page');
-    
+
 
     project.classList.add('p_page')
-    
+
 
     let r1 = active_pages.insertBefore(new_page(),project.nextElementSibling);
     r1.dataset.p_index = f(1, pr_length)+1;
     r1.classList.add('right1','z3','p_page');
-    
+
 
     let r2 = active_pages.insertBefore(new_page(),project.nextElementSibling);
     r2.dataset.p_index = f(2, pr_length)+1;
     r2.classList.add('right2','z2','p_page');
-    
+
 
     for (el of [l2,l1,r1,r2]){
         let tmp = el;
@@ -433,9 +442,9 @@ function create_p_pages(project){
         setTimeout(()=>{
             tmp.style.left = null;
             tmp.style.right = null;
-            
+
         }, 100)
-        
+
     }
     for (el of [l2,l1,r1,r2]){
         fill_page(el);
@@ -607,11 +616,11 @@ function prev_file(pages){
         bg.style.backgroundImage = 'url(' + bgImg.src + ')';
     };
     try {
-        bgImg.src = data[active_pages.dataset.relatedData][r1.dataset.index][1]['high_res'];    
+        bgImg.src = data[active_pages.dataset.relatedData][r1.dataset.index][1]['high_res'];
     } catch {
         console.log('hello, error!')
     }
-    
+
 
     prev_dot(pages);
 
@@ -724,7 +733,7 @@ function toggle_lang(e){
         });
         langbox.querySelector('#'+lang).parentElement.classList.add('active_option');
 
-    }    
+    }
 
     setTimeout(()=>{
         header_lang(lang);
