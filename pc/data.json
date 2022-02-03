@@ -1,126 +1,57 @@
 {
-    "Profile":{   
+    "Profile":{
     },
     "Projects":[
-        [{"ru":"Арена", "en":"Arena","tj":"Варзишгоҳ"},
-            {
-                "type":"title",
-                "low_res":"projects/arena/titleLR.jpg",
-                "high_res":"projects/arena/titleHR.jpg"
-            },{
-                "type":"video",
-                "src":"https://player.vimeo.com/video/597929589?h=8739182c4b",
-                "desc" : "<h1 class='langy' data-ru='<span style=\"display: inline-block\">Парамет</span><span style=\"display:inline-block\">рический</span> Фасад' data-tj='Намои <span style=\"display: inline-block\">парамет</span><span style=\"display: inline-block\">рикӣ</span>' data-en='Parametric Facade'></h1><p class='langy' data-ru='<ul><li>Программа: Blender</li><li>Техники: <ul><li>Шейдер-ноды</li><li>Процедурные Текстуры</li><li>Рисование текстур</li></ul></li> <li>Рендер-движок: EEVEE</li></ul>'data-tj='<ul><li>Барнома: Blender</li><li>Усул: <ul><li>Шейдер-нодҳо</li><li>Текстураҳои ҷараёнӣ</li><li>Рангкунии текстураҳо</li></ul></li> <li>Рендер-муҳаррик: EEVEE</li></ul>'data-en='<ul><li>Software: Blender</li><li>Techniques: <ul><li>Shader-nodes</li><li>Procedural Textures</li><li>Texture Painting</li></ul></li> <li>Render-engine: EEVEE</li></ul>'></p>"
-            },{
-                "type":"image",
-                "low_res":"projects/arena/1LR.jpg",
-                "high_res":"projects/arena/1HR.jpg",
-                "desc" : "<h1 class='langy' data-ru='CВ Фасад' data-en='NE Facade' data-tj='Намои ШШ'></h1>             <ul><li class='langy' data-tj='Барнома: Blender' data-ru='Программа: Blender' data-en='Software: Blender'></li><li class='langy' data-tj='Рендер-муҳаррик: Cycles' data-ru='Рендер-движок: Cycles' data-en='Render Engine: Cycles'></li></ul>"
-            },{
-                "type":"image",
-                "low_res":"projects/arena/2LR.jpg",
-                "high_res":"projects/arena/2HR.jpg",
-                "desc" : "<h1 class='langy' data-ru='Восточный Фасад' data-tj='Намои Шарқӣ' data-en='Eastern Facade'></h1><ul><li class='langy' data-tj='Барнома: Blender' data-ru='Программа: Blender' data-en='Software: Blender'></li><li class='langy' data-tj='Рендер-муҳаррик: Cycles' data-ru='Рендер-движок: Cycles' data-en='Render Engine: Cycles'></li></ul>"
-            },{
-                "type":"image",
-                "low_res":"projects/arena/3LR.jpg",
-                "high_res":"projects/arena/3HR.jpg",
-                "desc" : "<h1 class='langy' data-en='Sketch' data-ru='Скетч' data-tj='Скетч'></h1><ul><li class='langy' data-en='Software: Krita' data-ru='Программа: Krita' data-tj='Барнома: Krita'></li></ul>"
-            },{
-                "type":"html",
-                "inner":"<h1 class='langy' data-en='Tennis Stadium' data-ru='Теннисный Комплекс' data-tj='Қасри Теннис'></h1><ul><li class='langy' data-en='Location: Dushanbe, Tajikistan' data-ru='Местонахождение: Душанбе, Таджикистан' data-tj='Мавқеъ: Душанбе, Тоҷикистон' ></li><li class='langy' data-en='Student Project' data-ru='Студенческий Проект' data-tj='Лоиҳаи донишҷӯ'></li><li><span class='langy' data-en='Softwares:' data-ru='Программы:' data-tj='Барномаҳо:'></span><ul> <li>Blender</li> <li>Revit</li></ul></li><li class='langy' data-en='June 2021' data-ru='Июль 2021' data-tj='Июли 2021'></li></ul>"
-            }
-        ],
-        [{"ru":"ТРК", "en":"Mall","tj":"ТРК"},
-            {
-                "type":"title",
-                "low_res":"projects/mall/titleLR.jpg",
-                "high_res":"projects/mall/titleHR.jpg"
-            },{
-                "type":"image",
-                "low_res":"projects/mall/SPLR.jpg",
-                "high_res":"projects/mall/SPHR.jpg",
-                "desc":"<h1 class='langy' data-en='Site Plan. Legend' data-ru='ГенПлан' data-tj='Нақшаи Генералӣ'></h1><ol>    <li class='langy' data-en='Trade Mall' data-ru='Торговый Комплекс' data-tj='Маркази Савдо'></li>    <li class='langy' data-en='Parking' data-ru='Парковки' data-tj='Парковкаҳо'></li>    <li class='langy' data-en='Electronics' data-ru='Электроника и бытовая техника' data-tj='Электроника'></li>    <li class='langy' data-en='Construction Materials' data-ru='Строительный блок' data-tj='Масолеҳи сохтмон'></li>    <li class='langy' data-en='Vegetables' data-ru='Овощи и Зелень' data-tj='Сабзавот ва гиёҳҳо'></li>    <li class='langy' data-en='Refrigerators' data-ru='Ягоды и фрукты' data-tj='Меваҳо'></li>    <li class='langy' data-en='Manufacturing Facility' data-ru='Холодильник' data-tj='Яхдонҳо'></li>    <li class='langy' data-en='Fire Service' data-ru='Производственные цеха' data-tj='Сехҳои истеҳсолотӣ'></li>    <li class='langy' data-en='First Aid Post' data-ru='Медпункт' data-tj='Бунгоҳи Тиббӣ'></li>    <li class='langy' data-en='Residential' data-ru='Жилой Комплекс' data-tj='Хонаҳои Истикоматӣ'></li></ol>"
-            },{
-                "type":"image",
-                "low_res":"projects/mall/FFLR.jpg",
-                "high_res":"projects/mall/FFHR.jpg",
-                "desc":"<h1 class='langy' data-en='Front Facade' data-ru='Передний Фасад' data-tj='Намо аз Пеш'></h1>"
-            },{
-                "type":"video",
-                "src":"https://player.vimeo.com/video/604150284",
-                "desc":"<h1 class='langy' data-en='Movie' data-ru='Видеоклип' data-tj='Навор'></h1><ul><li class='langy' data-en='Renderer: Twinmotion' data-ru='Рендерер: Twinmotion' data-tj='Рендер-муҳаррик: Twinmotion'></li></ul>"
-            },{
-                "type":"html",
-                "inner":"<h1 class='langy' data-ru='Визуализация ТРК' data-tj='Визуализатсияи ТРК' data-en='Mall Visualization'></h1><ul>    <li class='langy' data-en='Location: Dushanbe, Tajikistan' data-tj='Мавқеъ: Душанбе, Тоҷикистон' data-ru='Местонахождение: Душанбе, Таджикистан'></li>    <li class='langy' data-en='As Proposal by LLC Memori Asr' data-ru='Эскизное предложение от ООО Меъмори Аср' data-tj='Лоиҳаи ангоравӣ барои ҶДММ Меъмори Аср'></li> <li><span class='langy' data-en='Softwares:' data-ru='Программы:' data-tj='Барномаҳо:'></span><ul>     <li>AutoCAD</li> <li>[ArchiCAD]*</li>   <li>Blender</li>        <li>Twinmotion</li>  <li>Photoshop</li>  </ul></li>    <li class='langy' data-ru='Февраль 2021' data-tj='Феврал 2021' data-en='February 2021'></li></ul>"
-            }
-        ],
-        [{"ru":"СТО", "en":"Car Service Station","tj":"СТО"},
-            {
-                "type":"title",
-                "low_res":"projects/sto/titleLR.jpg",
-                "high_res":"projects/sto/titleHR.jpg"
-            },{
-                "type":"image",
-                "low_res":"projects/sto/1LR.jpg",
-                "high_res":"projects/sto/1HR.jpg",
-                "desc":"<h1 class='langy' data-en='Aerial View' data-ru='Общий Вид' data-tj='Намои Умумӣ'></h1>"
-            },{
-                "type":"image",
-                "low_res":"projects/sto/2LR.jpg",
-                "high_res":"projects/sto/2HR.jpg",
-                "desc":"<h1 class='langy' data-en='Concept of Motion through Ramp' data-ru='Концепция Движения по Рампе' data-tj='Консепсияи ҳаракат дар Рампа'></h1>"
-                
-            },{
-                "type":"image",
-                "low_res":"projects/sto/3LR.jpg",
-                "high_res":"projects/sto/3HR.jpg",
-                "desc":"<h1 class='langy' data-en='Aerial View' data-ru='Общий Вид' data-tj='Намои Умумӣ'></h1>"
-            },{
-                "type":"image",
-                "low_res":"projects/sto/4LR.jpg",
-                "high_res":"projects/sto/4HR.jpg",
-                "desc":"<h1 class='langy' data-en='Aerial View' data-ru='Общий Вид' data-tj='Намои Умумӣ'></h1>"
-            },{
-                "type":"html",
-                "inner":"<h1 class='langy' data-ru='Станция Технического Обслуживания Автомобилей' data-tj='Нуқтаи Таъмири Автомобилҳо' data-en='Car Service Station'></h1><ul>   <li class='langy' data-en='Student Project' data-ru='Студенческий проект' data-tj='Лоиҳаи донишҷӯ'></li>    <li><span class='langy' data-en='Main Concept:' data-ru='Основная Концепция:' data-tj='Консепсияи Асосӣ:'></span><ul>        <li class='langy' data-en='Drive-Through' data-ru='Драйв-Тру' data-tj='Драйв-Тру'></li>        <li class='langy' data-en='Single way ramp' data-tj='Ҳаракати якҷониба дар Рампа' data-ru='Односторонее движение по рампе'></li> </ul></li>    <li><span class='langy' data-en='Softwares:' data-ru='Программы:' data-tj='Барномаҳо:'></span><ul>        <li>AutoCAD</li>    <li>Revit</li> <li>Photoshop</li>    </ul></li>    <li class='langy' data-ru='Март 2021' data-tj='Март 2021' data-en='March 2021'></li></ul>"
-            }
-        ],
-        [{"ru":"Смотровая площадка", "en":"Park Observation Deck","tj":"Майдончаи тамошокунӣ"},
-            {
-                "type":"title",
-                "low_res":"projects/qurghan/titleLR.jpg",
-                "high_res":"projects/qurghan/titleHR.jpg"
-            },{
-                "type":"video",
-                "src":"https://player.vimeo.com/video/608466545",
-                "desc":"<h1 class='langy' data-en='Movie' data-ru='Видеоклип' data-tj='Навор'></h1><ul><li class='langy' data-en='Renderer: Twinmotion' data-ru='Рендерер: Twinmotion' data-tj='Рендер-муҳаррик: Twinmotion'></li></ul>"
-            },{
-                "type":"image",
-                "low_res":"projects/qurghan/4LR.jpg",
-                "high_res":"projects/qurghan/4HR.jpg",
-                "desc":"<h1 class='langy' data-en='Stairways to Park' data-ru='Лестницы к Парку' data-tj='Зинапояҳо ба Парк'></h1>"
-            },{
-                "type":"image",
-                "low_res":"projects/qurghan/3LR.jpg",
-                "high_res":"projects/qurghan/3HR.jpg",
-                "desc":"<h1 class='langy' data-en='Dusk Close Up' data-ru='Закат в Парке. Крупным планом' data-tj='Ғуруб дар Парк, Акси Наздик'></h1>"
-            },{
-                "type":"image",
-                "low_res":"projects/qurghan/2LR.jpg",
-                "high_res":"projects/qurghan/2HR.jpg",
-                "desc":"<h1 class='langy' data-en='Stairways to Park in Cold Season' data-ru='Лестницы к Парку. Зима' data-tj='Зинапояҳо ба Парк. Зимистон'></h1>"
-            },{
-                "type":"image",
-                "low_res":"projects/qurghan/1LR.jpg",
-                "high_res":"projects/qurghan/1HR.jpg",
-                "desc":"<h1 class='langy' data-en='Cold Season Look' data-ru='Вид Спереди. Зима' data-tj='Намо дар Сармо'></h1>"
-            },{
-                "type":"html",
-                "inner":"<h1 class='langy' data-ru='Парк, Бохтар' data-tj='Парк, Бохтар' data-en='Bokhtar Central Park'></h1><ul>    <li class='langy' data-en='Location: Bokhtar, Tajikistan' data-tj='Мавқеъ: Бохтар, Тоҷикистон' data-ru='Местонахождение: Бохтар, Таджикистан'></li>    <li class='langy' data-en='As Proposal by OJSC SANIIOSP' data-ru='Эскизное предложение от ОАО САНИИОСП' data-tj='Лоиҳаи ангоравӣ барои ҶСК ПИЛҶ САНИИОСП'></li>    <li><span class='langy' data-en='Main Ideas:' data-ru='Основные Идеи:' data-tj='Идеяҳои Асосӣ:'></span><ul>        <li class='langy' data-en='Design-Formulating for future constructions of the area' data-ru='Определяющая Дизайн дальнейших построек в местности' data-tj='Муайянкунандаи сохтмонҳои ояндаи маҳал'></li>        <li class='langy' data-en='A Bright and Welcoming Attraction' data-tj='Нуқтаи равшан ва пешвозгиранда' data-ru='Яркая и Привлекательная Достопримечательность'></li>        <li class='langy' data-en='An Inspirational Form' data-ru='Вдохновляющая форма' data-tj='Шакли илҳомбахш'></li>    </ul></li>    <li><span class='langy' data-en='Softwares:' data-ru='Программы:' data-tj='Барномаҳо:'></span><ul>        <li>Blender</li>        <li>Twinmotion</li>    </ul></li>    <li class='langy' data-ru='Март 2021' data-tj='Март 2021' data-en='March 2021'></li></ul>"
-            }
-        ],
-        [{"ru":"ВДНХ", "en":"VDNH","tj":"ВДНХ"},
+      [{"ru":"Овощной магазин", "en":"Veggie Shop","tj":"Мағозаи Деҳқон"},
+          {
+              "type":"title",
+              "low_res":"projects/veggie/titleLR.jpg",
+              "high_res":"projects/veggie/titleHR.jpg"
+          },{
+              "type":"image",
+              "low_res":"projects/veggie/dayPersLR.jpg",
+              "high_res":"projects/veggie/dayPersHR.jpg",
+              "desc" : "<h1 class='langy' data-ru='Вид днем' data-tj='Намо дар рӯз' data-en='Daytime View'></h1>"
+          },{
+              "type":"image",
+              "low_res":"projects/veggie/dayFrontLR.jpg",
+              "high_res":"projects/veggie/dayFrontHR.jpg",
+              "desc" : "<h1 class='langy' data-ru='Вид днем' data-tj='Намо дар рӯз' data-en='Daytime View'></h1>"
+          },{
+              "type":"image",
+              "low_res":"projects/veggie/nightPersLR.jpg",
+              "high_res":"projects/veggie/nightPersHR.jpg",
+              "desc" : "<h1 class='langy' data-ru='Вид вечером' data-tj='Намо дар шаб' data-en='Night View'></h1>"
+          },{
+              "type":"html",
+              "inner":"<h1 class='langy' data-en='Veggie Shop' data-ru='Овощной Магазин' data-tj='Мағозаи Деҳқон'></h1>   <ul>        <li class='langy' data-en='Location: Khorog, Tajikistan' data-ru='Местонахождение: Хорог, Таджикистан' data-tj='Мавқеъ: Хоруғ, Тоҷикистон'></li>        <li class='langy' data-en='As Proposal by LLC Damir' data-ru='Эскизное предложение от ООО Дамир' data-tj='Лоиҳаи ангоравӣ барои ҶДММ Дамир'></li>        <li><span class='langy' data-en='Main Ideas:' data-ru='Основные идеи:' data-tj='Идеяҳои асосӣ'></span><ul>            <li><span class='langy' data-en='Reconstruction of existing building' data-ru='Реконструкция существующего здания' data-tj='Азнавсозии бинои мавҷуда'></span></li><li class='langy' data-en='Eye-catching Appearance' data-ru='Яркий внешний вид' data-tj='Намуди зоҳирии рангин'></li>            <li><span class='langy' data-en='ViewPoints Specific Design' data-ru='Дизайн ориентированный на определённые точки зрения' data-tj='Дизайни вобаста аз нуқтаҳои назар'></span><ul>                <li class='langy' data-en='Front' data-ru='Передний' data-tj='Пеш'></li>                <li class='langy' data-en='Corner - Roadside' data-ru='Угловой - со стороны дороги' data-tj='Кунҷӣ - аз тарафи роҳ'></li>            </ul></li>        </ul></li>        <li><span class='langy' data-en='Softwares:' data-ru='Программы:' data-tj='Барномаҳо:'></span><ul><li>Blender</li></ul></li><li class='langy' data-en='December 2021' data-ru='Декабрь 2021' data-tj='Декабри 2021'></li></ul>"
+          }
+      ],[{"ru":"Jelondi Resort", "en":"Jelondi Resort","tj":"Jelondi Resort"},
+          {
+              "type":"title",
+              "low_res":"projects/jelondi/titleLR.jpg",
+              "high_res":"projects/jelondi/titleHR.jpg"
+          },{
+              "type":"image",
+              "low_res":"projects/jelondi/frontLR.jpg",
+              "high_res":"projects/jelondi/frontHR.jpg",
+              "desc" : "<h1 class='langy' data-ru='Вид спереди' data-tj='Намо аз пеш' data-en='Front View'></h1>"
+          },{
+              "type":"image",
+              "low_res":"projects/jelondi/backsideLR.jpg",
+              "high_res":"projects/jelondi/backsideHR.jpg",
+              "desc" : "<h1 class='langy' data-ru='Вид с восточной (задней) стороный' data-tj='Намо аз оқиб' data-en='Backside'></h1>"
+          },{
+              "type":"image",
+              "low_res":"projects/jelondi/sideLR.jpg",
+              "high_res":"projects/jelondi/sideHR.jpg",
+              "desc" : "<h1 class='langy' data-ru='Входная часть' data-tj='Даромадгоҳ' data-en='Entrance'></h1>"
+          },{
+
+              "type":"html",
+              "inner":"<h1 class='langy' data-en='Jelondi Resort' data-ru='Jelondi Resort' data-tj='Jelondi Resort'></h1>   <ul>        <li class='langy' data-en='Location: Jelondi, GBAO, Tajikistan' data-ru='Местонахождение: Джелонди, ГБАО, Таджикистан' data-tj='Мавқеъ: Ҷелонди, ВМКБ, Тоҷикистон'></li>        <li class='langy' data-en='As Proposal by LLC Damir' data-ru='Эскизное предложение от ООО Дамир' data-tj='Лоиҳаи ангоравӣ барои ҶДММ Дамир'></li>        <li><span class='langy' data-en='Main Ideas:' data-ru='Основные идеи:' data-tj='Идеяҳои асосӣ'></span><ul>            <li><span class='langy' data-en='Ground Floor height 4m (2 above / 2 under ground level)' data-ru='Цокольный этаж высотой 4м (2м над / 2 под ур. земли)' data-tj='Ошёнаи заминӣ бо баландии 4м (2 м боло / 2м поён аз сатҳи замин)'></span></li>  <li><span class='langy' data-en='ViewPoints Specific Design' data-ru='Дизайн ориентированный на определённые точки зрения' data-tj='Дизайни вобаста аз нуқтаҳои назар'></span><ul>                <li class='langy' data-en='View along the road' data-ru='Вид вдоль дороги' data-tj='Намои тули роҳ'></li>                      <li><span class='langy' data-en='Softwares:' data-ru='Программы:' data-tj='Барномаҳо:'></span>            <ul>                <li>Blender</li>                <li>Revit</li>                <li>Photoshop</li>            </ul>        </li>        <li class='langy' data-en='December 2021' data-ru='Декабр 2021' data-tj='Декабр 2021'></li>    </ul>"
+          }
+      ],[{"ru":"ВДНХ", "en":"VDNH","tj":"ВДНХ"},
             {
                 "type":"title",
                 "low_res":"projects/vdnh/titleLR.jpg",
@@ -160,30 +91,6 @@
                 "type":"title",
                 "low_res":"projects/park/titleLR.jpg",
                 "high_res":"projects/park/titleHR.jpg"
-            },{
-                "type":"video",
-                "src":"https://player.vimeo.com/video/608038972",
-                "desc" : "<h1 class='langy' data-en='Movie' data-ru='Видеоклип' data-tj='Навор'></h1><ul>    <li><span class='langy' data-en='Softwares:' data-ru='Программы:' data-tj='Барномаҳо:'></span><ul>        <li>Blender</li>        <li>Lumion</li>  </ul></ul>"
-            },{
-                "type":"image",
-                "low_res":"projects/park/13LR.jpg",
-                "high_res":"projects/park/13HR.jpg",
-                "desc" : "<h1 class='langy' data-en='Riverside Houses' data-ru='Прибережние домики' data-tj='Хоначаҳои лаби дарё'></h1><ul>    <li><span class='langy' data-en='Softwares:' data-ru='Программы:' data-tj='Барномаҳо:'></span><ul>        <li>Blender</li>        <li>Lumion</li>    <li>Photoshop</li>    </ul></ul>"
-            },{
-                "type":"image",
-                "low_res":"projects/park/10LR.jpg",
-                "high_res":"projects/park/10HR.jpg",
-                "desc" : "<h1 class='langy' data-en='Children Playground' data-ru='Детская Площадка' data-tj='Майдончаи кӯдакона'></h1><ul>    <li><span class='langy' data-en='Softwares:' data-ru='Программы:' data-tj='Барномаҳо:'></span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>"
-            },{
-                "type":"image",
-                "low_res":"projects/park/9LR.jpg",
-                "high_res":"projects/park/9HR.jpg",
-                "desc" : "<h1 class='langy' data-en='Area Perspective' data-ru='Арена. Перспектива' data-tj='Арена. Перспектива'></h1><ul>    <li><span class='langy' data-en='Softwares:' data-ru='Программы:' data-tj='Барномаҳо:'></span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>"
-            },{
-                "type":"image",
-                "low_res":"projects/park/8LR.jpg",
-                "high_res":"projects/park/8HR.jpg",
-                "desc" : "<h1 class='langy' data-en='Area Site Plan' data-ru='Арена. Вид сверху' data-tj='Арена. Намо аз боло'></h1><ul>    <li><span class='langy' data-en='Softwares:' data-ru='Программы:' data-tj='Барномаҳо:'></span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>"
             },{
                 "type":"image",
                 "low_res":"projects/park/7LR.jpg",
@@ -243,11 +150,6 @@
                 "desc" : "<h1 class='langy' data-en='Tajik National Toqis' data-ru='Таджикские Национальные Тюбетейки' data-tj='Кӯлоҳҳои Миллии Тоҷикӣ'></h1><ul> <li class='langy' data-en='Render Engine: Cycles' data-ru='Рендер Движок: Cycles' data-tj='Рендер Муҳаррик: Cycles'></li><li><a target='_blank' href='https://drive.google.com/file/d/1SPLcHms8B_lYsdGYY8U11bK9VU99b7vp/view?usp=sharing' class='langy' data-en='SourceFile' data-ru='Исходный Файл' data-tj='МанбаъФайл'></a></li></ul>"
             },{
                 "type":"image",
-                "low_res":"more/assets/GuyJomaChortarkLR.jpg",
-                "high_res":"more/assets/GuyJomaChortarkHR.jpg",
-                "desc" : "<h1 class='langy' data-tj='Чаппани Миллӣ' data-ru='Национальный костюм Чаппан' data-en='National Chappan Dress'></h1><ul>    <li class='langy' data-en='Render Engine: Cycles' data-ru='Рендер Движок: Cycles' data-tj='Рендер Муҳаррик: Cycles'></li>    <li class='langy' data-en='Boy Model from Marvelous Designer' data-ru='Модель мальчика из Marvelous Designer' data-tj='Модели писар аз Marvelous Designer'></li></ul>"
-            },{
-                "type":"image",
                 "low_res":"more/assets/GirlAtlasLR.jpg",
                 "high_res":"more/assets/GirlAtlasHR.jpg",
                 "desc" : "<h1 class='langy' data-tj='Куртаи Миллии Атлас' data-ru='Национальное платье Атлас' data-en='National Atlas Dress'></h1><ul>    <li class='langy' data-en='Render Engine: Cycles' data-ru='Рендер Движок: Cycles' data-tj='Рендер Муҳаррик: Cycles'></li>    <li class='langy' data-en='Girl Model from Marvelous Designer' data-ru='Модель девушки из Marvelous Designer' data-tj='Модели духтар аз Marvelous Designer'></li></ul>"
@@ -297,29 +199,20 @@
                 "low_res":"more/sketches/titleLR.jpg",
                 "high_res":"more/sketches/titleHR.jpg"
             },{
-                "type":"video",
-                "src":"https://player.vimeo.com/video/609963596",
-                "desc" : "<h1 class='langy' data-en='Waterfall Viz' data-ru='Визуализация Водопада' data-tj='Визуализатсияи Шаршара'></h1><ul><li class='langy' data-en='June 2021' data-ru='Июнь 2021' data-tj='Июн 2021'></li></ul>"
+                "type":"image",
+                "low_res":"projects/qurghan/3LR.jpg",
+                "high_res":"projects/qurghan/3HR.jpg",
+                "desc":"<h1 class='langy' data-en='Dusk Close Up' data-ru='Тематический Парк' data-tj='Ғуруб дар Парк, Акси Наздик'></h1>"
             },{
                 "type":"image",
-                "low_res":"more/sketches/5LR.jpg",
-                "high_res":"more/sketches/5HR.jpg",
-                "desc" : "<h1 class='langy' data-en='Waterfall Viz' data-ru='Визуализация Водопада' data-tj='Визуализатсияи Шаршара'></h1><ul><li class='langy' data-en='June 2021' data-ru='Июнь 2021' data-tj='Июн 2021'></li></ul>"
-            },{
-                "type":"image",
-                "low_res":"more/sketches/1LR.jpg",
-                "high_res":"more/sketches/1HR.jpg",
-                "desc" : "<h1 class='langy' data-en='Super Big Mall Sketch' data-ru='Скетч Большого ТРК' data-tj='Скетч барои ТРК'></h1><ul><li class='langy' data-en='January 2021' data-ru='Январь 2021' data-tj='Январ 2021'></li></ul>"
+                "low_res":"projects/qurghan/1LR.jpg",
+                "high_res":"projects/qurghan/1HR.jpg",
+                "desc":"<h1 class='langy' data-en='Cold Season Look' data-ru='Тематический Парк. Зима' data-tj='Намо дар Сармо'></h1>"
             },{
                 "type":"image",
                 "low_res":"more/sketches/2LR.jpg",
                 "high_res":"more/sketches/2HR.jpg",
                 "desc" : "<h1 class='langy' data-en='Super Big Mall Sketch' data-ru='Скетч Большого ТРК' data-tj='Скетч барои ТРК'></h1><ul><li class='langy' data-en='January 2021' data-ru='Январь 2021' data-tj='Январ 2021'></li></ul>"
-            },{
-                "type":"image",
-                "low_res":"more/sketches/3LR.jpg",
-                "high_res":"more/sketches/3HR.jpg",
-                "desc" : "<h1 class='langy' data-en='Super Big Mall Sketch' data-ru='Скетч Большого ТРК' data-tj='Скетч барои ТРК'></h1><ul><li class='langy' data-en='December 2020' data-ru='Декабрь 2020' data-tj='Декабр 2020'></li></ul>"
             },{
                 "type":"image",
                 "low_res":"more/sketches/4LR.jpg",
@@ -328,6 +221,45 @@
             },{
                 "type":"html",
                 "inner": "<h1 class='langy' data-en='Sketches & Concepts' data-ru='Скетчи и Концепты' data-tj='Скетчҳо ва Консептҳо'></h1><ul>    <li><span class='langy' data-en='Softwares:' data-ru='Программы:' data-tj='Барномаҳо:'></span><ul><li>Blender</li></ul></li>    <li><span class='langy' data-en='Title Page' data-ru='Титульный Лист' data-tj='Сарлавҳа'></span><ul>        <li class='langy' data-en='Concept for Vertical Farms on Tajikistan Mountainous Reliefs'        data-ru='Концепт Вертикальных Ферм на Таджикском Горном Рельефе'        data-tj='Консепти Фермаҳои Амудӣ барои релефи кӯҳии Тоҷикистон'></li>        <li class='langy' data-en='August 2020' data-ru='Август 2020' data-tj='Август 2020'></li>    </ul></li></ul>"
+            }
+        ],[{"ru":"Студенческие Работы", "en":"University Assignments","tj":"Корҳои донишҷӯӣ"},
+            {
+                "type":"title",
+                "low_res":"projects/arena/titleLR.jpg",
+                "high_res":"projects/arena/titleHR.jpg"
+            },{
+                "type":"image",
+                "low_res":"projects/sto/2LR.jpg",
+                "high_res":"projects/sto/2HR.jpg",
+                "desc":"<h1 class='langy'data-en='Car Service Station' data-ru='Станция Технического Обслуживания Автомобилей' data-tj='Нуқтаи Таъмири Автомобилҳо'></h1><ul><li><span class='langy' data-en='Scheme of car motion through the ramp' data-ru='Схема движения автомобилей по рампе' data-tj='Нақшаи ҳаракати автомобилҳо дар рампа'></span></li></ul>"
+            },{
+                "type":"image",
+                "low_res":"projects/sto/3LR.jpg",
+                "high_res":"projects/sto/3HR.jpg",
+                "desc":"<h1 class='langy'data-en='Car Service Station' data-ru='Станция Технического Обслуживания Автомобилей' data-tj='Нуқтаи Таъмири Автомобилҳо'></h1>"
+            },{
+                "type":"image",
+                "low_res":"projects/sto/titleLR.jpg",
+                "high_res":"projects/sto/titleHR.jpg",
+                "desc":"<h1 class='langy' data-en='Car Service Station' data-ru='Станция Технического Обслуживания Автомобилей' data-tj='Нуқтаи Таъмири Автомобилҳо'></h1>"
+            },{
+                "type":"image",
+                "low_res":"projects/arena/PerspectiveFacade2LR.jpg",
+                "high_res":"projects/arena/PerspectiveFacade2HR.jpg",
+                "desc" : "<h1 class='langy' data-ru='Восточный Фасад' data-tj='Намои Шарқӣ' data-en='Eastern Facade'></h1><ul><li class='langy' data-tj='Барнома: Blender' data-ru='Программа: Blender' data-en='Software: Blender'></li><li class='langy' data-tj='Рендер-муҳаррик: Cycles' data-ru='Рендер-движок: Cycles' data-en='Render Engine: Cycles'></li></ul>"
+            },{
+                "type":"image",
+                "low_res":"projects/arena/1LR.jpg",
+                "high_res":"projects/arena/1HR.jpg",
+                "desc" : "<h1 class='langy' data-ru='CВ Фасад' data-en='NE Facade' data-tj='Намои ШШ'></h1>             <ul><li class='langy' data-tj='Барнома: Blender' data-ru='Программа: Blender' data-en='Software: Blender'></li><li class='langy' data-tj='Рендер-муҳаррик: Cycles' data-ru='Рендер-движок: Cycles' data-en='Render Engine: Cycles'></li></ul>"
+            },{
+                "type":"image",
+                "low_res":"projects/arena/3LR.jpg",
+                "high_res":"projects/arena/3HR.jpg",
+                "desc" : "<h1 class='langy' data-en='Sketch' data-ru='Скетч' data-tj='Скетч'></h1><ul><li class='langy' data-en='Software: Krita' data-ru='Программа: Krita' data-tj='Барнома: Krita'></li></ul>"
+            },{
+                "type":"html",
+                "inner": "<h1 class='langy' data-en='University Assignments' data-ru='Студенческие Работы' data-tj='Корҳои донишҷӯӣ'></h1><ul><li><span class='langy' data-en='Tennis Complex'        data-ru='Теннисный Комплекс'        data-tj='Қасри Теннис'></span><ul><li><span class='langy' data-en='Softwares:' data-ru='Программы:' data-tj='Барномаҳо:'></span><ul><li>Blender</li><li>Revit</li><li>Photoshop</li></ul></li><li><span class='langy' data-en='May 2021' data-ru='Май 2021' data-tj='Май 2021'></span></li></ul></li><li><span class='langy' data-en='Car Service Station'        data-ru='Станция Технического Обслуживания Автомолей'        data-tj='Нуқтаи Таъмири Автомобилҳо'></span><ul><li><span class='langy' data-en='Softwares:' data-ru='Программы:' data-tj='Барномаҳо:'></span><ul><li>AutoCAD</li><li>Revit</li><li>Photoshop</li></ul></li><li><span class='langy' data-en='January 2018' data-ru='Январь 2018' data-tj='Январ 2018'></span></li></ul></li></ul>"
             }
         ]
     ]
