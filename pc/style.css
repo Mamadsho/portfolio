@@ -204,7 +204,7 @@ body{
     bottom:0;
     border-radius: inherit;
     transition: background-color 0.3s linear;
-    
+
 }
 .page_border{
     position: absolute;
@@ -293,7 +293,7 @@ body{
 }
 .active.bigger:not(.p_page):hover{
     left: 25%;
-    right: 25%; 
+    right: 25%;
 }
 
 
@@ -353,7 +353,7 @@ body{
 }
 .dots{
     transform: translateX(-50%);
-    
+
 }
 .dot{
     display: inline-block;
@@ -542,7 +542,7 @@ a{
     left: 40%;
     width: 20%;
     height: 20%;
-    
+
     mask-image:url('loading.svg');
     mask-size: contain;
     mask-repeat: no-repeat;
@@ -685,6 +685,7 @@ a{
     margin: 4px;
 }
 .itemvalue{
+    white-space: normal;
     background-color: #9B9CA1;
     border-radius: 8px;
     padding: 6px;
@@ -715,10 +716,11 @@ a{
     background-image:linear-gradient(0deg, #7b92e6, #cd8a93);
     background-attachment: fixed;
     margin: 4px;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 .contact_item .contact_item_icon{
     width: 30px;
     height: 30px;
 }
-
