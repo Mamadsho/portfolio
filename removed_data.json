@@ -171,3 +171,14 @@
     "high_res":"projects/park/8HR.jpg",
     "desc" : "<h1 class='langy' data-en='Area Site Plan' data-ru='Арена. Вид сверху' data-tj='Арена. Намо аз боло'></h1><ul>    <li><span class='langy' data-en='Softwares:' data-ru='Программы:' data-tj='Барномаҳо:'></span><ul>        <li>Blender</li>        <li>Lumion</li>    </ul></ul>"
 },
+,{
+    "type":"image",
+    "low_res":"more/assets/bowlingLR.jpg",
+    "high_res":"more/assets/bowlingHR.jpg",
+    "desc" : "<h1 class='langy' data-en='Bowling Scene' data-ru='Боулинг' data-tj='Боулинг'></h1><ul> <li class='langy' data-en='Render Engine: Cycles' data-ru='Рендер Движок: Cycles' data-tj='Рендер Муҳаррик: Cycles'></li></ul>"
+},{
+    "type":"image",
+    "low_res":"more/assets/toqisLR.jpg",
+    "high_res":"more/assets/toqisHR.jpg",
+    "desc" : "<h1 class='langy' data-en='Tajik National Toqis' data-ru='Таджикские Национальные Тюбетейки' data-tj='Кӯлоҳҳои Миллии Тоҷикӣ'></h1><ul> <li class='langy' data-en='Render Engine: Cycles' data-ru='Рендер Движок: Cycles' data-tj='Рендер Муҳаррик: Cycles'></li><li><a target='_blank' href='https://drive.google.com/file/d/1SPLcHms8B_lYsdGYY8U11bK9VU99b7vp/view?usp=sharing' class='langy' data-en='SourceFile' data-ru='Исходный Файл' data-tj='МанбаъФайл'></a></li></ul>"
+}
