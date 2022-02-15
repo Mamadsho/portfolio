@@ -148,41 +148,6 @@
                 "inner":"<h1 class='langy' data-en='Assets' data-ru='Ассеты' data-tj='Ассетҳо'></h1><ul>    <li><span class='langy' data-tj='Кӯза (Барнома: Саразм)' data-ru='Кувшин (Проект: Саразм)' data-en='Pot (Project: Sarazm)'></span><ul>        <li><a target='_blank' href='https://drive.google.com/file/d/1mLv9LGqWv-TPN9X9xbcYBwXXxUe36oJw/view?usp=sharing' class='langy' data-en='SourceFile' data-ru='Исходный Файл' data-tj='МанбаъФайл'></a></li>    </ul></li>    <li class='langy' data-en='Tajik National Clothing' data-ru='Таджикская Национальная Одежда' data-tj='Либоси Миллии Тоҷикӣ'></li>    <li><span class='langy' data-en='Tajik National Toqis' data-ru='Таджикские Национальные Тюбетейки' data-tj='Кӯлоҳҳои Миллии Тоҷикӣ'></span><ul>        <li><a target='_blank' href='https://drive.google.com/file/d/1SPLcHms8B_lYsdGYY8U11bK9VU99b7vp/view?usp=sharing' class='langy' data-en='SourceFile' data-ru='Исходный Файл' data-tj='МанбаъФайл'></a></li>    </ul></li>    <li class='langy' data-en='Bowling Scene' data-ru='Боулинг' data-tj='Боулинг'></li>    <li><span class='langy' data-en='Spoon' data-ru='Ложка' data-tj='Қошуқ'></span><ul>        <li><a target='_blank' href='https://drive.google.com/file/d/1iOCd6F2clCxNIcPtobFzXvaRQfHlngz2/view?usp=sharing' class='langy' data-en='SourceFile' data-ru='Исходный Файл' data-tj='МанбаъФайл'></a></li>    </ul></li>    <li><span class='langy' data-en='Knife' data-ru='Нож' data-tj='Корд'></span><ul>        <li><a target='_blank' href='https://drive.google.com/file/d/1d5UP9hi0M1n363Tbs69PPuUVWiNPJ-sR/view?usp=sharing' class='langy' data-en='SourceFile' data-ru='Исходный Файл' data-tj='МанбаъФайл'></a></li>    </ul></li></ul><p class='langy' data-en='Software: Blender' data-ru='Программа: Blender' data-tj='Барнома: Blender'></p>"
             }
         ],
-        [{"ru":"Рисунки", "en":"Drawings","tj":"Расмҳо"},
-            {
-                "type":"title",
-                "low_res":"more/drawings/titleLR.jpg",
-                "high_res":"more/drawings/titleHR.jpg"
-            },{
-                "type":"image",
-                "low_res":"more/drawings/1LR.jpg",
-                "high_res":"more/drawings/1HR.jpg",
-                "desc" : "<h1 class='langy' data-en='Shukrona' data-tj='Шукрона' data-ru='Шукрона'></h1>"
-            },{
-                "type":"image",
-                "low_res":"more/drawings/2LR.jpg",
-                "high_res":"more/drawings/2HR.jpg",
-                "desc" : "<h1 class='langy' data-en='Vazira' data-tj='Вазира' data-ru='Вазира'></h1>"
-            },{
-                "type":"image",
-                "low_res":"more/drawings/3LR.jpg",
-                "high_res":"more/drawings/3HR.jpg",
-                "desc" : "<h1 class='langy' data-en='Rabtia' data-tj='Рабтия' data-ru='Рабтия'></h1>"
-            },{
-                "type":"image",
-                "low_res":"more/drawings/4LR.jpg",
-                "high_res":"more/drawings/4HR.jpg",
-                "desc" : "<h1 class='langy' data-en='that Girl' data-tj='ҳамон Духтар' data-ru='та Девушка'></h1>"
-            },{
-                "type":"image",
-                "low_res":"more/drawings/5LR.jpg",
-                "high_res":"more/drawings/5HR.jpg",
-                "desc" : "<h1 class='langy' data-en='oh, Boy!' data-tj='вай, Бачча!' data-ru='мм-Да!'></h1>"
-            },{
-                "type":"html",
-                "inner": "<h1 class='langy' data-en='Drawings' data-ru='Рисунки' data-tj='Расмҳо'></h1><p class='langy' style='font-style:italic; line-height: 200%' data-en='Every time I have a drawing instrument on my hand, at some point I just start drawing faces. I do not pay it enough attention, neither am much interested, but still keep doing it mechanically. This lets me rest a bit, but does not seem to be much productive in terms of improvements. As a result, all my drawings are very static and similar. Nonetheless I thought it would be nice to share some of those.'data-tj='Ҳар маротибае, ки ман ба даст ягон олоти расмкашӣ гирам, дар нуктае огоҳ мешавам, ки ман акси инсонеро кашида истодаам. Ман ба он бисёр аҳамият намедиҳам, на хоҳиши зиёде барои ташаккули он дорам, вале новобаста аз ин, онро ба таври механикӣ давом медиҳам. Ман аз он каме роҳат мебарам, вале он, монанде, барои ташаккули  маҳоратҳоям ҳеҷ саҳме намегузорад. Дар натиҷа расмҳоям беҳаракат ва монанд метобанд. Ба ин нигоҳ накарда, гумон мебарам, ки бад нахоҳад шуд агар баъзеи онҳоро пешкаши тамошо намоям.'data-ru='Каждый раз когда я беру в руках какой-нибудь инструмент для рисования, в какой-то момент я начинаю просто рисовать лица. Я этому не обращаю много внимания, не проявляю и большого интереса, но тем не менее продолжаю делать это механически. Это мне позволяет немножко отдыхать или отвлечься, но оно, кажется, не столь продуктивно в плане улучшения навыков. В результате, все мои рисунки очень статичны и однообразны. Не смотря на это я подумал что было бы хорошо поделиться некоторыми из них.'></p><ul><li><span class='langy' data-en='For drawing I use:' data-ru='Для рисования я использую:' data-tj='Барои расмкашӣ ман аз барномаҳои зерин истифода мебарам:'></span><ul>    <li>Sketchbook Pro</li>    <li>Krita</li>    <li>WriteApp by StylusLabs</li></ul></li></ul>"
-            }
-        ],
         [{"ru":"Скетчи и Концепты", "en":"Sketches&Concepts","tj":"Скетчҳо ва Консептҳо"},
             {
                 "type":"title",
