@@ -2,42 +2,41 @@
 
 export const GLOBAL = {
   // Site metadata
-  username: "Zaggonaut",
-  rootUrl: "https://zaggonaut.dev",
-  shortDescription: "Retro-Inspired Theme &<br /> Built for Astro",
-  longDescription: "Zaggonaut is a retro-inspired theme for Astro, built using TypeScript, TailwindCSS, and Astro.",
+  username: "Mamadsho",
+  rootUrl: "https://localhost:4321",
+  selfDescription: "люблю дизайн и компьютеры :)",
+  shortDescription: "Personal Portfolio",
+  longDescription: "Mamadsho Nazaramonov Personal Portfolio",
   
   // Social media links
-  githubProfile: "https://github.com/RATIU5/zaggonaut",
-  twitterProfile: "https://twitter.com/",
-  linkedinProfile: "https://www.linkedin.com/",
+  twitterProfile: "https://twitter.com/mamadsho3d",
   
   // Common text names used throughout the site
-  articlesName: "Articles",
-  projectsName: "Projects",
-  viewAll: "View All",
+  articlesName: "Статьи",
+  projectsName: "Проекты",
+  viewAll: "Показать все",
   
   // Common descriptions used throughout the site
-  noArticles: "No featured articles yet.",
-  noProjects: "No featured projects yet.",
+  noArticles: "Нет избранных статей.",
+  noProjects: "Нет избранных проектов.",
 
   // Blog metadata
-  blogTitle: "My Thoughts & Takes",
+  blogTitle: "Про графику и всякое",
   blogShortDescription: "Practical wisdom, unfiltered thoughts, and hot takes.",
   blogLongDescription: "Web development, tech trends, and the occasional programming mishap.",
 
   // Project metadata
-  projectTitle: "Projects and Code",
+  projectTitle: "Проекты и эксперименты",
   projectShortDescription: "A list of my web development projects and developer tools.",
   projectLongDescription: "All of my projects, including both frontend and full-stack applications.",
 
   // Profile image
-  profileImage: "michael-dam-unsplash.webp",
+  profileImage: "profile.png",
 
   // Menu items
   menu: {
-    home: "/",
-    projects: "/projects",
-    blog: "/blog",
+    старт: "/",
+    проекты: "/projects",
+    блог: "/blog",
   }
 };

@@ -1,17 +1,18 @@
 ---
 layout: ../../layouts/BlogLayout.astro
-title: A Basic Introduction to HTML
-description: HTML is the foundation of all websites. This guide will walk you through creating your first simple website using HTML.
-tags: ["code", "html"]
+title: Матрицы трансформаций
+description: Будучи крайне функциональними достаточно легки в освоении и могут пригодится для решения задач, которые иначе могли быть крайне нетривиальными.
+tags: ["графика", "математика"]
 time: 4
 featured: true
 timestamp: 2024-12-18T02:39:03+00:00
-filename: html-intro
+filename: 0_matmul
 ---
 
-HTML (HyperText Markup Language) is the foundation of all websites. Even with modern frameworks and tools, understanding HTML basics remains essential for web development. This guide will walk you through creating your first simple website using HTML.
+Матрицы трансформаций зачастую используются в самой начинке многих графических программ. Основной их задачей являются такие трансформации как **перемещения, вращения, масштабирования, сдвиги,** а также (что немаловажно) **их композиции**. В этом материале я попробую объяснить самые базовые принципы матриц трансформаций.
 
-## Understanding HTML Basics
+## Определения трансформаций
+Разогрев)
 
 HTML uses elements enclosed in tags to structure content. Most elements have opening and closing tags that wrap around content:
 
