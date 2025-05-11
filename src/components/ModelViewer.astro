@@ -1,0 +1,113 @@
+---
+// File: ModelViewerCycleSmooth.astro
+// Props
+//   src         – GLB / GLTF URL (required)
+//   positions   – [{x,y,z}, …] order cycled through on each click
+//   durationMs  – optional tween duration (default 800 ms)
+const {
+  src,
+  positions = [
+    [  0,  0,  2 ],
+    [  0,  0, -2 ],
+    [  2,  0,  0 ],
+    [ -2,  0,  0 ],
+    [  0,  2,  0 ],
+    [  2,  2,  2 ],
+  ],
+  durationMs = 800,
+  classes = "",
+} = Astro.props;
+---
+
+<style>
+  canvas { 
+    width: 100%;        /* fill the parent’s width */
+    aspect-ratio: 1/1;  /* always the same height → perfect square */
+    height: auto;
+    }
+</style>
+
+<canvas id="mv"
+        data-src={src}
+        data-pos={JSON.stringify(positions)}
+        data-dur={durationMs}
+        class={classes}/>
+</canvas>
+
+<!-- No attributes so the script is bundled and bare imports get resolved -->
+<script>
+  import * as THREE     from 'three';
+  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+  /* -------- basic scene -------- */
+  const canvas    = document.getElementById('mv');
+  const modelUrl  = canvas.dataset.src;
+  const presets   = JSON.parse(canvas.dataset.pos);
+  const duration  = Number(canvas.dataset.dur);
+
+  const renderer  = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+  const scene     = new THREE.Scene();
+  const camera    = new THREE.PerspectiveCamera(9.06, 1, 0.1, 1000);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x444444, 0.2));
+
+  /* ------- tween state ------- */
+  let index      = 0;
+  let tweening   = false;
+  let startPos   = new THREE.Vector3();
+  let endPos     = new THREE.Vector3();
+  let startTime  = 0;
+
+  /* ------- functions ------- */
+  function gotoPreset(i) {
+    startPos.copy(camera.position);                 // where we are
+    endPos.set(...presets[i]); // where to end
+    startTime = performance.now();
+    tweening  = true;
+  }
+
+  function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); } // a simple ease
+
+  /* -------- model load -------- */
+  new GLTFLoader().load(modelUrl, (gltf) => {
+    scene.add(gltf.scene);
+    scene.background = 0;
+    camera.position.set(...presets[0]);
+    gotoPreset(0);                                  // start at first view
+    animate();
+  }, undefined, console.error);
+
+  /* -------- resize -------- */
+  function resize() {
+    const { width, height } = canvas.getBoundingClientRect();
+    renderer.setSize(width, height, false);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  /* -------- click to cycle -------- */
+  canvas.addEventListener('click', () => {
+    index = (index + 1) % presets.length;
+    gotoPreset(index);
+  });
+
+  /* -------- render loop -------- */
+  function animate() {
+    requestAnimationFrame(animate);
+
+    // If tweening, interpolate camera position
+    if (tweening) {
+      const elapsed = performance.now() - startTime;
+      let t = Math.min(elapsed / duration, 1);
+      t = easeOutCubic(t);                          // apply easing curve
+      camera.position.lerpVectors(startPos, endPos, t);
+      if (elapsed >= duration) {
+        tweening = false;                           // stop when done
+      }
+      camera.lookAt(0, 0, 0);
+    }
+
+    renderer.render(scene, camera);
+  }
+</script>

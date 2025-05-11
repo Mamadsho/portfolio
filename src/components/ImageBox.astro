@@ -1,0 +1,17 @@
+---
+const {src} = Astro.props;
+const {lightOrDark="both"} = Astro.props; // 0 both, 1 light only, 2 dark only
+---
+<div class={lightOrDark=="both"?"":lightOrDark=="light"?"light-only":"dark-only"}>
+    <img src={src} data-fullscreenable/>
+    <hr class="mb-1 -mt-5"/>
+    <p><slot/></p>
+</div>
+
+<script>
+    const images = document.querySelectorAll("[data-fullscreenable]");
+    images.forEach(img => {
+      img.addEventListener("click", () => img.requestFullscreen());
+      console.log(img);
+    });
+</script>

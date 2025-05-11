@@ -1,0 +1,9 @@
+---
+const {src} = Astro.props;
+const {lightOrDark="both"} = Astro.props; // 0 both, 1 light only, 2 dark only
+---
+<div class={lightOrDark=="both"?"":lightOrDark=="light"?"light-only":"dark-only"}>
+    <video controls src={src}/>
+    <hr class="mb-1 -mt-5"/>
+    <p><slot/></p>
+</div>
