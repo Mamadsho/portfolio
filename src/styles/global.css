@@ -148,3 +148,11 @@ html:not(.dark) .dark-only {
 html.dark .light-only {
   display: none;
 }
+
+html:not(.dark) .invert-light {
+  filter: invert();
+}
+
+html.dark .invert-dark {
+  filter: invert();
+}

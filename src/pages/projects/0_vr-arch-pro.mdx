@@ -8,20 +8,70 @@ timestamp: 2025-02-24T02:39:03+00:00
 featured: true
 filename: 0_vr-arch-pro
 ---
+import VideoBox from "../../components/VideoBox.astro"
+import ImageBox from "../../components/ImageBox.astro"
 
-# Space Modeller
+<VideoBox src="/sm/intro.mp4">Кодовое название: SM-01</VideoBox>
 
-Zaggonaut is a retro-inspired theme for Astro, built using TypeScript, TailwindCSS, and Astro. Use this theme to power your own personal website, blog, or portfolio with flexibility and customization.
+Pet-проект создан на движке **UnrealEngine** и во многом является обёрткой над аддоном **GeometryScripting**.
+Целю проекта являлось оценка возможностей **VR в архитектурном проектировании**.
 
-## The Features
+---
 
-- Dark & light mode
-- Customizable colors
-- 100 / 100 Lighthouse score
-- Fully accessible
-- Fully responsive
-- Type-safe
+## Blenderer-like UX
 
-## The Future
+Пользовательский опыт я посторался максимально приблизить к Blender-у.
+Везде где было уместно сохранил схожие названия.
+Также и придерживался сходства в общей архитектуре приложения.
 
-Check out [the theme website](https://zaggonaut.dev) to see it in action!
+### Инструменты
+
+<VideoBox src="/sm/tools.mp4" lightOrDark="invertDark">Выбор инструментов левым джойстиком</VideoBox>
+
+Здесь также панель инструментов находтся слева (левый контроллер).
+При модальных операциях здесь распологаются опции самой операции.
+К примеру, при перемещении выбор осей и т. д.
+
+
+### Интерфейс
+
+<ImageBox src="/sm/ui.png">Редактор настроек</ImageBox>
+
+Интерфейс представлен панелями соответсвующими разным назначениям (Editors в Blender),
+типа Список объектов, Настройки, Библиотека и т. д.
+
+
+## Фичи
+
+- ### Модификаторы
+
+
+<VideoBox src="/sm/modifiers.mp4"/>
+
+- ### Карандаш (Grease)
+
+<VideoBox src="/sm/grease.mp4" lightOrDark="invertLight"/>
+
+### 2D Кривые
+
+Также реализованы геометрии на основе 2D кривых Безье.
+Кривые преобразовываются в геометрию тремя способами:
+- Фугурой вращения
+- Сдвигом профиля по кривой
+  - Можно указать другую кривую как профиль
+- Выдавливанием
+
+<VideoBox src="/sm/revolve.mp4"/>
+
+---
+
+## Вывод
+
+Нет сомнений в том, что VR (AR/MR/XR) способен быть
+основной средой для архитектурного проектирования. 
+
+---
+
+## Что дальше?
+
+На следующем этапе планирую добавить BIM элементы
