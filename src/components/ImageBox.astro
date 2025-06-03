@@ -1,6 +1,6 @@
 ---
 const {src} = Astro.props;
-const {lightOrDark="both"} = Astro.props; // both, light, dark, invertLight, invertDark
+const {lightOrDark="both", style=""} = Astro.props; // both, light, dark, invertLight, invertDark
 let visibilityClass = ""
 let invertClass = ""
 
@@ -14,7 +14,7 @@ if (lightOrDark!="both"){
 }
 ---
 <div class={visibilityClass}>
-    <img class={invertClass} src={src} data-fullscreenable/>
+    <img class={invertClass} src={src} style={style} data-fullscreenable/>
     <hr class="mb-1 -mt-5"/>
     <p><slot/></p>
 </div>

@@ -1,0 +1,61 @@
+---
+layout: ../../layouts/BlogLayout.astro
+title: Обо мне
+description: Где родился, где вырос, где служил, где работал, что умею, что люблю)
+tags: ["personal-life"]
+time: 5
+featured: true
+timestamp: 2025-06-03T02:39:03+00:00
+filename: 1_about-me
+---
+import VideoBox from "../../components/VideoBox.astro";
+import ImageBox from "../../components/ImageBox.astro";
+import Anchor from "../../components/common/Anchor.astro";
+import Airborne from "../../components/icons/Airborne.astro";
+
+<div class="bg-black rounded-full max-w-60 w-60 h-60 mb-4\0 z-0 grayscale py-0"
+    style = "border-radius: 100%; overflow: hidden; margin:auto;">
+   <ImageBox src="/about-me/me.jpg" style="margin:0px;">ASDV</ImageBox>
+</div>
+   <h1 style="text-align: center; font-family:press-start-2p; margin: 15px;">Мамадшо <br/> Назарамонов</h1>
+
+|                |                                     |
+| -------------- | ----------------------------------- |
+| Дата рождения  | 27.05.1998                          |
+| Окончил        | Таджикский Технический Универститет |
+| Специальность  | Архитектура (Бакалавр)              |
+| Языки          | Русский, Таджикский, Английский     |
+| Служил в       | Воздушно-десантных войсках! <Airborne/>        |
+|                |                                     |
+
+
+## Интересы
+<div class="flex flex-row flex-wrap gap-2">
+    {
+      ["Дизайн", "Компьтерная графика", "VR очки", "Математика", "Преподавание", "Програмирование"].map((interest) => (
+        <span class="-zag-text -zag-bg zag-transition px-2 py-1 text-sm font-semibold">
+          {interest}
+        </span>
+      ))
+    }
+</div>
+
+## Программы
+<div class="flex flex-row flex-wrap gap-2">
+    {
+      ["Revit", "AutoCAD", "Blender", "Unity", "UnrealEngine", "Twinmotion", "Photoshop", "SpaceModeller", "MS Office", "Git"].map((interest) => (
+        <span class="-zag-text -zag-bg zag-transition px-2 py-1 text-sm font-semibold">
+          {interest}
+        </span>
+      ))
+    }
+</div>
+
+## Опыт работы
+
+|                 |                                                                 |
+| --------------- | --------------------------------------------------------------- |
+|  10.20 - 08.21  | **ОАО НИПИИ САНИИОСП** <br/>Архитектор-визуализатор             | 
+|  09.21 - 01.22  | **ООО Дамир**          <br/>Архитектор-визуализатор             |
+|  06.22 - 11.23  | **Технопарк РГСУ**     <br/>Преподаватель по компьтерной графике|  
+|                 |                                                                 |
