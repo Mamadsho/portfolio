@@ -1,0 +1,34 @@
+---
+layout: ../../layouts/ProjectLayout.astro
+title: Макет мечети
+description: Создание макета мечети с фотографий и чертежей с помощью 3д печати
+tags: ["Revit", "Blender",  "Макет", "Проектирование"]
+# githubUrl: https://github.com/RATIU5/zaggonaut
+timestamp: 2023-05-14T02:39:03+00:00
+featured: false
+filename: 4_mosque
+---
+import ImageBox from "../../components/ImageBox.astro"
+import VideoBox from "../../components/VideoBox.astro"
+
+<ImageBox src="/mosque/model.jpg">Макет мечети</ImageBox>
+
+|                |                        |
+| -------------- | ---------------------- |
+| Заказчик       | Скульптор Федор Паршин |
+| Дата сдачи     | 30 мая 2023            |
+| Расположение   | Дагестан, Россия       |
+
+Проект макета был создан опираясь на фотографии существующего здания мечети в Дагестане,
+а также несколько фотографий с проектной документации этого здания. 
+
+<ImageBox src="/mosque/existing.jpeg">Существующее здание мечети</ImageBox>
+<ImageBox src="/mosque/facade.jpeg" lightOrDark="invertDark">Фотография с проектной документации</ImageBox>
+
+На основе имеющихся данных модель существующего здания была воссоздана в **Revit**,
+после чего в **Blender**-е были добавлены допольнительные детали и произведена подготовка модели к 3д печати.
+
+<VideoBox src="/mosque/model.mp4">Модель в Blender-е</VideoBox>
+
+<ImageBox src="/mosque/making-of.jpg">Процесс сборки макета</ImageBox>
+<ImageBox src="/mosque/model-2.jpg">Готовый макет!</ImageBox>
