@@ -14,7 +14,7 @@ if (lightOrDark!="both"){
 }
 ---
 <div class={visibilityClass}>
-    <video  poster={poster} class={invertClass} controls src={src}/>
+    <video muted poster={poster} class={invertClass} controls src={src} style="width: 100%"/>
     <hr class="mb-1 -mt-5"/>
     <p><slot/></p>
 </div>
