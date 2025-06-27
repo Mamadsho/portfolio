@@ -20,9 +20,9 @@ if (lightOrDark!="both"){
 </div>
 
 <script>
-    const images = document.querySelectorAll("[data-fullscreenable]");
-    images.forEach(img => {
-      img.addEventListener("click", () => img.requestFullscreen());
-      console.log(img);
-    });
+    const container = document.currentScript?.previousElementSibling;
+    const img = container?.querySelector("[data-fullscreenable]");
+    if (img) {
+        img.addEventListener("click", () => img.requestFullscreen());
+    }
 </script>
