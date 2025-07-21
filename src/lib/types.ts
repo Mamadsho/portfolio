@@ -41,6 +41,8 @@ export type ProjectFrontmatter = {
    * (eg. https://zaggonaut.dev/projects/my-project)
    */
   filename: string;
+
+  banner: string;
 };
 
 export type ArticleFrontmatter = {

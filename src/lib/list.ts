@@ -41,6 +41,7 @@ export const projects = (
         featured: data.frontmatter.featured,
         timestamp: data.frontmatter.timestamp,
         filename: `/projects/${data.frontmatter.filename}`,
+        banner: data.frontmatter.banner,
       };
     },
   )
