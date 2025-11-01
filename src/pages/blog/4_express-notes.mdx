@@ -1,0 +1,50 @@
+---
+layout: ../../layouts/BlogLayout.astro
+title: EXPRESS 
+description: Язык моделирования данных ISO 10303-11
+tags: ["shaders", "unity"]
+time: 2
+featured: false
+timestamp: 2024-12-18T02:39:03+00:00
+filename: 4_express-notes
+---
+
+Правила синтаксиса EXPRESS само-описаны с помощью [СНВ] (Wirth Syntax Notation):
+```wsn
+syntax     = { production }.
+production = identifier '=' expression '.'.
+expression = term { '|' term }.
+term       = factor { factor }.
+factor     = identifier | literal | group | option | repitition.
+identifier = character { character }.
+literal    = '"' character { character } '"'.
+group      = '(' expression ')'.
+option     = '[' option ']'.
+repitition = '{' experession '}'.
+```
+
+| символ    | значение                             |
+|-----------|--------------------------------------|
+| **\|**    | только один из вариантов             |
+| **\{ \}** | ни одного или несколько              |
+| **\[ \]** | ни одного или один (необъязательный) |
+| **\( \)** | как в школе учили)                   |
+
+[СНВ]: https://en.wikipedia.org/wiki/Wirth_syntax_notation
+
+Пример:
+```wsn
+string_type = STRING [width_spec].
+width_spec = '(' width ')' [FIXED].
+width = numeric_expression.
+```
+В языке это может выглядеть так:
+```express
+string;
+string (20);
+string (12) fixed.
+```
+---
+
+
+

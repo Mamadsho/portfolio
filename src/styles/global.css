@@ -75,6 +75,13 @@
     }
   }
 
+  code {
+    color: var(--color-zag-light) !important;
+    :where(.dark, .dark *) & {
+      color: var(--color-zag-light) !important;
+    }
+  }
+
   .zag-bg {
     background-color: var(--color-zag-light);
     :where(.dark, .dark *) & {
@@ -156,3 +163,4 @@ html:not(.dark) .invert-light {
 html.dark .invert-dark {
   filter: invert();
 }
+
