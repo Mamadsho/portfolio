@@ -45,6 +45,255 @@ string (20);
 string (12) fixed.
 ```
 ---
+## Основные элементы языка
+- Символы
+  - Цифры
+  - Буквы
+  - Прочие
+    - Специальные символы
+      - *Главным образом используются для пунктуации и операторов*
+    - Подчеркивания
+    - Пустое пространство
+  - Комментарии
+    - Встроенный `(* *Комментарий* *)`
+    - Заключительный `-- *Комментарий*`
+    - Метка комментария `(* "ent.attr" Коммент про attr ... *)`
+      - Соотносит комментарий с именнованым элементом
+- Зарезервированные слова
+  - Ключевые слова `ENTITY` `LIST` `FOR` `THEN` ...
+  - Операторы `AND` `OR` `NOT` ...
+  - Встроенные константы `TRUE` `PI` `SELF` ...
+  - Встроенные функции `SIN` `SIZEOF` `VALUE_UNIQUE` ...
+  - Встроенные процедуры `INSERT` `REMOVE`
+- Знаки
+  - Символы или группа символов для
+    - Разделения `;` `{` `)` ...
+    - Операторов `+` `>` `<>` ...
+- Идентификаторы
+- Литералы
+  - Двоичный `%0101001100`
+  - Целочисленный `4016`
+  - Действительный `12.4` `5.0` `3.5e-5`
+  - Строковый
+    - Простой `'Baby needs a new pair of shoes'`
+    - Кодированный `"000020BD"` - ₽
+  - Логический `TRUE` `FALSE` `UNKNOWN`
 
+## 8 Типы данных
 
+### 8.1 Простые
+- Числовой `NUMBER`
+- Действительный `REAL`
+  - `REAL (precision : num_expr)`
+- Целочисленный `INTEGER`
+- Логический `LOGICAL`
+- Булев `BOOLEAN`
+- Строковый `STRING`
+  - `STRING ( width : num_expr) [FIXED]`
+- Двоичный `BINARY`
+  - `BINARY ( width : num_expr) [FIXED]`
 
+### 8.2 Агрегированные `AGGREGATE`
+
+| Тип       | Поряд | Дубл | Фикс | Пример синтаксиса   |
+| --------- | ----- | ---- | ---- | ------------------- |
+| **ARRAY** | Да    | Да   | Да   | `ARRAY [-3:3] OF T` |
+| **LIST**  | Да    | Да   | Опц  | `LIST [1:?] OF T`   |
+| **BAG**   | Нет   | Да   | Опц  | `BAG [0:?] OF T`    |
+| **SET**   | Нет   | Нет  | Опц  | `SET [1:?] OF T`    |
+
+## 8.3 Именнованные типы данных
+
+### 8.3.1 Объектный `ENTITY`
+```exp
+ENTITY point;
+  x, y, z : REAL;
+END ENTITY;
+ENTITY line;
+  p0, p1 : point; -- <-- entity_ref
+END ENTITY;
+```
+
+### 8.3.2 Определенный `TYPE`
+```exp
+TYPE volume = REAL;
+END TYPE;
+ENTITY part;
+...
+  bulk: volume; -- <-- type_ref
+END ENTITY;
+```
+
+## 8.4 Конструкционные типы данных
+- Используются только с в объявлении `TYPE`
+- Могут быть наращиваемыми `EXTENSIBLE` и `BASED_ON` `WITH`
+
+### 8.4.1 Перечисляемый `ENUMERATION`
+- Аналог `enum`
+```exp
+TYPE colors = ENUMERATION OF ( red, green, blue );
+```
+```exp
+TYPE approval = EXTENSIBLE ENUMERATION OF ( approved, rejected );
+TYPE status = ENUMERATION BASED_ON approval WITH ( pending, canceld );
+```
+
+### 8.4.2 Выбираемый `SELECT`
+
+```exp
+TYPE attach_method = EXTENSIBLE SELECT (nails, screw);
+END_TYPE;
+TYPE perm_method = SELECT BASED_ON attach_method WITH (glue, weld);
+END_TYPE;
+...
+ENTITY wall_mounting
+  using: attach_method;     -- может быть: nails, screw, glue, weld
+                            -- т. к. EXTENSIBLE
+```
+
+## 8.6 Классификация типов данных
+- 8.6.1 Конкретизирующие
+- 8.6.2 Параметра
+- 8.6.3 Базисные
+
+# 9 Объявления
+`TYPE` `ENTITY` `SUBTYPE_CONSTRAINT` `SCHEMA` `CONSTANT` `FUNCTION` `PROCEDURE` `RULE` 
+
+## 9.1. Тип `TYPE`
+```exp
+TYPE person_name = STRING;
+END TYPE;
+```
+```exp
+TYPE positive = INTEGER;
+WHERE
+  notnegative: SELF>0;
+END_TYPE;
+```
+
+## 9.2 Объект `ENTITY`
+### 9.2.1 Аттрибуты
+#### 9.2.1.1 Явные аттрибуты
+- `OPTIONAL` аттрибут экземляра не обязательно должен иметь значение, по умолчанию имеет значение `?`
+- не может иметь тип `GENERIC`
+```exp
+ENTITY point;
+  x, y, z : REAL;
+END_ENTITY;
+```
+
+```exp
+ENTITY point;
+  x : REAL;
+  y : REAL;
+  z : REAL;
+END_ENTITY;
+```
+
+#### 9.2.1.2 Вычисляемый `DERIVE`
+
+```exp
+ENTITY circle;
+  centre : point;
+  radius : REAL;
+  axis   : vector;
+DERIVE
+  area   : REAL := PI * radius * radius;
+  length : REAL := 2 * PI * radius;
+END_ENTITY;
+```
+
+#### 9.2.1.3 Инверсивный аттрибут `INVERSE`
+- Описывает обратную взаимосвязь аттрибутов.
+- Может использоваться для ограничения взаимосвязей.
+```exp
+ENTITY door;
+  handle : knob;
+  hinges : SET [1:?] OF hinge;
+END_ENTITY;
+```
+
+```exp
+ENTITY knob;
+...
+INVERSE
+  opens: door FOR handle;
+END_ENTITY;
+```
+или
+```exp
+ENTITY knob;
+...
+INVERSE
+  opens: SET [0:1] door FOR handle;
+END_ENTITY;
+```
+
+### 9.2.2 Локальные правила `WHERE` `UNIQUE`
+- Могут иметь метки
+
+#### 9.2.2.1 Правило уникальности `UNIQUE`
+- Уникальность атррибута или комбинации атрибутов
+```exp
+ENTITY person_name;
+  last   : STRING;
+  first  : STRING;
+  middle : STRING;
+  nick   : STRING;
+END_ENTITY;
+
+ENTITY employee;
+  badge : NUMBER;
+  name  : person_name;
+UNIQUE
+  ur1   : badge, name;
+END_ENTITY;
+```
+#### 9.2.2.2 Правило области определения `WHERE`
+```exp
+ENTITY unit_vector;
+  a, b, c : REAL;
+WHERE
+  a**2 + b**2 + c**2 = 1.0;
+END_ENTITY;
+```
+```exp
+ENTITY unit_vector;
+  a, b : REAL;
+  c : OPTIONAL REAL;
+WHERE
+  a**2 + b**2 + NVL(c, 0.0)**2 = 1.0;
+END_ENTITY;
+```
+### 9.2.3 Подтипы и супертипы
+```exp
+ENTITY integer_number;
+  val : INTEGER;
+END_ENTITY;
+ENTITY odd_number
+  SUBTYPE OF ( integer_number );
+WHERE
+  not_even: ODD( val );
+END_ENTITY;
+```
+#### 9.2.3.4 Повторное объявление аттрибута
+```exp
+ENTITY point;
+  x : NUMBER;
+  y : NUMBER;
+END_ENTITY;
+ENTITY integer_point
+  SUBTYPE OF (point);
+  SELF\point.x RENAMED int_x: INTEGER;
+  SELF\point.y RENAMED int_y: INTEGER;
+END_ENTITY;
+ENTITY line ABSTRACT;
+  start : GENERIC_ENTITY;
+  end   : GENERIC_ENTITY;
+END_ENTITY;
+ENTITY integer_point_line
+  SUBTYPE OF (line);
+  SELF\line.start : integer_point;
+  SELF\line.end   : integer_point;
+END_ENTITY;
+```
