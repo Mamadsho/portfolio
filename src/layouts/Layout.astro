@@ -9,6 +9,39 @@ import "../styles/global.css";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f5f5" />
+    <script is:inline>
+      // Тема ставится до первой отрисовки: иначе на OLED мелькает светлый фон.
+      // Порядок по кругу: light → dark → black (чистый #000).
+      window.zagThemes = ["light", "dark", "black"];
+
+      // Значения повторяют --color-zag-light / -dark / -black: из CSS этот
+      // meta задать нельзя, а мобильный браузер красит по нему свою полосу.
+      const zagBarColors = { light: "#f5f5f5", dark: "#171717", black: "#000000" };
+
+      window.zagApplyTheme = (theme) => {
+        const root = document.documentElement;
+
+        root.classList.toggle("dark", theme !== "light");
+        root.classList.toggle("black", theme === "black");
+
+        document
+          .querySelector('meta[name="theme-color"]')
+          ?.setAttribute("content", zagBarColors[theme] ?? zagBarColors.light);
+
+        localStorage.setItem("theme", theme);
+      };
+
+      const zagStored = localStorage.getItem("theme");
+
+      window.zagApplyTheme(
+        window.zagThemes.includes(zagStored)
+          ? zagStored
+          : window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light",
+      );
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.bunny.net" />

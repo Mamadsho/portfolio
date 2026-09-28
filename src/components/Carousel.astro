@@ -1,0 +1,431 @@
+---
+// Карусель «одна страница на экран» — как в примере CSS carousels на MDN.
+// Основной режим — чистый CSS: scroll-snap для страниц, ::scroll-button()
+// для стрелок и ::scroll-marker для точек. Всё это пока умеет только
+// Chromium 135+, поэтому для Firefox и Safari скрипт ниже собирает
+// резервную навигацию; сама прокрутка со снапом работает везде.
+// invert у кадра перебивает общий invert карусели: белым схемам на прозрачном
+// фоне он нужен, фотографиям — нет, а лежать они могут в одной карусели.
+// По умолчанию инверсии нет ни у карусели, ни у кадра.
+type Item = { src: string; caption?: string; alt?: string; invert?: boolean };
+type Props = {
+  images?: Item[];
+  invert?: boolean;
+  maxHeight?: string;
+  matchFirst?: boolean;
+  label?: string;
+};
+
+const {
+  images = [],
+  invert = false,
+  maxHeight,
+  matchFirst = false,
+  label = "Carousel",
+} = Astro.props as Props;
+
+// Имя якоря уникально для каждой карусели: стрелки и точки позиционируются
+// анкерами, и с одним общим именем несколько каруселей на странице
+// перепутали бы свои элементы управления.
+const anchor = `--zag-carousel-${Math.random().toString(36).slice(2, 8)}`;
+
+// Без maxHeight высота ничем не ограничена: картинки показываются в натуральную
+// величину по ширине колонки. С maxHeight высокие кадры вписываются в предел,
+// поэтому переменная и объявляется только тогда, когда её передали.
+const trackStyle = [
+  `anchor-name: ${anchor}`,
+  `--zag-anchor: ${anchor}`,
+  maxHeight ? `--zag-carousel-max-height: ${maxHeight}` : null,
+]
+  .filter(Boolean)
+  .join("; ");
+---
+
+<div
+  class="zag-carousel not-prose"
+  role="region"
+  aria-label={label}
+  data-zag-carousel
+  data-match-first={matchFirst || undefined}
+>
+  <ul
+    class="zag-carousel-track"
+    tabindex="0"
+    style={trackStyle}
+  >
+    {
+      images.length
+        ? images.map((image: Item, index: number) => (
+            <li class="zag-carousel-slide" data-marker={image.caption ?? `${index + 1}`}>
+              <figure>
+                <img
+                  src={image.src}
+                  alt={image.alt ?? image.caption ?? ""}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  class={(image.invert ?? invert) ? "invert-light" : undefined}
+                />
+                {image.caption ? <figcaption>{image.caption}</figcaption> : null}
+              </figure>
+            </li>
+          ))
+        : // Режим слота: дочерние элементы должны быть <li class="zag-carousel-slide">.
+          <slot />
+    }
+  </ul>
+</div>
+
+<style is:global>
+  .zag-carousel {
+    --zag-carousel-fg: var(--color-zag-dark);
+    --zag-carousel-bg: var(--color-zag-light);
+    --zag-carousel-gap: 1rem;
+    margin: 2rem 0;
+    position: relative;
+  }
+
+  :where(html.dark) .zag-carousel {
+    --zag-carousel-fg: var(--color-zag-light);
+    --zag-carousel-bg: var(--color-zag-dark);
+  }
+
+  .zag-carousel-track {
+    display: flex;
+    gap: var(--zag-carousel-gap);
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    /* Точки рисуются после трека — браузер сам создаёт для них контейнер. */
+    scroll-marker-group: after;
+  }
+
+  .zag-carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .zag-carousel-track {
+      scroll-behavior: smooth;
+    }
+  }
+
+  .zag-carousel-track:focus-visible {
+    outline: var(--zag-stroke) solid var(--zag-carousel-fg);
+    outline-offset: 2px;
+  }
+
+  .zag-carousel-slide {
+    flex: 0 0 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+
+  .zag-carousel-slide figure {
+    margin: 0;
+  }
+
+  .zag-carousel-slide img,
+  .zag-carousel-slide video {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: var(--zag-carousel-max-height, none);
+    object-fit: contain;
+    margin: 0;
+  }
+
+  /* matchFirst: высоту задаёт первый кадр, поэтому сам он остаётся на
+     натуральной высоте — иначе ResizeObserver перестал бы видеть изменения
+     ширины колонки. Остальные вписываются в неё через object-fit: contain. */
+  .zag-carousel[data-match-first] .zag-carousel-slide:not(:first-child) img,
+  .zag-carousel[data-match-first] .zag-carousel-slide:not(:first-child) video {
+    height: var(--zag-carousel-match-height, auto);
+  }
+
+  .zag-carousel-slide figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--color-zag-dark-muted);
+  }
+
+  :where(html.dark) .zag-carousel-slide figcaption {
+    color: var(--color-zag-light-muted);
+  }
+
+  /* --- Родные элементы управления (Chromium 135+) --------------------- */
+
+  .zag-carousel-track::scroll-button(*) {
+    position: absolute;
+    position-anchor: var(--zag-anchor);
+    align-self: anchor-center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    font: inherit;
+    font-size: 0.75rem;
+    color: var(--zag-carousel-fg);
+    background-color: var(--zag-carousel-bg);
+    border: var(--zag-stroke) solid var(--zag-carousel-fg);
+    cursor: pointer;
+  }
+
+  .zag-carousel-track::scroll-button(*):hover,
+  .zag-carousel-track::scroll-button(*):focus-visible {
+    color: var(--zag-carousel-bg);
+    background-color: var(--zag-carousel-fg);
+  }
+
+  .zag-carousel-track::scroll-button(*):active {
+    translate: 1px 1px;
+  }
+
+  .zag-carousel-track::scroll-button(*):disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .zag-carousel-track::scroll-button(left) {
+    content: "<" / "Previous slide";
+    left: calc(anchor(left));
+    transform: translateX(-50%);
+  }
+
+  .zag-carousel-track::scroll-button(right) {
+    content: ">" / "Next slide";
+    right: calc(anchor(right));
+    transform: translateX(50%);
+  }
+
+  .zag-carousel-track::scroll-marker-group {
+    position: absolute;
+    position-anchor: var(--zag-anchor);
+    top: calc(anchor(bottom) + 0.75rem);
+    justify-self: anchor-center;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .zag-carousel-slide::scroll-marker {
+    content: attr(data-marker);
+    width: 0.75rem;
+    height: 0.75rem;
+    overflow: hidden;
+    text-indent: 1rem;
+    background-color: transparent;
+    border: var(--zag-stroke) solid var(--zag-carousel-fg);
+    cursor: pointer;
+  }
+
+  .zag-carousel-slide::scroll-marker:target-current {
+    background-color: var(--zag-carousel-fg);
+  }
+
+  .zag-carousel-slide::scroll-marker:focus-visible {
+    outline: var(--zag-stroke) solid var(--zag-carousel-fg);
+    outline-offset: 2px;
+  }
+
+  /* Группа точек вынесена из потока — оставляем под неё место. */
+  @supports (scroll-marker-group: after) {
+    .zag-carousel {
+      padding-bottom: 2.25rem;
+    }
+  }
+
+  /* --- Резервная навигация (Firefox, Safari) -------------------------- */
+
+  .zag-carousel-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+  }
+
+  @supports (scroll-marker-group: after) {
+    .zag-carousel-nav {
+      display: none;
+    }
+  }
+
+  .zag-carousel-nav button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    font-size: 0.75rem;
+    color: var(--zag-carousel-fg);
+    background-color: transparent;
+    border: var(--zag-stroke) solid var(--zag-carousel-fg);
+    cursor: pointer;
+  }
+
+  .zag-carousel-nav button:hover,
+  .zag-carousel-nav button:focus-visible {
+    color: var(--zag-carousel-bg);
+    background-color: var(--zag-carousel-fg);
+  }
+
+  .zag-carousel-nav button:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .zag-carousel-arrow {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .zag-carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .zag-carousel-dots li {
+    list-style: none;
+    margin: 0;
+  }
+
+  .zag-carousel-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  .zag-carousel-dot[aria-current="true"] {
+    background-color: var(--zag-carousel-fg);
+  }
+</style>
+
+<script>
+  // Выравнивание по первому кадру: остальные слайды получают его высоту.
+  // ResizeObserver на эталоне ловит и загрузку картинки, и смену ширины
+  // колонки, а сам эталон высоту не получает — иначе наблюдать было бы нечего.
+  const matchFirstSlide = (carousel: HTMLElement) => {
+    const track = carousel.querySelector<HTMLElement>(".zag-carousel-track");
+    const first = carousel.querySelector<HTMLElement>(".zag-carousel-slide");
+    const reference = first?.querySelector<HTMLElement>("img, video") ?? first;
+    if (!track || !reference) return;
+
+    let applied = 0;
+
+    new ResizeObserver(() => {
+      const height = Math.round(reference.getBoundingClientRect().height);
+      if (height > 0 && height !== applied) {
+        applied = height;
+        track.style.setProperty("--zag-carousel-match-height", `${height}px`);
+      }
+    }).observe(reference);
+  };
+
+  document.querySelectorAll<HTMLElement>("[data-match-first]").forEach(matchFirstSlide);
+
+  // Ниже — навигация для браузеров без родных ::scroll-button и ::scroll-marker.
+  // Скрипт нужен только там, где нет родных ::scroll-button и ::scroll-marker.
+  // Условие совпадает с @supports в стилях, иначе кнопки продублировались бы.
+  if (!CSS.supports("scroll-marker-group: after")) {
+    const smooth = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const setup = (carousel: HTMLElement) => {
+      const track = carousel.querySelector<HTMLElement>(".zag-carousel-track");
+      if (!track || carousel.dataset.carouselReady) return;
+      const slides = Array.from(track.querySelectorAll<HTMLElement>(".zag-carousel-slide"));
+      if (slides.length < 2) return;
+      carousel.dataset.carouselReady = "true";
+
+      const label = carousel.getAttribute("aria-label") ?? "Carousel";
+      const nav = document.createElement("nav");
+      nav.className = "zag-carousel-nav";
+      nav.setAttribute("aria-label", `${label} navigation`);
+
+      const arrow = (direction: "prev" | "next", glyph: string, text: string) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "zag-carousel-arrow";
+        button.dataset.direction = direction;
+        button.textContent = glyph;
+        button.setAttribute("aria-label", text);
+        return button;
+      };
+
+      const previous = arrow("prev", "◀", "Previous slide");
+      const next = arrow("next", "▶", "Next slide");
+
+      const dotList = document.createElement("ol");
+      dotList.className = "zag-carousel-dots";
+      const dots = slides.map((slide, index) => {
+        const item = document.createElement("li");
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "zag-carousel-dot";
+        dot.setAttribute("aria-label", slide.dataset.marker ?? `Slide ${index + 1}`);
+        dot.addEventListener("click", () => goTo(index));
+        item.append(dot);
+        dotList.append(item);
+        return dot;
+      });
+
+      nav.append(previous, dotList, next);
+      carousel.append(nav);
+
+      // Центр слайда сводим с центром трека — так же, как это делает
+      // scroll-snap-align: center, поэтому снап не спорит со скриптом.
+      const goTo = (index: number) => {
+        const slide = slides[Math.max(0, Math.min(index, slides.length - 1))];
+        const trackBox = track.getBoundingClientRect();
+        const slideBox = slide.getBoundingClientRect();
+        const delta = slideBox.left + slideBox.width / 2 - (trackBox.left + trackBox.width / 2);
+        track.scrollBy({ left: delta, behavior: smooth ? "smooth" : "auto" });
+      };
+
+      const currentIndex = () => {
+        const center = track.scrollLeft + track.clientWidth / 2;
+        let best = 0;
+        let bestDistance = Infinity;
+        slides.forEach((slide, index) => {
+          const slideCenter = slide.offsetLeft - track.offsetLeft + slide.offsetWidth / 2;
+          const distance = Math.abs(slideCenter - center);
+          if (distance < bestDistance) {
+            bestDistance = distance;
+            best = index;
+          }
+        });
+        return best;
+      };
+
+      previous.addEventListener("click", () => goTo(currentIndex() - 1));
+      next.addEventListener("click", () => goTo(currentIndex() + 1));
+
+      const sync = () => {
+        const index = currentIndex();
+        dots.forEach((dot, i) => dot.setAttribute("aria-current", String(i === index)));
+        previous.disabled = track.scrollLeft <= 1;
+        next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 1;
+      };
+
+      let queued = false;
+      track.addEventListener("scroll", () => {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(() => {
+          queued = false;
+          sync();
+        });
+      });
+      addEventListener("resize", sync);
+      sync();
+    };
+
+    document.querySelectorAll<HTMLElement>("[data-zag-carousel]").forEach(setup);
+  }
+</script>

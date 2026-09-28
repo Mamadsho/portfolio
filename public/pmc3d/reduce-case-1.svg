@@ -1,0 +1,16 @@
+<svg viewBox="0 0 200 284" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="reduce-case1" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0.5 L7.5 4 L0 7.5 z" fill="rgba(255,255,255,.85)"/></marker></defs>
+<rect x="13.0" y="88.0" width="54.0" height="108.0" rx="9" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.2"/>
+<rect x="20.0" y="95.0" width="40.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="40.0" y="112.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">p1</text>
+<rect x="20.0" y="129.0" width="40.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="40.0" y="146.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">p2</text>
+<rect x="20.0" y="163.0" width="40.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="40.0" y="180.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">p3</text>
+<rect x="107.0" y="122.0" width="80.0" height="40.0" rx="9" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.2"/>
+<rect x="114.0" y="129.0" width="66.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="147.0" y="146.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">ломаная</text>
+<path d="M60.0 108.0 C87.0 108.0 87.0 142.0 114.0 142.0" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.2"/>
+<path d="M60.0 142.0 C87.0 142.0 87.0 142.0 114.0 142.0" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.2"/>
+<path d="M60.0 176.0 C87.0 176.0 87.0 142.0 114.0 142.0" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.2"/>
+</svg>

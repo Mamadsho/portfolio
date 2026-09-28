@@ -1,0 +1,33 @@
+<svg viewBox="0 0 200 284" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="reduce-case3" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0.5 L7.5 4 L0 7.5 z" fill="rgba(255,255,255,.85)"/></marker></defs>
+<rect x="3.0" y="6.0" width="58.0" height="272.0" rx="9" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.2"/>
+<rect x="10.0" y="13.0" width="44.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="32.0" y="30.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">p1</text>
+<rect x="10.0" y="47.0" width="44.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="32.0" y="64.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">p2</text>
+<rect x="10.0" y="81.0" width="44.0" height="74.0" rx="9" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.2"/>
+<rect x="17.0" y="88.0" width="30.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="32.0" y="105.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">p3</text>
+<rect x="17.0" y="122.0" width="30.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="32.0" y="139.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">p4</text>
+<rect x="10.0" y="163.0" width="44.0" height="108.0" rx="9" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.2"/>
+<rect x="17.0" y="170.0" width="30.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="32.0" y="187.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">p5</text>
+<rect x="17.0" y="204.0" width="30.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="32.0" y="221.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">p6</text>
+<rect x="17.0" y="238.0" width="30.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="32.0" y="255.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">p7</text>
+<rect x="101.0" y="74.0" width="96.0" height="136.0" rx="9" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.2"/>
+<rect x="108.0" y="81.0" width="82.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="149.0" y="98.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">ломаная1</text>
+<rect x="108.0" y="115.0" width="82.0" height="40.0" rx="9" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.2"/>
+<rect x="115.0" y="122.0" width="68.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="149.0" y="139.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">ломаная2</text>
+<rect x="108.0" y="163.0" width="82.0" height="40.0" rx="9" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.2"/>
+<rect x="115.0" y="170.0" width="68.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="149.0" y="187.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">ломаная3</text>
+<path d="M54.0 26.0 C81.0 26.0 81.0 94.0 108.0 94.0" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.2"/>
+<path d="M54.0 60.0 C81.0 60.0 81.0 94.0 108.0 94.0" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.2"/>
+<path d="M54.0 118.0 C81.0 118.0 81.0 135.0 108.0 135.0" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.2"/>
+<path d="M54.0 217.0 C81.0 217.0 81.0 183.0 108.0 183.0" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.2"/>
+</svg>

@@ -1,0 +1,45 @@
+<svg viewBox="0 0 258 298" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="broadcast-case2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0.5 L7.5 4 L0 7.5 z" fill="rgba(255,255,255,.85)"/></marker></defs>
+<rect x="16.0" y="44.0" width="48.0" height="210.0" rx="9" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.2"/>
+<rect x="23.0" y="51.0" width="34.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="40.0" y="68.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">1</text>
+<rect x="23.0" y="85.0" width="34.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="40.0" y="102.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">2</text>
+<rect x="23.0" y="119.0" width="34.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="40.0" y="136.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">3</text>
+<rect x="23.0" y="153.0" width="34.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="40.0" y="170.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">4</text>
+<rect x="23.0" y="187.0" width="34.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="40.0" y="204.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">5</text>
+<rect x="23.0" y="221.0" width="34.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="40.0" y="238.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">6</text>
+<rect x="108.0" y="95.0" width="48.0" height="108.0" rx="9" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.2"/>
+<rect x="115.0" y="102.0" width="34.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="132.0" y="119.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">1</text>
+<rect x="115.0" y="136.0" width="34.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="132.0" y="153.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">2</text>
+<rect x="115.0" y="170.0" width="34.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="132.0" y="187.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">3</text>
+<path d="M57.0 64.0 C86.0 64.0 86.0 115.0 115.0 115.0" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.2"/>
+<path d="M57.0 98.0 C86.0 98.0 86.0 149.0 115.0 149.0" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.2"/>
+<path d="M57.0 132.0 C86.0 132.0 86.0 183.0 115.0 183.0" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.2"/>
+<path d="M57.0 166.0 C86.0 166.0 86.0 115.0 115.0 115.0" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.2"/>
+<path d="M57.0 200.0 C86.0 200.0 86.0 149.0 115.0 149.0" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.2"/>
+<path d="M57.0 234.0 C86.0 234.0 86.0 183.0 115.0 183.0" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.2"/>
+<g>
+<text x="173.0" y="155.0" fill="rgba(255,255,255,.75)" text-anchor="middle" style="font-size:17px !important;font-family:IBM Plex Mono, monospace">=</text>
+<rect x="190.0" y="44.0" width="52.0" height="210.0" rx="9" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="1.2"/>
+<rect x="197.0" y="51.0" width="38.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="216.0" y="68.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">2</text>
+<rect x="197.0" y="85.0" width="38.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="216.0" y="102.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">4</text>
+<rect x="197.0" y="119.0" width="38.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="216.0" y="136.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">6</text>
+<rect x="197.0" y="153.0" width="38.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="216.0" y="170.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">5</text>
+<rect x="197.0" y="187.0" width="38.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="216.0" y="204.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">7</text>
+<rect x="197.0" y="221.0" width="38.0" height="26.0" rx="5" fill="#121212" stroke="rgba(255,255,255,.78)" stroke-width="1.2"/>
+<text x="216.0" y="238.3" fill="#fff" text-anchor="middle" style="font-size:12px !important;font-family:IBM Plex Mono, monospace">9</text>
+</g>
+</svg>

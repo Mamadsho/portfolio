@@ -1,0 +1,22 @@
+---
+// Плашки тегов: раньше эта разметка была продублирована в ProjectLayout и
+// ProjectSnippet, причём в layout-версии потерялся flex-wrap.
+// class — на ряд целиком (выравнивание, отступы), tagClass — на сами плашки
+// (цвет). Утилиты Tailwind лежат в слое utilities, а -zag-bg/-zag-text — в base,
+// поэтому переданный bg-* перебивает палитру по умолчанию без !important.
+type Props = { tags?: string[]; class?: string; tagClass?: string };
+
+const { tags = [], class: className = "", tagClass = "" } = Astro.props as Props;
+---
+
+{
+  tags.length > 0 && (
+    <div class={`flex flex-row flex-wrap gap-2 text-sm ${className}`}>
+      {tags.map((tag) => (
+        <span class={`-zag-text -zag-bg zag-transition px-2 py-1 font-semibold ${tagClass}`}>
+          {tag}
+        </span>
+      ))}
+    </div>
+  )
+}

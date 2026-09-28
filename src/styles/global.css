@@ -3,6 +3,21 @@
 
 @variant dark (&:where(.dark, .dark *));
 
+/* Тема pitch black ставит на <html> и .dark, и .black, поэтому значку нужны
+   взаимоисключающие варианты: иначе месяц и круг светились бы одновременно. */
+@variant night (&:where(.dark:not(.black), .dark:not(.black) *));
+@variant black (&:where(.black, .black *));
+
+/* Серые плашки тегов. Именно @utility, а не класс внутри @layer base: слой
+   utilities идёт после base, поэтому цвет перебивает -zag-bg сам, без
+   !important — у обоих классов одинаковая специфичность, и решает порядок. */
+@utility zag-bg-grey {
+  background-color: #777;
+  :where(.dark, .dark *) & {
+    background-color: #777;
+  }
+}
+
 @font-face {
   font-family: "Literata Variable";
   font-style: normal;
@@ -47,6 +62,7 @@
   --font-display: "press-start-2p", ui-monospace, monospace;
   --font-serif: "Literata Variable", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --color-zag-dark: var(--color-neutral-900);
+  --color-zag-black: #000000;
   --color-zag-light: var(--color-neutral-100);
   --color-zag-dark-muted: var(--color-neutral-600);
   --color-zag-light-muted: var(--color-neutral-400);
@@ -167,3 +183,21 @@ html.dark .invert-dark {
   filter: invert();
 }
 
+/* Тема pitch black: подменяется только «тёмный» цвет палитры. Фон страницы,
+   плашки и обводки берут его из переменной, так что больше ничего менять не
+   нужно, а чистый #000 не зажигает пиксели на OLED. */
+html.black {
+  --color-zag-dark: var(--color-zag-black);
+}
+
+/* Фон и на <html>: при инерционной прокрутке и в области overscroll
+   не должно проглядывать светлое. color-scheme заодно красит скроллбар. */
+html {
+  background-color: var(--color-zag-light);
+  color-scheme: light;
+}
+
+html.dark {
+  background-color: var(--color-zag-dark);
+  color-scheme: dark;
+}
