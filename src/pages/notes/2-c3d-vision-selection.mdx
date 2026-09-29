@@ -1,0 +1,625 @@
+---
+layout: ../../layouts/BlogLayout.astro
+title: "Selection in C3D Vision"
+description: "What selection in a 3D viewport actually is — hit-testing, granularity, preselection, and stable identity — and then how to build it correctly with C3D Vision's SelectionManager."
+tags: ["cpp", "c3d", "qt", "personal-notes"]
+time: 21
+featured: false
+timestamp: 2026-09-29T16:00:00+03:00
+filename: 2-c3d-vision-selection
+---
+
+Clicking a face in a 3D viewport looks like one action. It is really a chain of them, and the interesting part is not the click — it is the question of **what name to give the thing that was clicked**, and whether that name still means anything tomorrow.
+
+The first half of these notes is the idea on its own, with no library in it. The second half is how C3D Vision implements that idea, following the upstream `23_Selection` example.
+
+---
+
+# Part I — The idea
+
+## 1. Two questions, not one
+
+A pick asks:
+
+1. **Which part of the model is under this pixel?**
+2. **How do I refer to that part afterwards?**
+
+The first is geometry and is usually solved for me by the rendering layer. The second is a modelling question, and it is the one that decides whether my feature works. A tool that highlights a face for one frame can afford a throwaway answer. A tool that attaches a dimension to that face, or saves a colour override, or reopens a file next week and restores what the user had selected, cannot.
+
+Almost every selection bug I have run into is really an identity bug wearing a hit-testing costume.
+
+## 2. The pipeline in the abstract
+
+Independent of any SDK, selection is five stages:
+
+```
+  capture  →  resolve  →  filter  →  record  →  present
+     │           │          │          │          │
+  pointer     which      which      add to    recolour,
+  position    parts      level of   the set   swap cursor,
+  + modifier  are        detail     (replace  notify other
+  keys        under it   is asked   /add/     views
+                         for        toggle)
+```
+
+**Capture** is a pointer event: coordinates, buttons, modifier keys. Modifiers matter here already, because they decide stage four.
+
+**Resolve** is hit-testing: from a 2D point to the set of scene parts underneath it, ordered by depth. Normally only the frontmost survives.
+
+**Filter** reduces that to the granularity the user asked for. This is not a test applied afterwards — it changes what the resolver looks for in the first place.
+
+**Record** applies the hit to a selection set under a mode.
+
+**Present** closes the loop: recolour, change the cursor, and tell every other view that the selection moved.
+
+The stage with no box of its own sits between *resolve* and *record*: **naming**. The resolver produces a hit; something has to turn that hit into an identifier durable enough for the rest of the program to hold on to.
+
+## 3. Two ways to hit-test
+
+There are two standard techniques, and knowing which one is running explains a lot of otherwise strange behaviour.
+
+**Ray casting.** Unproject the pixel into a ray in world space and intersect it against the geometry. It is exact, it works against the real model rather than its rendered approximation, and it returns a true intersection point. The cost grows with model size, so it needs spatial acceleration structures to stay interactive.
+
+**ID-buffer picking.** Render the scene off-screen, painting every part in a colour that encodes its identifier, then read back the single pixel under the cursor. The cost is one render pass regardless of how many parts exist, and the answer is whatever the rasteriser drew — which makes it exactly consistent with what the user sees. The precision is the pixel grid, so thin edges and vertices need a tolerance region (pick a small square around the cursor, not a single pixel) to be clickable at all.
+
+The practical split: ID-buffer picking for continuous hover, because it is cheap and frame-rate-stable; ray casting when exactness matters, such as snapping to a point on a surface. Systems that offer both expose the choice as a setting.
+
+This is also why a pick tolerance exists at all. Without it, selecting an edge would require hitting a one-pixel-wide line.
+
+## 4. Granularity: the same pixel belongs to many things
+
+A solid is a nested structure:
+
+```
+assembly
+└── body (solid)
+    └── face
+        └── edge
+            └── vertex
+```
+
+Every one of those is under the cursor simultaneously. A pixel on a cube's corner belongs to the vertex, to three edges, to three faces, to the body, and to the assembly — all true at once.
+
+So **"what did the user click" is undefined until the application declares which level it cares about.** That declaration is the filter, and it is application state, not a property of the click. A fillet command wants edges. A material assignment wants faces. A move command wants bodies. The same gesture in the same place means a different thing under each.
+
+The consequence for design: the filter has to be visible to the user, because otherwise identical gestures produce inexplicably different results. A toolbar of vertex/edge/face/body toggles is not decoration — it is the only way the user can see the state that disambiguates their own clicks.
+
+## 5. Preselection and selection are different things
+
+Two states, easily conflated, with different lifetimes:
+
+| | Preselection (highlight) | Selection |
+| --- | --- | --- |
+| Cardinality | At most one | A set |
+| Lifetime | Until the cursor moves | Until explicitly changed |
+| Meaning | "Click now and you get this" | "These are what commands act on" |
+| Cost of being wrong | Nothing | The user's work |
+
+Preselection is a *promise*. That is why it deserves its own colour and why it is worth the continuous hit-testing it costs: the user gets to verify the answer before committing to it, which matters enormously on dense models where the thing under the cursor is often not the thing they meant.
+
+It is also where cursor feedback comes from. A cursor that changes to a face glyph over a face and an edge glyph over an edge is reading the preselection. This only works if it reads *the same* preselection that the click will act on — a cursor that does its own independent hit-test will eventually disagree with the click, and a cursor that lies is worse than no cursor.
+
+Which gives a rule worth remembering: **cursor feedback and preselection must come from one source, and turning preselection off must turn the feedback off too.** Feedback that survives its source is feedback that has started guessing.
+
+## 6. Modes, and the ambiguity of the drag
+
+Recording a hit needs a mode. Four cover nearly everything:
+
+- **Replace** — clear, then add. The unmodified click.
+- **Add** — union. Usually Shift.
+- **Toggle** — flip this item's membership. Usually Ctrl.
+- **Single** — one item at a time; the set never exceeds one.
+
+Rubber-band (area) selection adds a second axis, and the convention is worth stating because users rely on it without knowing they do:
+
+- **Enclosing** — select only what falls entirely inside the rectangle.
+- **Crossing** — select anything the rectangle touches.
+
+Most CAD applications make the direction of the drag choose between them: left-to-right encloses, right-to-left crosses. It is a genuinely good piece of interface design — one gesture, two intents, no mode to remember.
+
+Area selection introduces a real ambiguity: **a drag that begins on top of an object could be a rubber band, or it could be the start of a move.** There is no way to know from the first event. The two standard resolutions are to let the area process ask permission before it starts — "is there an object under the cursor? then do not begin a rubber band" — or to keep the area process disabled until an explicit toolbar action turns it on. The first is smoother; the second is unambiguous. Either way the decision point has to exist, and an API that supports area selection needs a hook for it.
+
+## 7. Identity: the part that has to survive
+
+This is the centre of the whole topic.
+
+There are two kinds of identifier for a picked part, and they are not interchangeable:
+
+**Render identity** names a node in the scene graph *as currently built*. It is produced by the display pipeline, it is cheap, it is immediately available, and it is meaningless after the scene is rebuilt. Rebuilding happens more often than expected — reopening a file, changing tessellation quality, regenerating after an edit.
+
+**Model identity** names a part of the model itself. It survives rebuilds, and it survives save and load, because it is derived from the model's own structure rather than from a particular rendering of it.
+
+Model identity generally has two components, and both are necessary:
+
+- A **name or hash of the topological item** — this face, this edge — stable under rebuild because it is assigned by the modelling history rather than by tessellation order.
+- A **path through the assembly**, which is a sequence of instance names from the root down to the owning part.
+
+The path is the component people forget. In an assembly, one body definition can be instanced many times — sixteen identical bolts are one body and sixteen placements. The topological name identifies *the face on the bolt*; only the path identifies *which bolt*. Resolving a path also yields the transform that places that occurrence in world space, which is exactly what is needed to draw anything anchored to it.
+
+So the rule that follows from all of this:
+
+> Anything transient — this frame's highlight, the argument to a command running right now — may use render identity. **Anything persisted must use model identity.**
+
+And a corollary that is easy to miss: a part can have render identity with no model identity behind it. Scene decorations, construction planes, imported meshes with no modelling history — these exist in the view but not in the model. Any code reading model identity has to handle its absence rather than assume it.
+
+## 8. Closing the loop
+
+Selection is shared state, and usually more than one view displays it: the 3D scene, a structure tree, a properties panel, a readout.
+
+Keeping them agreed requires a **bidirectional mapping between render identity and model identity**, built at the moment the scene is constructed from the model — that is the only point where both identities for the same object are in hand at once. Miss it and everything still appears to work in the viewport while the tree quietly stops following along.
+
+The other half of closing the loop is knowing that the loop can close on itself. A tree that reacts to selection changes by setting the selection will feed itself forever. Every implementation of this has a re-entrancy guard somewhere; the only question is whether it was put there deliberately.
+
+---
+
+# Part II — How C3D Vision does it
+
+Everything above maps onto three classes.
+
+## 9. The three objects
+
+| Abstract stage | C3D Vision |
+| --- | --- |
+| Capture, resolve, filter | `ObjectPickSelection`, owned by the scene widget |
+| Record, modes | `SelectionManager` |
+| Naming | `SelectionItem` → `InstSelectionItem` |
+| Present | `SelectionManager` colours + its change signals |
+| Area selection | `PrFindSelectArea`, a find process registered with the pick tool |
+
+`ObjectPickSelection` is the search tool. It emits `ObjectPressed`, `ObjectReleased`, `ObjectHoverMove` and `ObjectPickArea`, each carrying a `PickData` — which is stages two and three of the pipeline made concrete, and also the naming step, since it carries both identities at once:
+
+```cpp
+struct PickData
+{
+    ObjectType m_typeObject;    // Vertex / Edge / Face / ...
+    NodeKey m_essenceKey;       // render identity: the scene segment
+    uint    m_geometryIdx;
+    NodeKey m_geometryKey;
+    NodeKey m_geometryItemKey;
+    uint    m_primitiveId;      // render identity: primitive in the geometry
+    MbPath  m_mathPath;         // model identity: path to the occurrence
+    uint32  m_mathPrimitiveId;  // model identity: the topological item
+};
+```
+
+The split from section 7 is visible right there in the struct: the `NodeKey`/`uint` group is render identity, the `MbPath`/`uint32` pair is model identity. `MbPath` is literally `SArray<SimpleName>` — an array of names, the path down through the instances.
+
+`SelectionManager` is the only layer ordinary code talks to. It owns the set, the mode, the two colours, and the change signals. I never write hit-testing; I configure the tool and react to the manager.
+
+`SelectionItem` is the abstract element of that set and knows only a key and a type. `InstSelectionItem` is the concrete one for faces, edges and vertices, and it carries all five identifiers.
+
+## 10. Setting it up, in the correct order
+
+Ordering is where most of the debugging time goes, so here is the whole of `main` with the reasoning attached:
+
+```cpp
+int main(int argc, char** argv)
+{
+    EnableMathModules(LICENSEKEY, std::strlen(LICENSEKEY),
+                      LICENSESIG, std::strlen(LICENSESIG));
+
+    auto application = QtApplication::createApplication(argc, argv, "Selection");
+    if (!application)
+        return 1;
+
+    Selection* sceneSelection = new Selection();
+
+    QtSdiMainWindow::CreateOptions controls(
+        QtMainWindow::MenuBar | QtMainWindow::ModelPanel |
+        QtMainWindow::PropsPanel | QtMainWindow::OutputPanel |
+        QtMainWindow::StatusBar | QtMainWindow::FilterBar);
+    QtSdiMainWindow mainWindow(controls);
+    mainWindow.processManager()->createProcessesCameraControls();
+    mainWindow.viewController()->createHeadsUpViewToolbar(true);
+
+    sceneSelection->setSceneWidget(mainWindow.sceneWidget());
+    mainWindow.sceneWidget()->installEventFilter(sceneSelection);
+
+    ModelEditor::AllowActSelectOptions selectOps(
+        ModelEditor::Body | ModelEditor::Face | ModelEditor::Edge |
+        ModelEditor::Vertex | ModelEditor::Area);
+    mainWindow.modelEditor()->setSelectionTool(selectOps);
+    sceneSelection->setSelectionManager(
+        mainWindow.modelEditor()->selectionManager());
+
+    QObject::connect(&mainWindow, &QtSdiMainWindow::openNewModel,
+                     sceneSelection, &Selection::slotOpenModel);
+
+    // ... property panel and output panel, sections 14 and 13 ...
+
+    mainWindow.show();
+    return application->exec();
+}
+```
+
+The sequence that matters:
+
+1. **`EnableMathModules` before anything touches the kernel.**
+2. **`createApplication` before any widget exists**, and check the result.
+3. **Construct the main window**, which creates the scene widget.
+4. **`setSceneWidget` on the helper before the event filter** — it needs a live widget.
+5. **`setSelectionTool` before asking for the manager.** This is the ordering trap: `setSelectionTool` is what *creates* the `SelectionManager`. Calling `selectionManager()` first returns an empty `shared_ptr`, which stores happily and fails much later as a null dereference, a long way from the mistake.
+6. **Connect signals**, now that the manager exists.
+7. **`show` and `exec`.**
+
+`setSelectionTool` is worth reading rather than trusting, because one call builds a lot. It creates the `SelectionManager`, points it at the scene content and at the widget's `ObjectPickSelection`, sets the default highlight colour to `Color(81, 178, 255)`, sets `MultiSelection` mode, turns dynamic highlighting on, enables `SetSelectionMatchesTransparency(true)`, and connects the manager's change signals to both the widget redraw and the model-tree sync. It also refuses to create a second manager — calling it twice is a silent no-op.
+
+The `AllowActSelectOptions` flags are section 4's filter. Dropping `ModelEditor::Vertex` makes vertices unpickable, and the `FilterBar` in the window options is the toolbar that drives exactly these flags at runtime. The `Area` flag is separate: it is what causes a `PrFindSelectArea` to be created and registered.
+
+`GlobalFlags::SetPickingByGeometry(true)` selects the geometry-data search path from section 3. The reference leaves it commented out, and the SDK header marks it a development option — worth knowing it exists, worth not shipping it casually.
+
+## 11. The bridge class
+
+The helper sits between the Qt UI and the Vision scene, and that position dictates its shape:
+
+```cpp
+class Selection : public QObject, public Object
+{
+    Q_OBJECT
+public:
+    explicit Selection();
+    ~Selection() override;
+
+    inline void setSelectionManager(SelectionManagerPtr ptrSelectManager);
+    inline void setSceneWidget(ModelView* sceneWidget);
+    inline void setOutputTable(QTableWidget* outputTable);
+    QColor highlightColor() const;
+    QColor selectionColor() const;
+
+protected:
+    void slotStartArea(bool& bAllow);
+    void slotFinishArea();
+
+public Q_SLOTS:
+    void slotOpenModel(MxModelExtension* pModel);
+    void slotSelectByRectTriggered();
+    void slotHighlightColor(const QColor& clr);
+    void slotSelectionColor(const QColor& clr);
+    void slotDynamicHighlighting(bool state);
+    void slotItemSelectModified();
+
+protected:
+    bool eventFilter(QObject* watched, QEvent* event) override;
+    // ...
+};
+```
+
+**The double inheritance is the point of the class.** `QObject` gives it Qt slots, reachable from `QObject::connect` — that is how it hears `openNewModel` and installs an event filter. `VSN::Object` gives it Vision's own connection system, reachable from `Object::Connect` — that is how it hears `SelectionManager::signalItemSelectModified` and `ProgressBuild::BuildAllCompleted`.
+
+Neither system can see the other's signals. Anything standing between the two worlds needs both bases, and every connection has to use the matching spelling: lowercase `QObject::connect` for Qt signals, capitalised `Object::Connect` for Vision ones. Getting this wrong is a compile error rather than a silent failure, which is a mercy.
+
+`setSceneWidget` does three jobs in three lines:
+
+```cpp
+inline void Selection::setSceneWidget(ModelView* sceneWidget)
+{
+    m_sceneWidget = sceneWidget;
+    m_curPoint = QtVision::findCursor(m_sceneWidget);
+    setParent(m_sceneWidget);
+}
+```
+
+Store the widget; build the default crosshair cursor (`findCursor` paints a 32×32 transparent pixmap with a centred hot spot); and reparent to the widget so Qt takes ownership. That third line is what keeps the heap-allocated helper from leaking, since nothing ever deletes it explicitly.
+
+## 12. Building the scene, and the mapping that closes the loop
+
+`slotOpenModel` runs when the main window opens a file. It is where the model becomes visible geometry, and where section 8's identity mapping gets built:
+
+```cpp
+void Selection::slotOpenModel(MxModelExtension* model)
+{
+    if (model == nullptr)
+        return;
+
+    if (m_pSegModel != nullptr)
+    {
+        SceneSegment* pTopSegment = m_sceneWidget->sceneContent()->GetRootSegment();
+        Q_ASSERT(pTopSegment != nullptr);
+        pTopSegment->RemoveSegment(m_pSegModel);
+    }
+
+    SceneSegment* pTopSegment = m_sceneWidget->sceneContent()->GetRootSegment();
+    Q_ASSERT(pTopSegment != nullptr);
+    m_pSceneGenerator = new SceneGenerator();
+    ProgressBuild* pProgressBuild = m_pSceneGenerator->CreateProgressBuild();
+
+    Object::Connect(m_pSceneGenerator, &SceneGenerator::SetupIDMapping,
+        m_sceneWidget->modelEditor(), &ModelEditor::slotSetupIDMapping);
+
+    Object::Connect(pProgressBuild, &ProgressBuild::BuildAllCompleted, this,
+        [this]()
+        {
+            VSN_DELETE_AND_NULL(m_pSceneGenerator);
+            m_sceneWidget->viewport()->ZoomToFit(
+                m_sceneWidget->sceneContent()->GetBoundingBox(), 1.5f);
+            m_sceneWidget->update();
+        });
+
+    m_pSegModel = m_pSceneGenerator->CreateSceneSegment(model, pTopSegment);
+    m_pSceneGenerator->StartBuildGeometry();
+}
+```
+
+**Remove the previous model first.** `m_pSegModel` caches the segment from the last load; without the removal each opened file stacks on the last.
+
+**`SetupIDMapping` is section 8, made real.** As the generator builds geometry it emits, per object, a triple of `NodeKey` (render identity), item `NodeKey`, and `MxObjectId` (model identity). `ModelEditor::slotSetupIDMapping` files each triple into four `std::map`s — both directions, for objects and for items. Clicking a face later looks up its `NodeKey` to find the matching tree row, and selecting a tree row looks up the other way. This is the only moment both identities are in hand together, which is why the connection has to be made before the build starts rather than after.
+
+**`StartBuildGeometry` is asynchronous** — its default argument is `CommandType::Threaded`, so it returns before the geometry exists. That is why the generator is deleted inside `BuildAllCompleted` rather than at the end of the function, and why `ZoomToFit` lives there too: the bounding box is not meaningful until the build finishes.
+
+The destructor checks exactly that contract:
+
+```cpp
+Selection::~Selection() { VSN_ASSERT(m_pSceneGenerator == nullptr); }
+```
+
+## 13. Reading the identity out
+
+The readout is the reason the example exists. Wire it to *both* change signals:
+
+```cpp
+OutputContent* outputContent = new OutputContent;
+mainWindow.outputWidget()->setWidget(outputContent);
+sceneSelection->setOutputTable(outputContent->outputTableWidget());
+
+Object::Connect(mainWindow.modelEditor()->selectionManager().get(),
+    &SelectionManager::signalItemSelectModified,
+    sceneSelection, &Selection::slotItemSelectModified);
+Object::Connect(mainWindow.modelEditor()->selectionManager().get(),
+    &SelectionManager::signalItemsSelectModified,
+    sceneSelection, &Selection::slotItemSelectModified);
+```
+
+Both are needed: the singular signal fires for a single pick, the plural one for a rubber-band selection that changes several items at once. Connecting only the first gives a readout that works on click and mysteriously ignores area selection.
+
+The handler rebuilds the table:
+
+```cpp
+void Selection::slotItemSelectModified()
+{
+    Q_ASSERT(m_ptrSelectManager != nullptr);
+    QFontMetrics fm(m_outputTable->font());
+    const int height = fm.boundingRect("X").height()
+                     + fm.boundingRect("X").height() / 2;
+
+    const auto& lstItem = m_ptrSelectManager->GetSelectionItems();
+
+    m_outputTable->clearContents();
+    m_outputTable->setRowCount(static_cast<int>(lstItem.size()));
+
+    int index = 0;
+    for (auto it : lstItem)
+    {
+        if (InstSelectionItem* item = dynamic_cast<InstSelectionItem*>(it))
+        {
+            MbPath path = item->GetMathPath();
+            bool bBlocked = m_outputTable->blockSignals(true);
+
+            String strKey = item->GetNodeKey().ToString();
+            m_outputTable->setItem(index, 0, new QTableWidgetItem(strKey.c_str()));
+            m_outputTable->setItem(index, 1,
+                new QTableWidgetItem(QString::number(item->GetIndexBody())));
+            m_outputTable->setItem(index, 2,
+                new QTableWidgetItem(QString::number(item->GetPrimitiveId())));
+
+            if (path.Count() > 0)
+            {
+                m_outputTable->setItem(index, 3,
+                    new QTableWidgetItem(QString::number(path.Hash())));
+                m_outputTable->setItem(index, 4,
+                    new QTableWidgetItem(QString::number(item->GetMathPrimitive())));
+            }
+
+            m_outputTable->setVerticalHeaderItem(index,
+                new QTableWidgetItem(typePrimitive(item)));
+            m_outputTable->setRowHeight(index, height);
+            m_outputTable->blockSignals(bBlocked);
+            index++;
+        }
+    }
+}
+```
+
+The five columns are Part I's identity distinction, column by column:
+
+| Column | Call | Kind | Identifies |
+| --- | --- | --- | --- |
+| Vis Node Key | `GetNodeKey()` | render | The scene segment |
+| Vis Body Idx | `GetIndexBody()` | render | Which body in that segment's geometry |
+| Vis Prim Id | `GetPrimitiveId()` | render | The face/edge/vertex in the geometry |
+| Mat Path hash | `GetMathPath().Hash()` | model | The occurrence, via the assembly path |
+| Mat Prim hash | `GetMathPrimitive()` | model | The named topological item |
+
+Four details in that loop earn their place:
+
+**The `dynamic_cast` is load-bearing.** `GetSelectionItems()` returns `SelectionItem*`, which knows only a key and a type. Every identifier above lives on `InstSelectionItem`. Items that fail the cast — `InstCustomItem`, used for programmatic selection that never came from the mouse — are skipped, which is why `index` is tracked separately from the loop position.
+
+**`if (path.Count() > 0)` is section 7's corollary.** A segment built from pure Vision geometry has no math object behind it and therefore an empty path. Printing the hash of an empty path would print a number that means nothing. When a stored selection fails to resolve after reopening a file, this is the branch to look at first.
+
+**`blockSignals` is section 8's re-entrancy guard.** If the table is wired back to the selection, filling cells emits `itemChanged`, which re-enters selection handling while the table is half-built.
+
+**Bind the list by reference.** `GetSelectionItems()` returns `const ObjectList<SelectionItem*>&`; writing `auto` instead of `const auto&` copies the whole list on every selection change.
+
+The row header comes from a small helper:
+
+```cpp
+static QString typePrimitive(InstSelectionItem* item)
+{
+    QString strText("N");
+    switch (item->GetType())
+    {
+        case ObjectType::Vertex: strText = QString("Vertex"); break;
+        case ObjectType::Edge:   strText = QString("Edge");   break;
+        case ObjectType::Face:   strText = QString("Face");   break;
+    }
+    return strText;
+}
+```
+
+The `"N"` fallback is not dead code — a whole-body selection has an `ObjectType` outside those three, so body picks show up as `N` rows. In practice that is a quick way to read the current filter state off the table itself.
+
+## 14. Feedback: cursor and colour
+
+The cursor is section 5's rule implemented literally — read the preselection, never hit-test independently:
+
+```cpp
+bool Selection::eventFilter(QObject* watched, QEvent* event)
+{
+    if (watched != m_sceneWidget)
+        return QObject::eventFilter(watched, event);
+
+    if (event->type() == QEvent::MouseMove)
+    {
+        QCursor curCursor;
+        ObjectType type = ObjectType::None;
+        if (SelectionItem* item = m_ptrSelectManager->GetHighlightItem())
+            type = item->GetType();
+
+        switch (type)
+        {
+            case ObjectType::Vertex: curCursor = m_curVertex; break;
+            case ObjectType::Edge:   curCursor = m_curEdge;   break;
+            case ObjectType::Face:   curCursor = m_curFace;   break;
+            default:                 curCursor = m_curPoint;  break;
+        }
+        m_sceneWidget->setCursor(curCursor);
+    }
+    return QObject::eventFilter(watched, event);
+}
+```
+
+`GetHighlightItem()` returns whatever the pick tool already resolved during its own hover pass — no second hit-test, so the cursor cannot disagree with the click. It follows that turning dynamic highlighting off returns null here and the cursor falls back to the crosshair, which is the correct behaviour rather than a gap: no preselection, nothing to promise. The filter always returns the base-class result, so it observes events rather than consuming them.
+
+The three glyph cursors come from Qt resources and must be registered in a `.qrc` alongside the target; `QPixmap(":/res/edge.cur")` on a missing resource yields a null pixmap and therefore a blank cursor, with no warning anywhere. The fourth is generated in `setSceneWidget`.
+
+Colours need a hand-written bridge, because Vision's `Color` and Qt's `QColor` do not convert:
+
+```cpp
+QColor Selection::highlightColor() const
+{
+    Color clr = m_ptrSelectManager->GetHighlightColor();
+    return QColor(clr.GetRed(), clr.GetGreen(), clr.GetBlue());
+}
+
+void Selection::slotHighlightColor(const QColor& clr)
+{ m_ptrSelectManager->SetHighlightColor(Color(clr.red(), clr.green(), clr.blue())); }
+```
+
+Alpha is dropped in both directions, which is why the colour properties in the panel call `removeSubProperty(ID_COLOR_ALPHA)` — a picker should not offer a channel that gets discarded. Transparency is handled separately and better by `SetSelectionMatchesTransparency(true)`, which makes the selection colour honour the original material's transparency instead of painting a solid patch over glass.
+
+The one handler that needs an explicit repaint:
+
+```cpp
+void Selection::slotDynamicHighlighting(bool state)
+{
+    m_ptrSelectManager->SetDynamicHighlighting(state);
+    m_sceneWidget->update();
+}
+```
+
+Toggling the flag moves nothing in the scene, so nothing schedules a redraw; without the `update()` a stale highlight lingers until the next mouse move.
+
+These three handlers are driven from the properties panel, registered against the id constants declared in the header:
+
+```cpp
+VarPropManager* propManager = mainWindow.propertyWidget()->propertyManager();
+VarProperty* groupProperty = propManager->addProperty(
+    VarPropManager::groupTypeId(), QObject::tr("Select"));
+
+VarProperty* propHighlighting = propManager->addProperty(
+    QVariant::Bool, QObject::tr("Highlight:"), ID_DYNAMIC_HIGHLIGHTING);
+propHighlighting->setValue(true);
+QObject::connect(mainWindow.propertyWidget(), &QtPropBrowserWidget::propChanged,
+    [&sceneSelection](QtVision::Property* property)
+    {
+        if (property->propertyId() == ID_DYNAMIC_HIGHLIGHTING)
+            sceneSelection->slotDynamicHighlighting(
+                ((VarProperty*)property)->value().toBool());
+    });
+groupProperty->addSubProperty(propHighlighting);
+// ... the same shape for ID_HIGHLIGHTCOLOR and ID_SELECTIONCOLOR ...
+mainWindow.propertyWidget()->addProperty(groupProperty);
+```
+
+One `propChanged` signal serves every property, so each handler dispatches on `propertyId()`. That is why those `const char[]` ids exist at the top of the header rather than being inlined.
+
+## 15. Area selection and its ambiguity
+
+The `Area` flag causes `setSelectionTool` to build the rubber-band process:
+
+```cpp
+m_pFindArea = new PrFindSelectArea(m_sceneWidget->graphicsScene());
+m_pFindArea->SetMouseButtonsActivate({
+    VSN::mb_LButton,                      // replace
+    VSN::mb_LButton | VSN::mb_Control,    // toggle
+    VSN::mb_LButton | VSN::mb_Shift });   // add
+m_sceneWidget->objectPickSelection()->AddFindProcess(m_pFindArea);
+```
+
+Those three entries are section 6's modes bound to modifier keys, and the enclosing/crossing choice is `SetRectType`:
+
+```cpp
+enum RectType
+{
+    at_UnifyingCutting, // direction of the drag decides; enclose first
+    at_CuttingUnifying, // direction of the drag decides; cross first
+    at_OnlyUnifying,    // always enclosing
+    at_OnlyCutting,     // always crossing
+};
+```
+
+The direction-sensitive defaults are what CAD users expect, so leaving them alone is usually right.
+
+Section 6's drag ambiguity has a hook of its own. `PrFindSelectArea` emits `signalStartArea(bool& bAllow)` — a veto, passed by reference — and `signalFinishArea()`:
+
+```cpp
+void Selection::slotStartArea(bool& bAllow)
+{
+    bAllow = !m_pFindArea->IsObjectUnderCursor();
+}
+```
+
+That is the smooth resolution: refuse to begin a rubber band when the drag starts on an object, so the gesture stays available for dragging. The unambiguous alternative is to keep the process disabled and let an explicit toolbar action enable it:
+
+```cpp
+void Selection::slotSelectByRectTriggered() { m_pFindArea->SetEnabled(true); }
+void Selection::slotFinishArea()            { m_pFindArea->SetEnabled(false); }
+```
+
+The upstream example carries both, compiled out behind `OTHER_METHOD_1` and `OTHER_METHOD_2`, which is a fair way to present a decision that belongs to the application rather than the library.
+
+## 16. Selecting without the mouse
+
+Commands often need to select a whole subassembly, and the pattern turns on one question:
+
+```cpp
+static void _selectSegment(SelectionManagerPtr ptrSelectManager,
+                           SceneSegment* pSegment)
+{
+    if (pSegment->GetRepresentation() == nullptr)
+    {
+        auto listItem = pSegment->GetChildSegments();
+        for (auto it = listItem.begin(); it != listItem.end(); ++it)
+        {
+            SceneSegment* pSegmentItem = (*it);
+            if (pSegmentItem->GetRepresentation() == nullptr)
+                _selectSegment(ptrSelectManager, pSegmentItem);
+            else
+                ptrSelectManager->Select(pSegmentItem->GetUniqueKey());
+        }
+    }
+}
+```
+
+A segment with `GetRepresentation() == nullptr` is a grouping node — an assembly — and gets descended into. A segment with a representation is a leaf holding real geometry and gets selected by key. So "select this assembly" means "select every leaf beneath it", which is exactly what the model tree does when a branch is checked.
+
+For selection that should not participate in mouse interaction at all, `SelectionManager` keeps a parallel custom list — `CustomSelect`, `GetSelectionCustomItems`, `SetCustomSelectionColor` — whose items are `InstCustomItem`, deliberately inert with respect to hover. That is the right home for programmatic highlighting, such as marking the results of an interference check, that should not be disturbed by the user clicking elsewhere.
+
+---
+
+## What this leaves me with
+
+The reusable part is not the API. It is the two-identity rule, and the habit of asking, at every point where a picked thing is stored, *how long does this name have to remain true?*
+
+Render identity is cheap, immediate, and expires when the scene is rebuilt. Model identity costs a path lookup and survives save, load and regeneration. A highlight can use the first. A dimension anchored to a face, a saved selection set, a colour override, anything written to a file — all need the second, and need the path as well as the name, because in an assembly the same face exists on sixteen different bolts.
+
+Everything else in this note is the machinery for getting those names out of a mouse click without lying to the user about which one they are about to pick.
