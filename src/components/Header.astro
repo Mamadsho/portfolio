@@ -10,7 +10,7 @@ import ThemeToggle from "./ThemeToggle.astro";
   <div
     class="zag-bg zag-transition sm:hidden relative z-50 py-4 flex items-center"
   >
-    <button class="px-4" aria-label="Toggle navigation menu">
+    <button class="px-4" aria-label="Открыть или закрыть меню">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="32"
@@ -33,7 +33,7 @@ import ThemeToggle from "./ThemeToggle.astro";
     ))}
     </div>
     <div class="flex gap-4 justify-between px-4 sm:px-0">
-      {GLOBAL.githubProfile && (<Anchor url={GLOBAL.githubProfile} aria-label="Zaggonaut GitHub Repository">
+      {GLOBAL.githubProfile && (<Anchor url={GLOBAL.githubProfile} aria-label="Репозиторий на GitHub">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"

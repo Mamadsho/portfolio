@@ -9,19 +9,24 @@ import {
 import { GLOBAL } from "../lib/variables";
 import type { MarkdownLayoutProps } from "astro";
 import Prose from "../components/Prose.astro";
+import NotesNavigation from "../components/notes/NotesNavigation.astro";
 import Layout from "./Layout.astro";
 
-type Props = MarkdownLayoutProps<ArticleFrontmatter>;
+type Props = MarkdownLayoutProps<ArticleFrontmatter & { compact?: boolean }>;
 
 const { frontmatter } = Astro.props;
 const shortDescription = getShortDescription(frontmatter.description);
 const articleDate = processArticleDate(frontmatter.timestamp);
-const sourceUrl = generateSourceUrl(frontmatter.filename, "blog");
+const isNote = Astro.url.pathname.startsWith("/notes/");
+const sourceUrl = isNote
+  ? `${GLOBAL.rootUrl}/notes/${frontmatter.filename}`
+  : generateSourceUrl(frontmatter.filename, "blog");
 ---
 
 <Layout>
   <Fragment slot="head">
     <title>{frontmatter.title} • {GLOBAL.username}</title>
+    {isNote && <meta name="robots" content="noindex, nofollow" />}
     <meta name="description" content={frontmatter.description} />
     <meta property="og:title" content={`${frontmatter.title} • ${GLOBAL.username}`} />
     <meta property="og:description" content={shortDescription} />
@@ -36,20 +41,22 @@ const sourceUrl = generateSourceUrl(frontmatter.filename, "blog");
     <link rel="canonical" href={sourceUrl} />
   </Fragment>
   <Section class="pt-8">
-    <div class="flex flex-col gap-4 mt-8 mb-4">
+    {isNote && <div class="mb-4"><NotesNavigation /></div>}
+    <div class:list={["flex flex-col gap-4 mb-4", frontmatter.compact ? "mt-0" : "mt-8"]}>
       <h1
-        class="text-3xl sm:text-4xl leading-normal sm:leading-normal font-display"
+        class:list={[frontmatter.compact ? "text-xl sm:text-2xl font-mono" : "text-3xl sm:text-4xl leading-normal sm:leading-normal font-display"]}
       >
         {frontmatter.title}
       </h1>
-      <div class="flex justify-between">
+      {!frontmatter.compact && <div class="flex justify-between">
         <span>{articleDate}</span>
-        <span>{frontmatter.time} min</span>
-      </div>
+        <span>{frontmatter.time} мин</span>
+      </div>}
     </div>
     <Prose>
       <slot />
     </Prose>
+    {isNote && <div class="mt-8"><NotesNavigation /></div>}
     <!-- <p class="pt-8">~{GLOBAL.username}</p> -->
   </Section>
 </Layout>

@@ -1,0 +1,44 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ArticleSnippet from "../../components/ArticleSnippet.astro";
+import Section from "../../components/common/Section.astro";
+import type { ArticleFrontmatter } from "../../lib/types";
+import { getShortDescription } from "../../lib/utils";
+import { GLOBAL } from "../../lib/variables";
+
+const modules = import.meta.glob<{ frontmatter: ArticleFrontmatter }>("./*.mdx", { eager: true });
+const notes = Object.values(modules)
+  .map(({ frontmatter }) => ({
+    ...frontmatter,
+    description: getShortDescription(frontmatter.description),
+    filename: `/notes/${frontmatter.filename}`,
+  }))
+  .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+---
+
+<Layout>
+  <Fragment slot="head">
+    <title>Личные заметки • {GLOBAL.username}</title>
+    <meta name="description" content="Личные заметки и памятки." />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href={`${GLOBAL.rootUrl}/notes`} />
+  </Fragment>
+  <Section class="my-8">
+    <div class="flex items-center gap-4 pt-8 pb-16">
+      <h1 class="font-display text-3xl sm:text-4xl leading-loose">Заметки</h1>
+    </div>
+    <ul>
+      {notes.map((note) => (
+        <li>
+          <ArticleSnippet
+            title={note.title}
+            description={note.description}
+            duration={`${note.time} мин`}
+            url={note.filename}
+            timestamp={note.timestamp}
+          />
+        </li>
+      ))}
+    </ul>
+  </Section>
+</Layout>

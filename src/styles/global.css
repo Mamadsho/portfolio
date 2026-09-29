@@ -91,7 +91,7 @@
     }
   }
 
-  code {
+  :not(pre) > code {
     padding: 2px;
     border-radius: 5px;
     background-color: #24292e;
@@ -200,4 +200,14 @@ html {
 html.dark {
   background-color: var(--color-zag-dark);
   color-scheme: dark;
+}
+
+/* Shiki generates both palettes at build time; the existing toggle selects one. */
+html.dark .astro-code,
+html.dark .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: #000 !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
 }

@@ -1,0 +1,329 @@
+---
+layout: ../../layouts/BlogLayout.astro
+title: "Multiple Inheritance, Pointers, and Ownership"
+description: "A personal C++ guide to adjusted addresses, virtual calls, references, smart pointers, and the lifetimes behind them."
+tags: ["cpp", "memory", "personal-notes"]
+time: 14
+featured: false
+timestamp: 2026-09-29T00:00:00+03:00
+filename: 0-multiinheritance-pointers-ownership
+---
+
+import PointerDiagram from '../../components/notes/PointerDiagram.astro';
+
+The question that made pointers click for me was: **if a class inherits from two other classes, how can the same object work as either one?** Both bases can have data, and both can have virtual methods. Surely they cannot both begin at the same place in memory?
+
+The useful discovery is that converting a pointer can change its address. A base-class pointer can identify a portion inside a larger object. From there, references and smart pointers become easier to understand: they give me different ways to access that object and express who keeps it alive.
+
+These notes follow that path. The examples use C++17 or later. They assume public, unambiguous inheritance and ordinary calls after construction, before destruction.
+
+## 1. Start with one object containing two base portions
+
+Here is the small hierarchy used throughout the guide. The methods have bodies so the examples can actually run.
+
+```cpp
+#include <iostream>
+#include <memory>
+#include <utility>
+
+struct A {
+    int a = 1;
+    virtual void f() { std::cout << "A::f\n"; }
+    virtual ~A() = default;
+};
+
+struct B {
+    int b = 2;
+    virtual void g() { std::cout << "B::g\n"; }
+    virtual ~B() = default;
+};
+
+struct C : A, B {
+    int c = 3;
+    void f() override { std::cout << "C::f\n"; }
+    void g() override { std::cout << "C::g: " << c << '\n'; }
+};
+```
+
+A complete `C` contains an `A` base subobject, a `B` base subobject, and its own member `c`. Those base subobjects hold actual data. Multiple inheritance is not limited to interfaces without fields.
+
+<PointerDiagram />
+
+The whole outline is **one allocation containing one complete object**. The `A` and `B` regions are parts of that object, not separately allocated objects. Moving downward in the diagram means moving to higher addresses.
+
+This is a teaching layout, not a promise about exact bytes. A compiler may insert padding, reuse some padding, or organize implementation details differently. Alignment determines which positions are suitable for each part. The compiler handles those constraints.
+
+Typical implementations store pointers to virtual-function tables in polymorphic objects. The tables and the method code live elsewhere; every instance does not contain its own copy of the functions.
+
+## 2. A conversion can change the address
+
+```cpp
+C obj;
+C* whole = &obj;
+A* asA = whole;
+B* asB = whole;
+```
+
+There is no explicit cast here. These are ordinary derived-to-base pointer conversions.
+
+In the diagram, the complete object begins at illustrative address `1000`. Its `A` portion starts there too, while its `B` portion begins at `1016`. The compiler therefore produces a pointer to `1016` when converting `whole` to `B*`.
+
+**The object stays where it is. The address stored in the resulting pointer changes.**
+
+That solves data access. Code using a `B*` knows where `b` belongs relative to the beginning of a `B` subobject. Because `asB` already points to that beginning, `asB->b` finds the right member.
+
+For a non-virtual base like this one, the compiler knows the adjustment from the types and can bake it into the generated code. It does not need a runtime lookup table for every conversion. A null derived pointer also converts to a null base pointer; the illustrative “add 16” is not literal arithmetic to perform yourself on every address.
+
+Writing `static_cast<B*>(whole)` would request the same conversion explicitly. A `reinterpret_cast` is not a replacement: it does not request the inheritance-aware adjustment needed to locate the `B` subobject.
+
+## 3. A virtual call also needs the right `this`
+
+Now call a method through that base pointer:
+
+```cpp
+asB->g();  // Prints C::g: 3
+```
+
+There are two questions to answer: **which implementation should run, and which object address should it receive?**
+
+The expression has a `B*`, but the complete object is a `C`. Virtual dispatch selects `C::g`. That override accesses `c`, so it must receive a `this` pointer suitable for `C`, not one pointing only at the start of its `B` region.
+
+A typical implementation follows the `B` region's virtual-table pointer to an entry for `g`. For a `C` object, that entry can lead through a small compiler-generated wrapper, called a *thunk*. The wrapper adjusts the incoming address back to the `C` starting point, then enters `C::g`.
+
+<PointerDiagram kind="call" />
+
+The compiler can optimize away some of this work when it already knows the target. The important guarantee is the behavior; C++ does not require this exact table-and-wrapper implementation. The [Itanium C++ ABI's virtual-function calling convention](https://itanium-cxx-abi.github.io/cxx-abi/abi.html#vcall) describes one concrete implementation family.
+
+### Does base order matter?
+
+The order in `struct C : A, B` determines the construction order of these direct bases and can affect the layout. It does not mean I need to keep an offset table myself. The compiler generates conversions for the actual hierarchy and target platform.
+
+Two unrelated bases introducing the same member name can also make an expression ambiguous. Qualifying the intended base resolves that name-selection problem; it is separate from locating the base in memory.
+
+### What about virtual inheritance?
+
+Virtual **functions** choose an implementation. Virtual **inheritance** lets different inheritance paths share a common base subobject, such as the common ancestor in a diamond. They solve different problems.
+
+With a virtual base, its position relative to a particular intermediate base can depend on the complete object's type. Implementations commonly consult stored offsets to find it. This is where the intuition that “there must be a table somewhere” becomes particularly useful.
+
+## 4. This does not require `dynamic_cast`
+
+Going from a `C*` to its public, unambiguous `B*` is already known to be valid from the types. The compiler needs to locate the base, not investigate whether the object has one.
+
+`dynamic_cast` is useful for a different question: given a polymorphic base pointer, is the object actually a particular derived type?
+
+```cpp
+B* base = &obj;
+
+if (C* derived = dynamic_cast<C*>(base)) {
+    std::cout << derived->c;
+}
+```
+
+If the check fails, this pointer form returns `nullptr`. On success it also returns the correctly adjusted pointer. The reference form throws `std::bad_cast` on failure. It can also support checked cross-casts between bases, but none of that is needed for our straightforward conversion to `B`.
+
+## 5. Use a reference when I want a borrowed view
+
+What if I want to work with the `B` part for the rest of a scope, without repeatedly writing pointer syntax?
+
+```cpp
+C obj;
+B& view = obj;
+
+view.b = 42;  // Changes the member inside obj
+view.g();     // Still calls C::g
+```
+
+`view` is an alias for the existing `B` subobject. It makes no copy and takes no ownership. The compiler still locates the correct base portion; changing the syntax does not remove that requirement.
+
+The same idea is useful at a function boundary:
+
+```cpp
+void useB(B& value) {
+    value.g();
+}
+
+C obj;
+useB(obj);
+```
+
+The function only needs access to a `B`. It does not need to know whether the caller owns a local object, uses a smart pointer, or has received the object from somewhere else.
+
+A reference expresses that a valid object is required and cannot later be reseated to refer to another object. A raw pointer can express optional access using `nullptr` and can be reassigned. Neither borrowed form keeps the object alive.
+
+### The ampersand matters: copying slices
+
+```cpp
+C obj;
+B& borrowed = obj;  // A view of the original object
+B copied = obj;    // A new, separate B object
+
+borrowed.g();       // C::g
+copied.g();         // B::g
+```
+
+The second declaration copies only the `B` subobject. This is *object slicing*. The new object really is a `B`, so it no longer has `C`'s dynamic type or `c` member. Passing `B` by value has the same issue. Use a reference or pointer when the function is supposed to preserve polymorphic behavior.
+
+## 6. Heap allocation does not force pointer syntax everywhere
+
+Now give the complete object an owner with `unique_ptr`:
+
+```cpp
+auto owner = std::make_unique<C>();
+B& view = *owner;
+
+view.b = 42;
+view.g();
+useB(*owner);
+```
+
+`*owner` gives access to the existing `C`; the reference conversion then selects its `B` portion. Dereferencing does not copy the object.
+
+The `C` has dynamic storage duration—what we usually call living on the heap. The local smart-pointer variable has its own lifetime. The reference provides ordinary dot syntax regardless of where the referred-to object was allocated.
+
+Three separate questions are worth keeping apart:
+
+| Question | In this example |
+| --- | --- |
+| Where is the complete object stored? | In dynamically allocated storage |
+| How do I access it? | Through the borrowed reference `view` |
+| Who is responsible for destroying it? | The `unique_ptr` named `owner` |
+
+The owner automatically destroys the object when it is destroyed or reset. That is RAII: tying resource cleanup to an owning object's lifetime. If all I need is a local `C obj;`, I can use that directly and avoid dynamic allocation altogether.
+
+## 7. A reference can outlive its object
+
+Convenient access and lifetime safety are different concerns:
+
+```cpp
+auto owner = std::make_unique<C>();
+B& view = *owner;
+
+owner.reset();  // The complete C is destroyed
+// view.g();   // Would be undefined behavior: dangling reference
+```
+
+The name `view` is still in scope, but the object it referred to is gone. C++ does not automatically turn a reference into an empty value or check that the object remains alive.
+
+For short operations, borrowing is practical: keep the owner alive and make sure the operation cannot destroy or reset the object while the reference is used. Watch for references returned to local variables, retained by callbacks, or stored beyond the owner's lifetime. Container reallocation can invalidate references to elements too.
+
+Moving a `unique_ptr` is different from moving its pointee:
+
+```cpp
+auto first = std::make_unique<C>();
+B& view = *first;
+auto second = std::move(first);
+
+view.g();  // Valid: the same C is now owned by second
+```
+
+Ownership moved; the allocated object did not. `first` is now empty, so it must not be dereferenced. Destroying or resetting `second` will end the object's lifetime.
+
+Static analysis and sanitizers can catch many mistakes, but ordinary C++ references are not a built-in borrow checker. The lifetime relationship still needs to be part of the design.
+
+## 8. Retain ownership when I need the object to stay alive
+
+If more than one piece of code genuinely needs to retain the object, `shared_ptr` expresses that:
+
+```cpp
+auto owner = std::make_shared<C>();
+std::shared_ptr<B> keepAlive = owner;
+
+owner.reset();
+keepAlive->g();  // Safe: keepAlive still owns the complete C
+```
+
+This combines the original pointer-conversion idea with lifetime management. `keepAlive` provides a correctly adjusted pointer to the `B` part while sharing ownership of the complete `C` allocation. The managed object is destroyed when the last owning `shared_ptr` releases it.
+
+I can still borrow a reference for convenient local use:
+
+```cpp
+B& view = *keepAlive;
+view.g();
+```
+
+But the reference itself adds no ownership. It is valid here because an owner remains alive. Dereferencing any empty smart pointer is invalid; a successful `make_unique` or `make_shared` gives a nonempty pointer, while a reset or moved-from pointer may be empty.
+
+Never create a fresh owning smart pointer from another owner's `.get()` pointer. That can introduce independent owners that both try to delete the same object. Convert or copy the existing `shared_ptr` to preserve its ownership group.
+
+### Sole ownership can also use the base type
+
+```cpp
+std::unique_ptr<B> owner = std::make_unique<C>();
+owner->g();
+```
+
+With the default deleter used here, `B` needs a virtual destructor so deletion through `B*` correctly destroys the complete derived object. That is why the opening example gives both bases virtual destructors. Ordinary reference conversion alone does not require a virtual destructor.
+
+Use `unique_ptr` when one owner is enough. Shared ownership adds bookkeeping and can obscure when destruction occurs, so it is useful when the ownership really is shared, not just because multiple functions need temporary access. This follows the [C++ Core Guidelines' ownership guidance](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rr-unique).
+
+## 9. Observe with `weak_ptr` when disappearance is allowed
+
+Sometimes I want to remember an object without keeping it alive. A `weak_ptr` observes an existing shared ownership group:
+
+```cpp
+auto owner = std::make_shared<C>();
+std::weak_ptr<B> observer = owner;
+
+if (auto live = observer.lock()) {
+    live->g();  // live keeps the object alive during this block
+}
+
+owner.reset();
+
+if (auto live = observer.lock()) {
+    live->g();
+} else {
+    std::cout << "The object is gone\n";
+}
+```
+
+`lock()` gives a usable `shared_ptr` if the object is still alive, or an empty one if it has expired. Keep that returned owner for the whole operation. Checking `expired()` separately is not a substitute for acquiring ownership.
+
+This is useful for callbacks and relationships where an object may disappear. It can also break cycles of shared ownership. It is not a general observer that can be attached directly to a `unique_ptr` or an arbitrary local object.
+
+Keeping an object alive does not make its mutable data thread-safe. Ownership and synchronization remain separate questions.
+
+## 10. Choose the handle by what the code needs
+
+| Form | What it expresses | Keeps the object alive? |
+| --- | --- | --- |
+| `C obj;` | Own the complete object directly | Its lifetime defines the object's lifetime |
+| `B& view` | Borrow a required object | No |
+| `B* view` | Borrow an optionally absent or reseatable object | No, under the non-owning convention |
+| `std::unique_ptr<B>` | Own an object exclusively | Yes, until reset, destruction, or ownership transfer |
+| `std::shared_ptr<B>` | Retain shared ownership | Yes, while an owning pointer remains |
+| `std::weak_ptr<B>` | Observe shared ownership without retaining it | Only after a successful `lock()` provides an owner |
+
+“Avoid pointers” is most useful to me as a reminder to avoid unmanaged ownership. Raw pointers still have a practical role for borrowed, optional access, and references fit borrowed, required access. Smart pointers express lifetime responsibilities. Values are often sufficient when no dynamic allocation or polymorphic handle is needed.
+
+The original memory question ties this together: **a handle identifies the object—or the part of an object—that the code can access. Its ownership semantics determine whether it also keeps that object alive.** The compiler handles inheritance adjustments; I still choose the lifetime relationship.
+
+## A small experiment to run again later
+
+Place this `main` after the class definitions at the start. The addresses vary by implementation; the dispatch behavior is what to look for.
+
+```cpp
+int main() {
+    auto owner = std::make_shared<C>();
+    B& view = *owner;
+    std::shared_ptr<B> retained = owner;
+    std::weak_ptr<B> observer = retained;
+
+    std::cout << "Complete C: "
+              << static_cast<const void*>(owner.get()) << '\n';
+    std::cout << "B portion:  "
+              << static_cast<const void*>(&view) << '\n';
+
+    view.g();            // C::g: 3
+    owner.reset();
+    retained->g();       // C::g: 3; another owner remains
+    retained.reset();    // The object is now destroyed
+
+    // view is now dangling; do not use it.
+    std::cout << std::boolalpha
+              << "Expired: " << observer.expired() << '\n';
+}
+```
+
+This one experiment shows an adjusted base address, a reference to a heap object, virtual dispatch to the derived implementation, and shared ownership ending. They are all parts of the same object model.

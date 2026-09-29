@@ -72,10 +72,12 @@ export const getShortDescription = (content: string, maxLength = 20) => {
  */
 export const processArticleDate = (timestamp: string) => {
   const date = new Date(timestamp);
-  const monthSmall = date.toLocaleString("default", { month: "short" });
-  const day = date.getDate();
-  const year = date.getFullYear();
-  return `${monthSmall} ${day}, ${year}`;
+  return date.toLocaleDateString("ru-RU", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "Europe/Moscow",
+  });
 };
 
 /**

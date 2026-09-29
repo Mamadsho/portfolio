@@ -1,0 +1,75 @@
+---
+interface Props { kind?: "memory" | "call"; }
+const { kind = "memory" } = Astro.props;
+---
+
+<figure class="pointer-diagram not-prose">
+  {kind === "memory" ? (
+    <>
+      <div class="diagram-heading">One complete C object</div>
+      <div class="direction">Memory addresses increase downward ↓</div>
+      <div class="memory-grid" role="img" aria-label="C and A pointers refer to address 1000 at the beginning of one complete C object. A B pointer refers to address 1016 inside that same object. The object contains an A portion, a B portion, and C's own data.">
+        <div class="pointer"><span>C*<br />A*</span><span class="arrow" /></div>
+        <div class="portion part-a">
+          <div class="part-title"><strong>A portion</strong><span>1000</span></div>
+          <div class="field">Virtual-table pointer</div>
+          <div class="field">Data member: a</div>
+        </div>
+        <div class="pointer"><span>B*</span><span class="arrow" /></div>
+        <div class="portion part-b">
+          <div class="part-title"><strong>B portion</strong><span>1016</span></div>
+          <div class="field">Virtual-table pointer</div>
+          <div class="field">Data member: b</div>
+        </div>
+        <div aria-hidden="true" />
+        <div class="portion part-c">
+          <div class="part-title"><strong>C's own data</strong><span>1032</span></div>
+          <div class="field">Data member: c</div>
+        </div>
+      </div>
+      <figcaption>Illustrative addresses and layout. Each arrow selects a starting point inside the same object; no data moves.</figcaption>
+    </>
+  ) : (
+    <>
+      <div class="diagram-heading">Calling the override through B</div>
+      <ol class="call-flow">
+        <li><span class="step">1</span><div><strong>Call through B*</strong><span>Incoming address: 1016</span></div></li>
+        <li><span class="step">2</span><div><strong>Follow B's virtual-table entry</strong><span>Select C's override and its adjustment wrapper</span></div></li>
+        <li><span class="step">3</span><div><strong>Adjust this: 1016 − 16 = 1000</strong><span>The wrapper restores the C starting address</span></div></li>
+        <li><span class="step">4</span><div><strong>Run C::g()</strong><span>this points to C; the method can access c</span></div></li>
+      </ol>
+      <figcaption>A typical implementation. The compiler may optimize the call while preserving its behavior.</figcaption>
+    </>
+  )}
+</figure>
+
+<style>
+  .pointer-diagram { margin: 2rem 0; color: inherit; text-align: left; }
+  .diagram-heading { font-size: 1.05rem; font-weight: 600; margin-bottom: .5rem; }
+  .direction, figcaption { font-size: .8rem; line-height: 1.6; }
+  .direction { margin-bottom: 1rem; }
+  figcaption { margin-top: .8rem; }
+  .memory-grid { display: grid; grid-template-columns: 72px minmax(0,1fr); }
+  .pointer { display: flex; align-items: flex-start; gap: .4rem; padding-top: 12px; }
+  .pointer > span:first-child { font-weight: 600; line-height: 1.4; }
+  .arrow { position: relative; height: 2px; flex: 1; background: currentColor; margin-top: .55rem; }
+  .arrow::after { content: ''; position: absolute; right: 0; top: -4px; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+  .portion { padding: 12px 16px; border-inline: 2px solid currentColor; }
+  .part-a { border-top: 2px solid currentColor; background: color-mix(in srgb, var(--color-zag-accent-light) 16%, transparent); }
+  .part-b { border-top: 1px dashed currentColor; background: color-mix(in srgb, currentColor 9%, transparent); }
+  .part-c { border-top: 1px dashed currentColor; border-bottom: 2px solid currentColor; }
+  .part-title { display: flex; justify-content: space-between; gap: .5rem; flex-wrap: wrap; margin-bottom: .6rem; }
+  .part-title span { font-variant-numeric: tabular-nums; }
+  .field { padding: .45rem 0; font-size: .85rem; }
+  .call-flow { list-style: none; padding: 0; margin: 1rem 0; }
+  .call-flow li { display: flex; gap: .8rem; padding: .7rem 0; align-items: flex-start; }
+  .step { flex: 0 0 1.8rem; line-height: 1.8rem; text-align: center; background: color-mix(in srgb, var(--color-zag-accent-light) 20%, transparent); }
+  .call-flow strong, .call-flow div > span { display: block; }
+  .call-flow div > span { font-size: .85rem; line-height: 1.6; margin-top: .2rem; }
+  @media (max-width: 420px) {
+    .memory-grid { grid-template-columns: 56px minmax(0,1fr); }
+    .portion { padding-inline: 10px; }
+    .part-title { font-size: .85rem; }
+    .field { font-size: .8rem; }
+  }
+</style>

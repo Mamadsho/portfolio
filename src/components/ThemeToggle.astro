@@ -2,7 +2,7 @@
 
 ---
 
-<button class="border-none bg-none focus:outline-2 focus:outline-offset-2 focus:outline-zag-dark dark:focus:outline-zag-light" id="themeToggle" aria-label="Theme Toggle">
+<button class="border-none bg-none focus:outline-2 focus:outline-offset-2 focus:outline-zag-dark dark:focus:outline-zag-light" id="themeToggle" aria-label="Переключить тему">
   <svg
     width="30px"
     xmlns="http://www.w3.org/2000/svg"
@@ -38,15 +38,15 @@
   // Саму тему применяет скрипт в <head> (см. Layout.astro) — до первой
   // отрисовки. Здесь только переключение по кругу и подпись для читалок.
   const themeLabels = {
-    light: "Theme: light",
-    dark: "Theme: dark",
-    black: "Theme: pitch black",
+    light: "Тема: светлая",
+    dark: "Тема: тёмная",
+    black: "Тема: чёрная",
   };
 
   const themeButton = document.getElementById("themeToggle");
 
   const setThemeLabel = (theme) =>
-    themeButton?.setAttribute("aria-label", themeLabels[theme] ?? "Theme Toggle");
+    themeButton?.setAttribute("aria-label", themeLabels[theme] ?? "Переключить тему");
 
   setThemeLabel(localStorage.getItem("theme") ?? "light");
 
