@@ -1,0 +1,943 @@
+---
+layout: ../../layouts/BlogLayout.astro
+title: "Anatomy of a C3D Vision App"
+description: "How a C3D Vision Qt sample is put together: the four library layers, the five files, who owns whom, the two signal systems, and the four flows that bind it all — read through the 23_Selection example, with full source listings."
+tags: ["cpp", "c3d", "qt", "architecture", "personal-notes"]
+time: 24
+featured: false
+timestamp: 2026-09-29T17:00:00+03:00
+filename: 3-c3d-vision-project-anatomy
+---
+
+The previous note was about what selection *is*. This one is about how the program that implements it is actually built — which files exist, which objects live inside them, who creates whom, and what talks to what.
+
+I am reading `Examples/Qt/23_Selection` here, but almost nothing below is specific to selection. Every sample in that directory has the same skeleton, so learning it once pays off across all of them.
+
+## 1. The shape of the thing
+
+A C3D Vision Qt sample is smaller than it looks. Five files, 537 lines of C++, and the great majority of that is one class:
+
+```
+23_Selection/
+├── CMakeLists.txt     35 lines   build: moc, rcc, link
+├── main.cpp          101 lines   composition root
+├── selection.h        93 lines   two class declarations
+├── selection.cpp     343 lines   their implementations
+├── selection.qrc      13 lines   resource manifest
+└── res/                          cursors, icons, a sample model
+```
+
+The structure is a **composition root plus one controller**. `main.cpp` does nothing but construct objects and connect them; it contains no logic worth testing. The controller class holds every callback the application actually implements. Everything else — window, panels, viewport, tree, camera, rendering — comes from the framework already assembled.
+
+That is the first thing worth internalising: writing one of these samples is mostly *wiring*, not building.
+
+## 2. Four layers under the sample
+
+```
+ ┌─────────────────────────────────────────────┐
+ │  23_Selection            your code          │  ← 537 lines
+ ├─────────────────────────────────────────────┤
+ │  QtVision                qtvision           │  Qt shell: windows,
+ │                          (built from source)│  panels, model editor
+ ├─────────────────────────────────────────────┤
+ │  MbVision                mbvision           │  bridge: math model
+ │                          (built from source)│  → scene graph
+ ├─────────────────────────────────────────────┤
+ │  C3D Vision              libc3dvision.so    │  scene graph, render,
+ │                          (prebuilt binary)  │  picking, processes
+ ├─────────────────────────────────────────────┤
+ │  C3D Kernel              libc3d.so          │  geometry & topology
+ │                          (prebuilt binary)  │  MbModel, MbSolid...
+ └─────────────────────────────────────────────┘
+```
+
+| Layer | Namespace | Owns | Knows about Qt? |
+| --- | --- | --- | --- |
+| Kernel | global, `Mb*` | `MbModel`, `MbSolid`, `MbFace`, `MbPath` — geometry and topology | No |
+| Vision | `VSN` | `SceneContent`, `SceneSegment`, `Viewport`, `Camera`, `GraphicsScene`, `Process`, `SelectionManager`, `ObjectPickSelection` | No |
+| MbVision | `VSN`, `Mx*` | `SceneGenerator`, `ProgressBuild`, `MxModelExtension` | No |
+| QtVision | `VSN::QtVision` | `QtSdiMainWindow`, `ModelView`, `ModelEditor`, `ModelDocument`, `ModelTreeWidget`, `QtPropBrowserWidget`, `ProcessManager`, `SceneViewController` | Yes |
+
+Dependencies point strictly downward. The kernel knows nothing about rendering; Vision knows nothing about Qt.
+
+**The two middle layers are example source, not shipped libraries.** `MbVision` and `QtVision` live under `Examples/VisionKit/` and get compiled into the build as ordinary subdirectories. Only the bottom two arrive as `.so` files. This matters more than it sounds: when something in the main window behaves oddly, the answer is readable — and editable — in `Examples/VisionKit/QtVision/src/`. The application framework is meant to be treated as a worked example, not a black box.
+
+**MbVision is the interesting layer** and the one with the least obvious name. It is the translator. The kernel has an `MbModel` — a tree of bodies, faces and edges with no notion of triangles or colour. Vision has a `SceneContent` — a tree of segments carrying tessellated geometry ready to draw. `SceneGenerator` walks the first and produces the second. Every sample that displays a real model passes through it.
+
+## 3. What each file contains
+
+**`CMakeLists.txt`** — three jobs beyond declaring the executable:
+
+```cmake
+set(MOC_Files ./selection.h)
+vsn_qt_wrap_cpp(MOC_Selection ${MOC_Files})
+
+set(RCC_Files ./selection.qrc)
+vsn_qt_add_resources(RCC_Gui_Selection ${RCC_Files})
+
+add_executable(${23_Selection_OUTPUT} WIN32
+    ${MOC_Selection} ${RCC_Gui_Selection} ${SRC_Selection} ${SRC_Shared})
+target_link_libraries(${23_Selection_OUTPUT} PRIVATE
+    ${QtVision_OUTPUT} ${STDLIB} mbvision)
+vsn_link_with_qt_vislib_math(${23_Selection_OUTPUT} True)
+```
+
+Running moc over the header is not optional — the controller declares `Q_OBJECT`, and without moc the build compiles cleanly and then fails at link on `staticMetaObject`. Compiling the `.qrc` is equally load-bearing but fails *silently*: a missing resource makes `QPixmap(":/res/edge.cur")` a null pixmap and the custom cursors simply vanish with no diagnostic. `vsn_link_with_qt_vislib_math` is the helper that pulls in Qt, the kernel and `libc3dvision` in one call — it is where layers three and four get attached.
+
+**`main.cpp`** — the composition root, and the reference marks its own sections with `// [0]` through `// [5]`:
+
+| Block | What it does |
+| --- | --- |
+| licence | `EnableMathModules` — must precede anything touching the kernel |
+| `[0]` | `QtApplication::createApplication`, checked for null |
+| `[1]` | Construct the main window with its panel flags; camera processes; heads-up toolbar; hand the scene widget to the controller and install the event filter |
+| `[2]` | `setSelectionTool` — which *creates* the `SelectionManager` — then hand it to the controller |
+| `[3]` | Connect `openNewModel`; open the bundled model |
+| `[4]` | Build the properties panel and its `propChanged` handlers |
+| `[5]` | Build the output panel and connect the selection-changed signals |
+| end | `show()`, `exec()` |
+
+**`selection.h`** — three things: three `const char[]` property ids, the panel widget declaration, and the controller declaration with its setters defined inline at the bottom of the file.
+
+**`selection.cpp`** — the implementations, plus file-local helpers that never appear in the header: `typePrimitive` (an enum-to-string), `_selectSegment` (recursive subtree selection), and a couple of `#if 0`-guarded blocks demonstrating alternative techniques.
+
+**`selection.qrc` and `res/`** — eleven embedded files: four cursors, six filter-bar icons, and a 450 KB `.c3d` model so the sample has something to show on launch.
+
+## 4. The naming problem
+
+The controller class is called `Selection` and the variable holding it is `sceneSelection`. Both names are too narrow, and the mismatch is worth spelling out, because it is the main obstacle to reading the file.
+
+Here is everything that class actually does:
+
+| Responsibility | Members | Related to selection? |
+| --- | --- | --- |
+| Build the scene from an opened model | `slotOpenModel`, `m_pSceneGenerator`, `m_pSegModel` | **No** |
+| Frame the camera after a load | the `BuildAllCompleted` lambda | **No** |
+| Swap the cursor on hover | `eventFilter`, four `QCursor` members | Indirectly |
+| Bridge `QColor` ↔ `VSN::Color` | `highlightColor`, `slotHighlightColor`, … | Indirectly |
+| Mirror the selection into a table | `slotItemSelectModified`, `m_outputTable` | Yes |
+| Gate area selection | `slotStartArea`, `slotFinishArea` | Yes |
+
+Two of six have nothing to do with selection at all. Loading a `.c3d` file, generating scene segments and zooming the camera would be exactly the same code in a sample with no selection in it.
+
+So for the rest of this note I call it **`SceneController`**, held in a variable named `sceneController`:
+
+```cpp
+SceneController* sceneController = new SceneController();
+```
+
+The name earns itself: the class controls the scene — it populates it, and it mediates every interaction with it. Someone reading `sceneController->slotOpenModel(...)` is not surprised. Reading `sceneSelection->slotOpenModel(...)` they have to stop and wonder what selection has to do with opening a file.
+
+The general rule this is an instance of: **a class should be named for the whole of what it does, not for the feature that motivated writing it.** The name `Selection` records why the file was created. `SceneController` records what it contains. Only the second is useful a year later, and the cost of the first is paid by every future reader.
+
+The panel class `OutputContent` has the milder version of the same problem — it names the dock it happens to sit in rather than what it shows. `SelectionReadout` would say more.
+
+## 5. Who owns whom
+
+Ownership is almost entirely Qt parent-child plus one `shared_ptr`:
+
+```
+QtSdiMainWindow
+├── ModelView  (central widget)            ← "the scene widget"
+│   │  is-a QtOpenGLSceneWidget, which owns:
+│   ├── Viewport            camera, projection, ZoomToFit
+│   ├── SceneContent        the scene graph root  (SceneContentPtr)
+│   ├── GraphicsScene       the render engine
+│   └── ObjectPickSelection the hit-test tool
+│       └── PrFindSelectArea      (added as a find process)
+│
+├── ModelEditor
+│   ├── ModelDocument  ──► MxModelExtension   the loaded model
+│   ├── SelectionManager       (shared_ptr, created by setSelectionTool)
+│   ├── PrFindSelectArea       (created here, registered with the pick tool)
+│   └── two pairs of std::map  NodeKey ↔ MxObjectId
+│
+├── ProcessManager         camera-control processes, by mouse/hotkey
+├── SceneViewController    the heads-up viewport toolbar
+├── QDockWidget × 3        properties / model tree / output
+│
+└── SceneController        (yours — reparented to ModelView)
+    └── SceneGenerator     (transient: one per file open)
+```
+
+Four notes on that tree:
+
+**`ModelView` is the hub.** Everything about rendering and picking hangs off it. When a function needs the viewport, the scene content, the render engine or the pick tool, it reaches them through the scene widget.
+
+**`ModelEditor` is the selection layer's home**, despite the generic name. It owns the `SelectionManager`, it owns the rubber-band process, and it owns the identity maps that keep the 3D view and the model tree agreed. If something about selection is not where you expect it, it is in `ModelEditor`.
+
+**`SelectionManager` is the one `shared_ptr`**, handed out by `modelEditor()->selectionManager()`. It does not exist until `setSelectionTool` is called — asking earlier returns an empty pointer that stores happily and fails much later.
+
+**`SceneController` is owned by Qt, via a line that is easy to miss:**
+
+```cpp
+inline void SceneController::setSceneWidget(ModelView* sceneWidget)
+{
+    m_sceneWidget = sceneWidget;
+    m_curPoint = QtVision::findCursor(m_sceneWidget);
+    setParent(m_sceneWidget);          // ← Qt takes ownership here
+}
+```
+
+It is `new`ed in `main` and never deleted explicitly. That third line is the entire deletion story. `SceneGenerator` is the opposite case — raw, transient, one per file open, deleted by hand from the build-completed callback.
+
+## 6. The class roster
+
+| Class | Layer | What it is | Created by |
+| --- | --- | --- | --- |
+| `QtSdiMainWindow` | QtVision | Single-document main window; assembles panels | you, in `main` |
+| `ModelView` | QtVision | The 3D widget (a `QOpenGLWidget`) | the main window |
+| `ModelEditor` | QtVision | Selection + model-tree coordination | the main window |
+| `ModelDocument` | QtVision | The open file; owns `MxModelExtension` | `ModelEditor` |
+| `ProcessManager` | QtVision | Registers camera-control processes | the main window |
+| `SceneViewController` | QtVision | The in-viewport toolbar | the main window |
+| `SceneGenerator` | MbVision | Turns `MxModelExtension` into scene segments | you, per file open |
+| `ProgressBuild` | MbVision | Progress and completion of that build | `SceneGenerator` |
+| `SceneContent` | Vision | Root of the scene graph | `ModelView` |
+| `SceneSegment` | Vision | A node: group, or leaf with a representation | `SceneGenerator` |
+| `Viewport` | Vision | Camera and projection | `ModelView` |
+| `ObjectPickSelection` | Vision | Hit-testing | `ModelView` |
+| `SelectionManager` | Vision | The selection set, modes, colours | `ModelEditor::setSelectionTool` |
+| `InstSelectionItem` | Vision | One selected primitive and its identifiers | `SelectionManager` |
+| `PrFindSelectArea` | Vision | Rubber-band process | `ModelEditor::setSelectionTool` |
+| `SceneController` | **yours** | Scene loading, readout, cursor, colours | you, in `main` |
+| `SelectionReadout` | **yours** | The table widget in the output dock | you, in `main` |
+
+Two classes are yours. Everything else is handed over already built.
+
+## 7. Two signal systems, and why the controller exists
+
+The single most important structural fact:
+
+```cpp
+class SceneController : public QObject, public Object
+{
+    Q_OBJECT
+    // ...
+};
+```
+
+`QObject` is Qt's. `VSN::Object` is Vision's. **They are entirely separate signal/slot implementations and neither can see the other's signals.**
+
+| Connection | Spelling | Why |
+| --- | --- | --- |
+| `QtSdiMainWindow::openNewModel` → `slotOpenModel` | `QObject::connect` | Qt signal |
+| property panel `propChanged` → colour handlers | `QObject::connect` | Qt signal |
+| `SelectionManager::signalItemSelectModified` → readout | `Object::Connect` | Vision signal |
+| `SceneGenerator::SetupIDMapping` → `ModelEditor` | `Object::Connect` | Vision signal |
+| `ProgressBuild::BuildAllCompleted` → lambda | `Object::Connect` | Vision signal |
+
+So the controller is not a grab-bag by accident — it is **an adapter, and the dual inheritance is its reason to exist.** Anything that has to hear from both worlds must derive from both bases. That is also the honest justification for one class holding scene loading *and* selection readout: both are Qt-side reactions to Vision-side events, and before you have a second adapter, they share the only object that can hear them.
+
+The distinction is a compile error when you get it wrong, which is a mercy. The capital `C` in `Object::Connect` is the tell.
+
+## 8. How it binds together
+
+Four flows carry essentially all the behaviour.
+
+### Startup
+
+```
+EnableMathModules            licence, before the kernel is touched
+    ↓
+createApplication            QApplication exists
+    ↓
+QtSdiMainWindow(controls)    creates ModelView, ModelEditor, panels
+    ↓
+processManager()->createProcessesCameraControls()
+viewController()->createHeadsUpViewToolbar(true)
+    ↓
+sceneController->setSceneWidget(mainWindow.sceneWidget())
+mainWindow.sceneWidget()->installEventFilter(sceneController)
+    ↓
+modelEditor()->setSelectionTool(selectOps)     ← creates SelectionManager
+    ↓
+sceneController->setSelectionManager(modelEditor()->selectionManager())
+    ↓
+connect signals · build panels · show() · exec()
+```
+
+The one ordering trap is `setSelectionTool`. It is a *constructor* disguised as a setter, and everything that wants the `SelectionManager` has to come after it.
+
+### Opening a file
+
+```
+File▸Open  or  mainWindow.openFile(file)
+    ↓
+QtMainWindow::openFiles  →  ModelDocument reads it into MxModelExtension
+    ↓
+emit openNewModel(model)                                  [Qt signal]
+    ↓
+SceneController::slotOpenModel
+    ├── remove the previous m_pSegModel from the root
+    ├── new SceneGenerator + CreateProgressBuild
+    ├── Connect SetupIDMapping → ModelEditor::slotSetupIDMapping   [Vision]
+    ├── Connect BuildAllCompleted → lambda                         [Vision]
+    ├── CreateSceneSegment(model, topSegment)
+    └── StartBuildGeometry()          ← returns immediately, threaded
+                ↓
+        (worker threads tessellate)
+                ↓
+        SetupIDMapping fires per object → ModelEditor fills 4 maps
+                ↓
+        BuildAllCompleted → delete generator, ZoomToFit, update
+```
+
+Two things to hold onto. The build is **asynchronous** — `StartBuildGeometry` defaults to `CommandType::Threaded`, which is why the generator is deleted in a callback and why `ZoomToFit` cannot run on the next line. And `SetupIDMapping` must be connected *before* the build starts, because it fires during the build and it is the only moment when both a `NodeKey` and an `MxObjectId` for the same object exist together.
+
+### Picking
+
+```
+mouse event on ModelView
+    ├──────────────────────────────────┐
+    ↓                                  ↓
+ObjectPickSelection              SceneController::eventFilter
+  resolves a PickData                reads GetHighlightItem()
+    ↓                                  ↓
+SelectionManager                   setCursor(vertex|edge|face|cross)
+  updates the set
+    ↓
+emit signalItemSelectModified / signalItemsSelectModified   [Vision]
+    ├──────────────────────────────┬─────────────────────────┐
+    ↓                              ↓                         ↓
+ModelEditor::slotItem…      SceneController::slotItem…   widget redraw
+  NodeKey → MxObjectId          fills the readout table
+  → highlight tree rows
+```
+
+The fork at the top is the reason cursor feedback stays honest: the event filter does not hit-test, it reads the preselection the pick tool already computed. Two different consumers, one source of truth.
+
+Note the two signals at the bottom. The singular fires for a single pick, the plural for a rubber-band change. Connecting only one gives a readout that works on click and silently ignores area selection.
+
+### Settings
+
+```
+properties panel edit
+    ↓
+QtPropBrowserWidget::propChanged(Property*)        [Qt signal]
+    ↓
+lambda dispatches on property->propertyId()
+    ├── ID_DYNAMIC_HIGHLIGHTING → slotDynamicHighlighting(bool)
+    ├── ID_HIGHLIGHTCOLOR       → slotHighlightColor(QColor)
+    └── ID_SELECTIONCOLOR       → slotSelectionColor(QColor)
+            ↓
+    SelectionManager setters (+ explicit update() where nothing else redraws)
+```
+
+One signal serves every property, so each handler dispatches on the id. That is why those `const char[]` constants sit at the top of the header instead of being inlined.
+
+## 9. Where the seams are
+
+Having named the controller honestly, the split it wants becomes obvious. Four responsibilities, four small classes:
+
+| Class | Holds | Hears |
+| --- | --- | --- |
+| `SceneLoader` | `SceneGenerator`, `m_pSegModel` | `openNewModel` |
+| `SelectionReadout` | the table | `signalItemSelectModified` ×2 |
+| `PickCursor` | four `QCursor`s | mouse-move, via the event filter |
+| `SelectionSettings` | the three property ids | `propChanged` |
+
+Each still needs both base classes, since each straddles the same Qt/Vision boundary. The gain is not fewer lines — it is that `SceneLoader` has one reason to change, and someone looking for "how does a file become geometry" opens a 60-line file instead of a 343-line one.
+
+I would not retrofit this into the upstream example. For a demo whose job is to show one feature end-to-end in one readable file, keeping it together is defensible. The point is to recognise the shape so it does not get copied into an application by default, which is exactly how a sample's convenience becomes a codebase's problem.
+
+## 10. The skeleton, extracted
+
+Stripped of selection, every sample in `Examples/Qt/` is this:
+
+```cpp
+int main(int argc, char** argv)
+{
+    EnableMathModules(/* licence */);
+    auto application = QtApplication::createApplication(argc, argv, "Name");
+    if (!application)
+        return 1;
+
+    MyController* controller = new MyController();
+
+    QtSdiMainWindow mainWindow(/* panel flags */);
+    mainWindow.processManager()->createProcessesCameraControls();
+    mainWindow.viewController()->createHeadsUpViewToolbar(true);
+    controller->setSceneWidget(mainWindow.sceneWidget());
+
+    // ── feature setup goes here ──
+
+    QObject::connect(&mainWindow, &QtSdiMainWindow::openNewModel,
+                     controller, &MyController::slotOpenModel);
+
+    mainWindow.show();
+    return application->exec();
+}
+```
+
+with a controller deriving from `QObject` and `VSN::Object`, a `slotOpenModel` that runs a `SceneGenerator`, and whatever the feature adds on top. `23_Selection` fills the marked gap with `setSelectionTool`, a readout panel and three properties. `14_SectionPlane` fills it with a cutting tool. The frame does not move.
+
+Knowing that, the useful question when starting a new sample stops being "how do I build a C3D application" and becomes "what goes in the gap" — which is a much smaller question, and the only part that was ever mine to answer.
+
+---
+
+# Appendix — the files
+
+The listings below are the upstream `23_Selection` sources with the rename from section 4 applied throughout, so they match the names used in this note:
+
+| Here | Upstream |
+| --- | --- |
+| `SceneController` | `Selection` |
+| `sceneController` | `sceneSelection` |
+| `SelectionReadout` | `OutputContent` |
+| `scenecontroller.h` / `.cpp` | `selection.h` / `.cpp` |
+
+Everything else — member prefixes, structure, order — is unchanged. `main.cpp`, the header, the resource file and the build file are complete; `scenecontroller.cpp` has two `#if 0` demonstration blocks removed and is otherwise complete.
+
+## `CMakeLists.txt`
+
+```cmake
+project(23_Selection)
+
+set(SRC_Selection ./scenecontroller.cpp ./scenecontroller.h ./main.cpp)
+
+set(MOC_Files ./scenecontroller.h)
+vsn_qt_wrap_cpp(MOC_Selection ${MOC_Files})
+
+set(RCC_Files ./selection.qrc)
+vsn_qt_add_resources(RCC_Gui_Selection ${RCC_Files})
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+add_executable(${23_Selection_OUTPUT} WIN32
+    ${MOC_Selection} ${RCC_Gui_Selection} ${SRC_Selection} ${SRC_Shared})
+target_link_libraries(${23_Selection_OUTPUT} PRIVATE
+    ${QtVision_OUTPUT} ${STDLIB} mbvision)
+vsn_link_with_qt_vislib_math(${23_Selection_OUTPUT} True)
+
+set_target_properties(${23_Selection_OUTPUT} PROPERTIES
+    FOLDER ${Examples_OUTPUT}/Qt)
+```
+
+Building outside the SDK tree, the two `vsn_qt_*` helpers have plain CMake equivalents:
+
+```cmake
+set_target_properties(my_target PROPERTIES AUTOMOC ON AUTORCC ON)
+```
+
+## `selection.qrc`
+
+```xml
+<!DOCTYPE RCC><RCC version="1.0">
+  <qresource>
+    <file>res/selection.c3d</file>
+    <file>res/filter24x24.png</file>
+    <file>res/filterseg24x24.png</file>
+    <file>res/filterbody24x24.png</file>
+    <file>res/filterface24x24.png</file>
+    <file>res/filteredge24x24.png</file>
+    <file>res/filtervertex24x24.png</file>
+    <file>res/edge.cur</file>
+    <file>res/face.cur</file>
+    <file>res/vertex.cur</file>
+    <file>res/point_cur.cur</file>
+  </qresource>
+</RCC>
+```
+
+## `scenecontroller.h`
+
+```cpp
+#ifndef __SCENECONTROLLER_H
+#define __SCENECONTROLLER_H
+
+#include <QFile>
+#include <QTableWidget>
+
+#include <qt_vision.h>
+
+#include <model_entity.h>
+#include <mb_scenegenerator.h>
+
+// Two ways to resolve the "is this drag a rubber band or a move?" ambiguity.
+// Upstream ships both, disabled; see section 15 of the selection note.
+#define OTHER_METHOD_1 0
+#define OTHER_METHOD_2 0
+
+using namespace VSN;
+using namespace QtVision;
+
+// Property ids. One propChanged signal serves the whole panel, so each
+// handler dispatches on these.
+const char ID_DYNAMIC_HIGHLIGHTING[] = "Orientation.DynamicHighlighting";
+const char ID_HIGHLIGHTCOLOR[]       = "Orientation.HighlightColor";
+const char ID_SELECTIONCOLOR[]       = "Orientation.SelectionColor";
+
+/* SelectionReadout — the table shown in the output dock. */
+class SelectionReadout : public QWidget
+{
+public:
+    SelectionReadout();
+    ~SelectionReadout() override;
+public:
+    QTableWidget* outputTableWidget() const { return m_outputTable; }
+protected:
+    QVBoxLayout*  m_layout;
+    QTableWidget* m_outputTable;
+private:
+    Q_DISABLE_COPY(SelectionReadout)
+};
+
+/* SceneController — builds the scene from an opened model and mediates
+   interaction with it. Derives from both QObject and VSN::Object because
+   it must hear signals from both frameworks. */
+class SceneController : public QObject, public Object
+{
+    Q_OBJECT
+public:
+    explicit SceneController();
+    ~SceneController() override;
+public:
+    inline void setSelectionManager(SelectionManagerPtr ptrSelectManager);
+    inline void setSceneWidget(ModelView* sceneWidget);
+    inline void setOutputTable(QTableWidget* outputTable);
+    QColor highlightColor() const;
+    QColor selectionColor() const;
+protected:
+    void slotStartArea(bool& bAllow);
+    void slotFinishArea();
+public Q_SLOTS:
+    void slotOpenModel(MxModelExtension* pModel);
+    void slotSelectByRectTriggered();
+    void slotHighlightColor(const QColor& clr);
+    void slotSelectionColor(const QColor& clr);
+    void slotDynamicHighlighting(bool state);
+    void slotItemSelectModified();
+protected:
+    bool eventFilter(QObject* watched, QEvent* event) override;
+private:
+    ModelView*          m_sceneWidget;
+    SceneSegment*       m_pSegModel;        // segment of the current model
+    SceneGenerator*     m_pSceneGenerator;  // transient: one per file open
+    SelectionManagerPtr m_ptrSelectManager; // owned by ModelEditor
+    PrFindSelectArea*   m_pFindArea;
+    QTableWidget*       m_outputTable;      // owned by SelectionReadout
+    QCursor m_curEdge;
+    QCursor m_curFace;
+    QCursor m_curVertex;
+    QCursor m_curPoint;
+private:
+    Q_DISABLE_COPY(SceneController)
+};
+
+inline void SceneController::setSelectionManager(SelectionManagerPtr ptr)
+{
+    m_ptrSelectManager = ptr;
+}
+
+// Stores the widget, builds the default cursor, and hands ownership of
+// this object to Qt — the only thing that ever deletes it.
+inline void SceneController::setSceneWidget(ModelView* sceneWidget)
+{
+    m_sceneWidget = sceneWidget;
+    m_curPoint = QtVision::findCursor(m_sceneWidget);
+    setParent(m_sceneWidget);
+}
+
+inline void SceneController::setOutputTable(QTableWidget* outputTable)
+{
+    m_outputTable = outputTable;
+}
+
+#endif // __SCENECONTROLLER_H
+```
+
+## `scenecontroller.cpp`
+
+```cpp
+#include "scenecontroller.h"
+
+#include <solid.h>
+#include <cur_contour3d.h>
+#include <vsn_geometryrep.h>
+#include <vsn_pointgeometry.h>
+#include <cur_line_segment3d.h>
+#include <cur_line_segment.h>
+#include <cur_contour.h>
+#include <vsn_last.h>
+
+static QString strNodeKey = QStringLiteral("Vis Node Key");
+static QString strBodyIdx = QStringLiteral("Vis Body Idx");
+static QString strPrimId  = QStringLiteral("Vis Prim Id");
+
+static QString strPath = QStringLiteral("Mat Path hash");
+static QString strPrim = QStringLiteral("Mat Prim hash");
+
+/* SelectionReadout */
+SelectionReadout::SelectionReadout()
+    : m_layout(new QVBoxLayout(this))
+    , m_outputTable(new QTableWidget)
+{
+    m_layout->addWidget(m_outputTable);
+    m_outputTable->setColumnCount(5);
+    m_outputTable->setRowCount(0);   // slotItemSelectModified sets the real count
+
+    QFontMetrics fm(font());
+    m_outputTable->setWordWrap(true);
+
+    // Columns 0-2 are render identity, 3-4 are model identity.
+    m_outputTable->setHorizontalHeaderItem(0, new QTableWidgetItem(strNodeKey));
+    m_outputTable->setColumnWidth(0, fm.boundingRect(strNodeKey).width() * 2 + fm.height() * 2);
+    m_outputTable->setHorizontalHeaderItem(1, new QTableWidgetItem(strBodyIdx));
+    m_outputTable->setColumnWidth(1, fm.boundingRect(strBodyIdx).width() * 2 + fm.height() * 2);
+    m_outputTable->setHorizontalHeaderItem(2, new QTableWidgetItem(strPrimId));
+    m_outputTable->setColumnWidth(2, fm.boundingRect(strPrimId).width() * 2 + fm.height() * 2);
+    m_outputTable->setHorizontalHeaderItem(3, new QTableWidgetItem(strPath));
+    m_outputTable->setHorizontalHeaderItem(4, new QTableWidgetItem(strPrim));
+}
+
+SelectionReadout::~SelectionReadout()
+{
+}
+
+/* typePrimitive — row header text. "N" covers body selections, whose
+   ObjectType is none of the three primitive kinds. */
+static QString typePrimitive(InstSelectionItem* item)
+{
+    QString strText("N");
+    switch (item->GetType())
+    {
+        case ObjectType::Vertex: strText = QString("Vertex"); break;
+        case ObjectType::Edge:   strText = QString("Edge");   break;
+        case ObjectType::Face:   strText = QString("Face");   break;
+    }
+    return strText;
+}
+
+/* _selectSegment — select every leaf under an assembly node. A segment
+   with no representation is a grouping node; one with a representation
+   is a leaf holding real geometry. */
+static void _selectSegment(SelectionManagerPtr ptrSelectManager,
+                           SceneSegment* pSegment)
+{
+    if (pSegment->GetRepresentation() == nullptr)
+    {
+        auto listItem = pSegment->GetChildSegments();
+        for (auto it = listItem.begin(); it != listItem.end(); ++it)
+        {
+            SceneSegment* pSegmentItem = (*it);
+            if (pSegmentItem->GetRepresentation() == nullptr)
+                _selectSegment(ptrSelectManager, pSegmentItem);
+            else
+                ptrSelectManager->Select(pSegmentItem->GetUniqueKey());
+        }
+    }
+}
+
+/* SceneController */
+SceneController::SceneController()
+    : m_sceneWidget(nullptr)
+    , m_pSegModel(nullptr)
+    , m_pSceneGenerator(nullptr)
+    , m_ptrSelectManager(nullptr)
+    , m_pFindArea(nullptr)
+    , m_outputTable(nullptr)
+    , m_curEdge(QCursor(QPixmap(":/res/edge.cur")))
+    , m_curFace(QCursor(QPixmap(":/res/face.cur")))
+    , m_curVertex(QCursor(QPixmap(":/res/vertex.cur")))
+    , m_curPoint()   // replaced in setSceneWidget
+{
+}
+
+// Asserts the async-build contract: no generator may outlive this object.
+SceneController::~SceneController()
+{
+    VSN_ASSERT(m_pSceneGenerator == nullptr);
+}
+
+/* Build scene geometry from a freshly opened model. */
+void SceneController::slotOpenModel(MxModelExtension* model)
+{
+    if (model == nullptr)
+        return;
+
+    // Drop the previous model, or each opened file stacks on the last.
+    if (m_pSegModel != nullptr)
+    {
+        SceneSegment* pTopSegment = m_sceneWidget->sceneContent()->GetRootSegment();
+        Q_ASSERT(pTopSegment != nullptr);
+        pTopSegment->RemoveSegment(m_pSegModel);
+    }
+
+    SceneSegment* pTopSegment = m_sceneWidget->sceneContent()->GetRootSegment();
+    Q_ASSERT(pTopSegment != nullptr);
+    m_pSceneGenerator = new SceneGenerator();
+    ProgressBuild* pProgressBuild = m_pSceneGenerator->CreateProgressBuild();
+
+    // Fires during the build, per object, carrying both identities at once.
+    // This is what keeps the 3D view and the model tree agreed.
+    Object::Connect(m_pSceneGenerator, &SceneGenerator::SetupIDMapping,
+        m_sceneWidget->modelEditor(), &ModelEditor::slotSetupIDMapping);
+
+    Object::Connect(pProgressBuild, &ProgressBuild::BuildAllCompleted, this,
+        [this]()
+        {
+            VSN_DELETE_AND_NULL(m_pSceneGenerator);
+            m_sceneWidget->viewport()->ZoomToFit(
+                m_sceneWidget->sceneContent()->GetBoundingBox(), 1.5f);
+            m_sceneWidget->update();
+        });
+
+    m_pSegModel = m_pSceneGenerator->CreateSceneSegment(model, pTopSegment);
+    m_pSceneGenerator->StartBuildGeometry();  // threaded; returns immediately
+}
+
+/* Area-selection hooks. Enable one of the two methods in the header. */
+void SceneController::slotStartArea(bool& bAllow)
+{
+#if OTHER_METHOD_1
+    // Do not begin a rubber band when the drag starts on an object.
+    bAllow = !m_pFindArea->IsObjectUnderCursor();
+#else
+    VSN_UNUSED(bAllow);
+#endif
+}
+
+void SceneController::slotFinishArea()
+{
+#if OTHER_METHOD_2
+    m_pFindArea->SetEnabled(false);
+#endif
+}
+
+void SceneController::slotSelectByRectTriggered()
+{
+#if OTHER_METHOD_2
+    // Rubber band only after an explicit toolbar action.
+    m_pFindArea->SetEnabled(true);
+#endif
+}
+
+/* VSN::Color <-> QColor. Alpha is dropped in both directions. */
+QColor SceneController::highlightColor() const
+{
+    Color clr = m_ptrSelectManager->GetHighlightColor();
+    return QColor(clr.GetRed(), clr.GetGreen(), clr.GetBlue());
+}
+
+QColor SceneController::selectionColor() const
+{
+    Color clr = m_ptrSelectManager->GetSelectionColor();
+    return QColor(clr.GetRed(), clr.GetGreen(), clr.GetBlue());
+}
+
+void SceneController::slotHighlightColor(const QColor& clr)
+{ m_ptrSelectManager->SetHighlightColor(Color(clr.red(), clr.green(), clr.blue())); }
+
+void SceneController::slotSelectionColor(const QColor& clr)
+{ m_ptrSelectManager->SetSelectionColor(Color(clr.red(), clr.green(), clr.blue())); }
+
+// Toggling the flag moves nothing in the scene, so nothing schedules a
+// redraw; without update() a stale highlight lingers.
+void SceneController::slotDynamicHighlighting(bool state)
+{
+    m_ptrSelectManager->SetDynamicHighlighting(state);
+    m_sceneWidget->update();
+}
+
+/* Mirror the selection set into the table. Connected to BOTH
+   signalItemSelectModified (single pick) and signalItemsSelectModified
+   (area selection). */
+void SceneController::slotItemSelectModified()
+{
+    Q_ASSERT(m_ptrSelectManager != nullptr);
+    QFontMetrics fm(m_outputTable->font());
+    const int height = fm.boundingRect("X").height()
+                     + fm.boundingRect("X").height() / 2;
+
+    const auto& lstItem = m_ptrSelectManager->GetSelectionItems();
+
+    m_outputTable->clearContents();
+    m_outputTable->setRowCount(static_cast<int>(lstItem.size()));
+
+    int index = 0;
+    for (auto it : lstItem)
+    {
+        // Identifiers live on InstSelectionItem, not on the base class.
+        // InstCustomItem (programmatic selection) fails the cast and is skipped,
+        // which is why index is tracked separately from the loop position.
+        if (InstSelectionItem* item = dynamic_cast<InstSelectionItem*>(it))
+        {
+            MbPath path = item->GetMathPath();
+
+            // Guard against re-entry if the table is wired back to the selection.
+            bool bBlocked = m_outputTable->blockSignals(true);
+
+            String strKey = item->GetNodeKey().ToString();
+            m_outputTable->setItem(index, 0, new QTableWidgetItem(strKey.c_str()));
+            m_outputTable->item(index, 0)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            m_outputTable->setItem(index, 1,
+                new QTableWidgetItem(QString::number(item->GetIndexBody())));
+            m_outputTable->item(index, 1)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            m_outputTable->setItem(index, 2,
+                new QTableWidgetItem(QString::number(item->GetPrimitiveId())));
+            m_outputTable->item(index, 2)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+
+            // Model identity only exists if a math object backs this segment.
+            if (path.Count() > 0)
+            {
+                m_outputTable->setItem(index, 3,
+                    new QTableWidgetItem(QString::number(path.Hash())));
+                m_outputTable->item(index, 3)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+                m_outputTable->setItem(index, 4,
+                    new QTableWidgetItem(QString::number(item->GetMathPrimitive())));
+                m_outputTable->item(index, 4)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            }
+
+            m_outputTable->setVerticalHeaderItem(index,
+                new QTableWidgetItem(typePrimitive(item)));
+            m_outputTable->setRowHeight(index, height);
+
+            m_outputTable->blockSignals(bBlocked);
+            index++;
+        }
+    }
+}
+
+/* Cursor feedback. Reads the preselection the pick tool already resolved —
+   no independent hit-test, so the cursor cannot disagree with the click. */
+bool SceneController::eventFilter(QObject* watched, QEvent* event)
+{
+    if (watched != m_sceneWidget)
+        return QObject::eventFilter(watched, event);
+
+    if (event->type() == QEvent::MouseMove)
+    {
+        QCursor curCursor;
+        ObjectType type = ObjectType::None;
+        if (SelectionItem* item = m_ptrSelectManager->GetHighlightItem())
+            type = item->GetType();
+
+        switch (type)
+        {
+            case ObjectType::Vertex: curCursor = m_curVertex; break;
+            case ObjectType::Edge:   curCursor = m_curEdge;   break;
+            case ObjectType::Face:   curCursor = m_curFace;   break;
+            default:                 curCursor = m_curPoint;  break;
+        }
+        m_sceneWidget->setCursor(curCursor);
+    }
+    return QObject::eventFilter(watched, event);  // observe, do not consume
+}
+```
+
+## `main.cpp`
+
+```cpp
+#include "scenecontroller.h"
+#include <tool_enabler.h>
+#include <vsn_last.h>
+
+using namespace VSN;
+using namespace QtVision;
+
+int main(int argc, char** argv)
+{
+    const char* LICENSEKEY = "...";
+    const char* LICENSESIG = "...";
+
+    // Before anything touches the kernel.
+    EnableMathModules(LICENSEKEY, std::strlen(LICENSEKEY),
+                      LICENSESIG, std::strlen(LICENSESIG));
+
+//  [0] Application, before any widget exists.
+    auto application = QtApplication::createApplication(argc, argv, "Selection");
+    if (!application)
+        return 1;
+
+//  [1] Window, viewport helpers, controller.
+//    GlobalFlags::SetPickingByGeometry(true);   // development option
+    SceneController* sceneController = new SceneController();
+
+    QtSdiMainWindow::CreateOptions controls(
+        QtMainWindow::MenuBar | QtMainWindow::ModelPanel |
+        QtMainWindow::PropsPanel | QtMainWindow::OutputPanel |
+        QtMainWindow::StatusBar | QtMainWindow::FilterBar);
+    QtSdiMainWindow mainWindow(controls);
+    mainWindow.processManager()->createProcessesCameraControls();
+    mainWindow.viewController()->createHeadsUpViewToolbar(true);
+
+    sceneController->setSceneWidget(mainWindow.sceneWidget());
+    mainWindow.sceneWidget()->installEventFilter(sceneController);
+
+//  [2] setSelectionTool CREATES the SelectionManager. Nothing may ask for
+//      the manager before this call.
+    ModelEditor::AllowActSelectOptions selectOps(
+        ModelEditor::Body | ModelEditor::Face | ModelEditor::Edge |
+        ModelEditor::Vertex | ModelEditor::Area);
+    mainWindow.modelEditor()->setSelectionTool(selectOps);
+    sceneController->setSelectionManager(
+        mainWindow.modelEditor()->selectionManager());
+
+//  [3] File loading. Qt signal, so QObject::connect.
+    QObject::connect(&mainWindow, &QtSdiMainWindow::openNewModel,
+        sceneController, &SceneController::slotOpenModel);
+    QFile file(":/res/selection.c3d");
+    mainWindow.openFile(file);
+
+//  [4] Properties panel. One propChanged signal serves every property,
+//      so each handler dispatches on propertyId().
+    VarPropManager* propManager = mainWindow.propertyWidget()->propertyManager();
+    VarProperty* groupProperty = propManager->addProperty(
+        VarPropManager::groupTypeId(), QObject::tr("Select"));
+
+    VarProperty* propHighlighting = propManager->addProperty(
+        QVariant::Bool, QObject::tr("Highlight:"), ID_DYNAMIC_HIGHLIGHTING);
+    propHighlighting->setValue(true);
+    QObject::connect(mainWindow.propertyWidget(), &QtPropBrowserWidget::propChanged,
+        [&sceneController](QtVision::Property* property)
+        {
+            if (property->propertyId() == ID_DYNAMIC_HIGHLIGHTING)
+                sceneController->slotDynamicHighlighting(
+                    ((VarProperty*)property)->value().toBool());
+        });
+    groupProperty->addSubProperty(propHighlighting);
+
+    VarProperty* propHighlightColor = propManager->addProperty(
+        QVariant::Color, QObject::tr("Highlight color:"), ID_HIGHLIGHTCOLOR);
+    propHighlightColor->removeSubProperty(ID_COLOR_ALPHA);  // alpha is dropped
+    propHighlightColor->setValue(sceneController->highlightColor());
+    QObject::connect(mainWindow.propertyWidget(), &QtPropBrowserWidget::propChanged,
+        [&sceneController](QtVision::Property* property)
+        {
+            if (property->propertyId() == ID_HIGHLIGHTCOLOR)
+                sceneController->slotHighlightColor(
+                    ((VarProperty*)property)->value().value<QColor>());
+        });
+    groupProperty->addSubProperty(propHighlightColor);
+
+    VarProperty* propSelectionColor = propManager->addProperty(
+        QVariant::Color, QObject::tr("Selection color:"), ID_SELECTIONCOLOR);
+    propSelectionColor->removeSubProperty(ID_COLOR_ALPHA);
+    propSelectionColor->setValue(sceneController->selectionColor());
+    QObject::connect(mainWindow.propertyWidget(), &QtPropBrowserWidget::propChanged,
+        [&sceneController](QtVision::Property* property)
+        {
+            if (property->propertyId() == ID_SELECTIONCOLOR)
+                sceneController->slotSelectionColor(
+                    ((VarProperty*)property)->value().value<QColor>());
+        });
+    groupProperty->addSubProperty(propSelectionColor);
+    mainWindow.propertyWidget()->addProperty(groupProperty);
+
+//  [5] Output panel. Vision signals, so Object::Connect — and both of them:
+//      singular fires for a single pick, plural for area selection.
+    SelectionReadout* readout = new SelectionReadout;
+    mainWindow.outputWidget()->setWidget(readout);
+    sceneController->setOutputTable(readout->outputTableWidget());
+
+    Object::Connect(mainWindow.modelEditor()->selectionManager().get(),
+        &SelectionManager::signalItemSelectModified,
+        sceneController, &SceneController::slotItemSelectModified);
+    Object::Connect(mainWindow.modelEditor()->selectionManager().get(),
+        &SelectionManager::signalItemsSelectModified,
+        sceneController, &SceneController::slotItemSelectModified);
+
+    mainWindow.show();
+    return application->exec();
+}
+```
