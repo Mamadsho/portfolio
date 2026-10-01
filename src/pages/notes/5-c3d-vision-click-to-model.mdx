@@ -1,0 +1,296 @@
+---
+layout: ../../layouts/BlogLayout.astro
+title: "C3D Vision, Part 2: From a Click to a Model Object"
+description: "Follow selection through 23_Selection: hover, filters, manager state, occurrence paths, topology lookup, and the limits of persistent references."
+tags: ["cpp", "c3d", "qt", "selection", "personal-notes"]
+time: 16
+featured: false
+timestamp: 2026-10-01T12:01:00+03:00
+filename: 5-c3d-vision-click-to-model
+---
+
+A highlighted face is useful feedback. A modeling command needs more: which face, in which occurrence of which part, in the current model?
+
+[Part 1](/notes/4-c3d-vision-model-to-viewport) followed a model into a visible scene. This article follows the return journey. It uses the same `23_Selection` sample and keeps its class names. `Selection` is our application helper; `SelectionManager` manages the selection state.
+
+The [source reference](/notes/6-c3d-vision-selection-source-reference) preserves the supplied files, including a disabled topology-lookup sketch that is central to the explanation below. That sketch needs integration work before it can run. This article identifies that work rather than presenting an invented, supposedly complete application.
+
+**Reading map**
+
+- [Start with one face on one occurrence](#start-with-one-face-on-one-occurrence)
+- [Hover, click, and filters](#hover-click-and-filters)
+- [Wire the manager into the application](#wire-the-manager-into-the-application)
+- [Read the selected item](#read-the-selected-item)
+- [Three identity questions](#three-identity-questions)
+- [Resolve the occurrence and its topology](#resolve-the-occurrence-and-its-topology)
+- [Use the result without losing its context](#use-the-result-without-losing-its-context)
+- [Area and programmatic selection](#area-and-programmatic-selection)
+- [Feedback should follow selection state](#feedback-should-follow-selection-state)
+- [What survives a rebuild](#what-survives-a-rebuild)
+- [Check the complete interaction](#check-the-complete-interaction)
+
+## Start with one face on one occurrence
+
+Imagine an assembly with two occurrences of the same bolt. We will select the end face of the second bolt and ask the application to report what it found. This is a teaching scenario, not a description of the bundled model, which was not supplied with the source files.
+
+```text
+Assembly
+  Bolt occurrence A ----+
+                       +---- shared bolt definition
+  Bolt occurrence B ----+       includes the end face
+```
+
+The desired answer contains more than “a face.” It must distinguish the face from its displayed triangles and distinguish occurrence B from occurrence A.
+
+The route through the sample is:
+
+```text
+pointer + active filter
+  -> picking
+  -> selection manager
+  -> selected item and identifiers
+  -> occurrence lookup in the current model
+  -> topology lookup inside the resolved solid
+  -> application operation
+```
+
+Picking and selection are different stages. Picking determines a candidate under a pointer or inside a region. Selection maintains the objects on which a command should operate. A hit need not become a selected item, and selected items need not all originate from mouse input.
+
+## Hover, click, and filters
+
+**Preselection** is the current candidate: the highlighted object that provides feedback before a click. **Selection** is the committed state. In this sample, `GetHighlightItem()` exposes a highlighted item and `GetSelectionItems()` exposes the selected collection.
+
+| Interaction | Question it answers | Application use |
+| --- | --- | --- |
+| Move the pointer | What would this interaction target? | Highlight and cursor feedback |
+| Commit a selection gesture | What should the command act on? | Selection set and readout |
+| Change a filter | Which kinds of target are eligible? | Face, edge, vertex, or body selection |
+
+At a model corner, several topological entities are nearby. A fillet tool may need an edge; a face-inspection tool needs a face. The active filter makes that distinction explicit. It is application state, so it should be visible in the interface.
+
+The sample enables these selection actions:
+
+```cpp
+ModelEditor::AllowActSelectOptions selectOps(
+    ModelEditor::Body | ModelEditor::Face | ModelEditor::Edge |
+    ModelEditor::Vertex | ModelEditor::Area);
+mainWindow.modelEditor()->setSelectionTool(selectOps);
+```
+
+This is setup through the QtVision framework. The details of how these flags create UI actions and initialize the picker live in `ModelEditor`; the flags alone are not a complete specification of every runtime filter state.
+
+Set operations are another independent choice. A gesture may replace the set, add to it, or toggle membership. A single-selection constraint limits the set's size. Do not infer modifier behavior merely from the presence of several enabled object types: granularity and set operations solve different problems.
+
+The Vision manager exposes controls for selection mode, activation, and modifier keys. Their settings belong in an application's explicit interaction policy. [SelectionManager API](https://c3d.ascon.net/doc/math/class_v_s_n_1_1_selection_manager.html)
+
+## Wire the manager into the application
+
+The sample's minimal pattern is to configure the tool, obtain its manager, provide a readout, and subscribe to changes.
+
+```cpp
+// Excerpt: mainWindow, selectOps, and sceneSelection already exist.
+mainWindow.modelEditor()->setSelectionTool(selectOps);
+sceneSelection->setSelectionManager(
+    mainWindow.modelEditor()->selectionManager());
+
+OutputContent* outputContent = new OutputContent;
+mainWindow.outputWidget()->setWidget(outputContent);
+sceneSelection->setOutputTable(outputContent->outputTableWidget());
+
+Object::Connect(mainWindow.modelEditor()->selectionManager().get(),
+    &SelectionManager::signalItemSelectModified,
+    sceneSelection, &Selection::slotItemSelectModified);
+Object::Connect(mainWindow.modelEditor()->selectionManager().get(),
+    &SelectionManager::signalItemsSelectModified,
+    sceneSelection, &Selection::slotItemSelectModified);
+```
+
+The callback does not reconstruct selection from the mouse event. It reads the manager's current state and rebuilds the table. This makes the readout a consumer of selection rather than a second selection system.
+
+The source subscribes to both the singular and plural notifications. Keep both for this pattern. Their precise emission conditions require the SDK implementation; their names alone do not prove that one is exclusive to mouse clicks and the other to rectangle selection.
+
+Tree synchronization and application readout are also different consumers. During scene generation, the sample connects `SetupIDMapping` to `ModelEditor::slotSetupIDMapping`. The readout then independently subscribes to selection changes. If the table updates but the tree does not, inspect the editor's mapping and synchronization path rather than making the table responsible for the tree.
+
+## Read the selected item
+
+The important part of `slotItemSelectModified` is much smaller than its table-formatting code:
+
+```cpp
+// Condensed excerpt: presentation details omitted.
+const auto& items = m_ptrSelectManager->GetSelectionItems();
+for (auto* selected : items)
+{
+    if (auto* item = dynamic_cast<InstSelectionItem*>(selected))
+    {
+        MbPath path = item->GetMathPath();
+        auto nodeKey = item->GetNodeKey();
+        auto bodyIndex = item->GetIndexBody();
+        auto visualPrimitive = item->GetPrimitiveId();
+        auto modelPrimitive = item->GetMathPrimitive();
+        // Display or inspect these values while their context is valid.
+    }
+}
+```
+
+The cast is checked because the returned collection uses the base `SelectionItem` type. The body of the loop only applies to items exposing this more specific interface. That is enough to justify the check; it does not prove which other subclasses can appear in this list.
+
+The supplied code uses `auto&`. If the getter returns a const reference, `auto&` preserves that constness; writing `const auto&` here makes the intent explicit. Neither form copies the collection.
+
+The five output columns are:
+
+| Column | Accessor | How to read it |
+| --- | --- | --- |
+| Vis Node Key | `GetNodeKey()` | Scene-side key associated with the selected item |
+| Vis Body Idx | `GetIndexBody()` | Body index in the item's visual context |
+| Vis Prim Id | `GetPrimitiveId()` | Primitive identifier in that visual context |
+| Mat Path hash | `GetMathPath().Hash()` | Compact diagnostic of the model path |
+| Mat Prim hash | `GetMathPrimitive()` | Identifier used by the sample's topology-name lookup |
+
+An index or key only has meaning within the data structure and lifetime that define it. Do not pass a visual primitive identifier into a topology lookup simply because both values are integers.
+
+The sample only fills the model columns when `path.Count() > 0`. Its disabled lookup additionally checks the primitive identifier against `c3d::UNDEFINED_SNAME`. These are separate checks. A nonempty path is not proof that the model still exists, that it resolves to a solid, or that the requested face still exists.
+
+## Three identity questions
+
+The useful distinction is between scene identity and model identity, but practical code also meets document/editor identity.
+
+| Question | Relevant identity | Where it belongs |
+| --- | --- | --- |
+| Which currently displayed item is this? | Scene keys, visual body/primitive identifiers | Picking and visual feedback |
+| Which document/tree object corresponds to it? | Editor mapping, including `MxObjectId` in the framework discussed by the earlier notes | Tree and document coordination |
+| Which occurrence and topological item does a model operation need? | `MbPath`, object kind, and model primitive/name information | Model lookup |
+
+`SetupIDMapping` is a visible connection into the editor's mapping mechanism. Its exact key types and map organization need the SDK headers and implementation. It should not be treated as synonymous with `MbPath` lookup merely because both connect the scene to model-related data.
+
+For the two bolts, the paths distinguish occurrences A and B. A topological name identifies a face in the resolved part's context. The same face identifier may therefore be meaningful for both occurrences, with the occurrence path deciding which placement the application means.
+
+The table shows a **hash of the path**, not the path itself. A hash is useful for a compact readout but does not encode the sequence in a form that `GetItemByPath` can reconstruct. The lookup code uses the actual `MbPath` object.
+
+## Resolve the occurrence and its topology
+
+The original `selection.cpp` contains a disabled block under `FIND_TOPOLOGYBYHASH`. Its first step is:
+
+```cpp
+// Original disabled excerpt. m_pModel is NOT declared in the supplied class.
+MbMatrix3D mx;
+const MbItem* pMathItem = m_pModel->GetItemByPath(path, mx);
+```
+
+This captures the important order: resolve the occurrence first, then search inside the resulting object. `MbModel::GetItemByPath` is documented as returning an item and providing its transformation into the model coordinate system. [MbModel API](https://c3d.ascon.net/doc/math/class_mb_model.html)
+
+The next part assumes the item is an `MbSolid` and calls `findTopologyByHash`. That helper selects the appropriate collection with `GetFaces`, `GetEdges`, or `GetVertices`, then compares each candidate's `GetName().Hash()` with the selected item's `GetMathPrimitive()`.
+
+```text
+path + current model
+  -> resolved item + occurrence transform
+  -> confirm that the item is a solid
+  -> choose face / edge / vertex collection
+  -> compare topology-name hashes with model primitive ID
+  -> resolved topological item, or an explicit failure
+```
+
+The helper is a readable demonstration of the relationship between the identifiers. It is a linear search through the chosen collection, not a general persistence algorithm.
+
+The disabled block cannot simply be switched on: `m_pModel` is missing, the cast to `MbSolid` is unchecked, and a failed match is handled with an assertion. It also does not show how the application's `MxModelExtension` supplies or relates to the `MbModel` used for lookup. That bridge must be implemented against the installed SDK.
+
+Here is a proposed integration algorithm. **This is pseudocode, not C3D API code.** The named operations describe application responsibilities; they are not invented SDK functions to copy into a project.
+
+```text
+inspect_selected_face(selected_item, active_document):
+    require a face selection with model identity
+    obtain the current kernel model through the document adapter
+    reject a selection captured from a different document revision
+
+    resolve the full occurrence path, retaining its transform
+    if no item resolves: report "occurrence no longer exists"
+    if the resolved item is not a solid: report "unsupported owner type"
+
+    find face candidates whose name hash matches the model primitive ID
+    if none match: report "face no longer resolves"
+    if the result is ambiguous: report "ambiguous face reference"
+
+    report the resolved face's name hash and the occurrence path
+    retain the occurrence transform for any model-space annotation
+```
+
+This extends the source sketch deliberately. The sample returns the first matching hash; an application needs to establish the naming/uniqueness contract appropriate to its data, or handle ambiguity. The document revision check is an application policy for avoiding stale references, not a field provided by the shown sample.
+
+## Use the result without losing its context
+
+For the first experiment, make the operation read-only: report that the selected item resolved to a face, display its name hash, and show which occurrence path produced it. This is enough to test the return journey without introducing editing, undo, or topology regeneration.
+
+Selecting the equivalent face on bolt A and bolt B should distinguish their occurrence paths. Depending on how the model represents repeated parts, they may resolve to the same underlying definition and the same topological face. That does not make the selections equivalent: their occurrence transforms and placement contexts differ.
+
+If the application adds an annotation anchored to a point on the face, coordinate systems become essential. A point expressed in the owning part's local coordinates must be placed through the resolved occurrence transform to reach model coordinates. A further model-to-scene transform, if the application uses one, also belongs in the placement chain. Do not transform twice simply because both the model and scene offer matrices.
+
+Treat the result as a package of context: **current document/model, occurrence, topology item, and transform**. A raw face pointer by itself does not tell another component which occurrence was selected or how long the pointer remains valid.
+
+This is the point at which Vision hands the application a modeling question. Vision supplies interaction state; the application decides whether the result is valid input for inspection, a constraint, a fillet, or another operation.
+
+## Area and programmatic selection
+
+Once one picked face can be understood, the other input routes are variations on how the selection state is populated.
+
+For rectangle selection, two concepts need separate controls: **enclosing** selects objects wholly inside the region; **crossing** includes objects intersecting it. Direction-based behavior is a common CAD convention, but the actual default should be read from the framework's area-process configuration rather than assumed from the gesture.
+
+The sample enables `ModelEditor::Area`. It also contains optional callbacks using `PrFindSelectArea`:
+
+- `slotStartArea` can refuse a rectangle when an object is under the cursor.
+- `slotSelectByRectTriggered` can enable the process explicitly.
+- `slotFinishArea` can disable it after use.
+
+**Those customizations are not wired in the supplied files.** `m_pFindArea` remains null, the start/finish signals are not connected to these callbacks, and no action is connected to the explicit activation callback. The two macros default to zero. Enabling a macro alone does not supply the missing process pointer or connections.
+
+This says nothing by itself about whether the framework's normal area-selection tool works. It separates the tool requested through `setSelectionTool` from the sample's unfinished optional overrides.
+
+Programmatic selection appears in `_selectSegment`. It descends through child segments of a segment without a representation and calls `Select` for children with a representation. As written, it does nothing if the **initial** argument already has a representation. It is also not called by the supplied active code. Read it as a helper for a particular traversal pattern, not a universal “select any subtree” implementation or proof that scene nodes with representations can never have children.
+
+The manager separately exposes a custom selection collection and color controls. That is worth examining for application-generated markings, but persistence, clearing behavior, and interaction with ordinary selection still need an explicit policy. Programmatic use of ordinary `Select` and use of `CustomSelect` are distinct API choices. [SelectionManager API](https://c3d.ascon.net/doc/math/class_v_s_n_1_1_selection_manager.html)
+
+## Feedback should follow selection state
+
+The event filter reads `GetHighlightItem()` and chooses a vertex, edge, face, or default cursor. That is a good separation: it consumes the manager's highlight state instead of maintaining an independent hit test.
+
+It is not enough to prove that the cursor always reflects the current event. Qt event filters run before the target object's event processing. Whether the picker has already updated the highlight at that point depends on Vision's event integration. Verify that ordering before treating the cursor as guaranteed current; where available, a highlight-change notification may be a clearer update point. [Qt event processing](https://doc.qt.io/qt-6/eventsandfilters.html)
+
+The sample's dynamic-highlighting handler calls both `SetDynamicHighlighting(state)` and `update()`. The repaint request helps present the changed state, but the source does not prove that disabling highlighting necessarily clears `GetHighlightItem()`. Define what the cursor should display when feedback is disabled and make that behavior explicit.
+
+The color callbacks convert RGB channels between `QColor` and Vision's `Color`. The property UI removes the alpha control, matching what the callbacks actually transfer. This is a useful local rule: a property editor should expose only values its handler honors.
+
+The readout uses `blockSignals` while filling each accepted row. If it later becomes editable and writes back into selection, place a guard around the whole update, including clearing and resizing, and avoid sending unchanged selection back to the manager. The supplied per-row guard is not a complete bidirectional synchronization design.
+
+## What survives a rebuild
+
+“Stable identity” needs a time horizon. Distinguish these cases before deciding what to store:
+
+| Change | What an application should expect to re-establish |
+| --- | --- |
+| Rebuild display geometry for an unchanged model | Scene identifiers and model-to-scene mapping |
+| Close and reopen a model | References resolved against newly loaded objects, subject to the file's preservation of names and structure |
+| Move an occurrence | Its current placement transform |
+| Delete an occurrence | A failed occurrence lookup |
+| Split, merge, replace, or delete topology | A naming/history policy or an unresolved-reference result |
+
+Model-derived references are the appropriate starting point for surviving display changes. They are not a promise that a face continues to exist after every modeling operation. C3D's topology API explicitly distinguishes modifications including deletion, merging, replacement, and renaming. [Topology documentation](https://c3d.ascon.net/doc/math/group___topology___items.html)
+
+For an application-level saved reference, consider the document identity, full occurrence path, topological kind, model naming information, and the revision context in which it was captured. The storage format and any name-history mechanism must follow the SDK's documented contracts. The five table columns are diagnostic output, not a ready-made serialization format.
+
+On restore, resolve and validate. If the target is gone, report that state or ask for a replacement. Silently attaching a dimension to a different face is worse than admitting that its reference no longer resolves.
+
+## Check the complete interaction
+
+Use a small assembly with repeated parts and test the transitions you intend to support:
+
+| Exercise | What to observe |
+| --- | --- |
+| Select a face, then change to edge selection | Selected kind follows the active filter |
+| Select corresponding faces on two occurrences | Occurrence context distinguishes the results |
+| Select through the tree and through the viewport | Each view follows the application's intended mapping |
+| Use rectangle selection | Readout follows the resulting set, not only individual clicks |
+| Disable dynamic highlighting | Highlight and cursor follow the chosen disabled-state policy |
+| Rebuild the scene | No application operation uses stale visual identifiers |
+| Replace or delete the referenced model item | Resolution produces an explicit failure or documented remapping |
+
+When a result is wrong, identify the first broken transition. A wrong candidate points toward filter and picking policy. A correct highlight with an empty readout points toward subscriptions or item handling. A correct path with no topology match points toward owner type, model revision, or naming. These are different problems and should not all be debugged as “selection does not work.”
+
+**Previous:** [Part 1 — From Model to Viewport](/notes/4-c3d-vision-model-to-viewport). **Reference:** [the source files, build context, and disabled examples](/notes/6-c3d-vision-selection-source-reference).

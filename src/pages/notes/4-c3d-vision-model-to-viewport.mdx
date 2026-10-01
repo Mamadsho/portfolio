@@ -1,0 +1,270 @@
+---
+layout: ../../layouts/BlogLayout.astro
+title: "C3D Vision, Part 1: From Model to Viewport"
+description: "A guided reading of 23_Selection: what the model and scene represent, how the Qt application is assembled, and how opening a file produces visible geometry."
+tags: ["cpp", "c3d", "qt", "architecture", "personal-notes"]
+time: 12
+featured: false
+timestamp: 2026-10-01T12:02:00+03:00
+filename: 4-c3d-vision-model-to-viewport
+---
+
+A useful way into C3D Vision is to follow one object through an application. A file is opened, its model is turned into a scene, and something appears in the viewport. Only then does a mouse click have something to select.
+
+This is the first of two walkthroughs of `23_Selection`. It introduces the application that hosts selection. [Part 2](/notes/5-c3d-vision-click-to-model) follows a click back from the scene to the model. The [source reference](/notes/6-c3d-vision-selection-source-reference) contains the five supplied files, including the disabled examples and their limitations.
+
+These walkthroughs are an alternative reading path alongside the earlier [anatomy note](/notes/3-c3d-vision-project-anatomy) and [selection note](/notes/2-c3d-vision-selection). They retain the source names: `Selection` is the application helper; `SelectionManager` is the Vision object that manages selection. Those are different classes.
+
+You need basic C++ and the idea of a Qt widget and signal. You do not need to know the C3D class hierarchy. The supplied files identify the sample but not an exact SDK or Qt version. The explanations below distinguish visible application code from framework behavior that needs the corresponding SDK sources. The C++ sample has not been built as part of writing this walkthrough.
+
+**Reading map**
+
+- [The application we are reading](#the-application-we-are-reading)
+- [A model and a scene are different representations](#a-model-and-a-scene-are-different-representations)
+- [Where the libraries fit](#where-the-libraries-fit)
+- [Startup assembles the application](#startup-assembles-the-application)
+- [Opening a file builds the scene](#opening-a-file-builds-the-scene)
+- [Ownership and completion](#ownership-and-completion)
+- [Why there are two connection spellings](#why-there-are-two-connection-spellings)
+- [Where to make a change](#where-to-make-a-change)
+
+## The application we are reading
+
+The sample opens an embedded model and offers a viewport, a model panel, properties, filters, and an output table. The code configures these pieces rather than implementing a windowing system or renderer.
+
+| Visible piece | What it helps the user do | Entry point in the sample |
+| --- | --- | --- |
+| Viewport | See and navigate the model | `mainWindow.sceneWidget()` |
+| Model panel | Inspect the model structure | `QtMainWindow::ModelPanel` |
+| Filter bar | Choose the selectable kinds of object | `FilterBar` and `setSelectionTool` |
+| Properties panel | Change highlight settings and colors | `propertyWidget()` |
+| Output panel | Inspect identifiers of selected items | `OutputContent` |
+
+The output table is especially useful while learning. A highlighted face is a visible result; the table exposes some of the data behind that result. Part 2 will explain why its five columns are not five interchangeable ways of naming the same thing.
+
+There are five source/build files:
+
+```text
+23_Selection/
+  main.cpp          assemble objects and connect callbacks
+  selection.h       declare Selection and OutputContent
+  selection.cpp     implement loading, feedback, and readout
+  selection.qrc     name the embedded resources
+  CMakeLists.txt    integrate the target with the SDK build
+  res/              required model, icons, and cursors
+```
+
+The `res/` directory is required by the manifest but was not included with the five files. The build file also relies on helpers and variables supplied by the surrounding SDK project. This is a sample target inside a larger build, not a standalone five-file project.
+
+## A model and a scene are different representations
+
+Before following the objects, distinguish what the application knows from what it draws.
+
+The **model** contains the objects that modeling operations work with. For a solid, that includes faces, edges, and vertices and the geometry associated with them. Topology describes their connectivity: an edge can be shared by faces, so this is not simply a tree in which every face privately owns its edges.
+
+The **scene** is organized for visualization. It contains scene segments, representations, and drawable geometry. Tessellation produces a discrete approximation suitable for display; a model face and the triangles displaying it belong to different representations.
+
+```text
+Model side                         Scene side
+
+loaded model                       scene content
+  part occurrences                   scene segments
+  solids and topology  --build-->     drawable representations
+  geometric definitions              display geometry
+```
+
+The arrow does not replace the model. Both sides remain relevant. The scene answers interaction and rendering questions. The model supplies the objects on which a geometric command operates.
+
+There is one more distinction: a **part definition** can appear several times in an assembly. Each **occurrence** identifies a particular placement of that part. Two bolts can share the same definition while occupying different positions. Later, a selected face must identify both the face and the occurrence containing it.
+
+This is why the conversion step matters beyond drawing triangles. It is also where the application can establish correspondence between the displayed objects and the model/document objects.
+
+## Where the libraries fit
+
+For this example, four groups of functionality matter:
+
+| Group | Role in this walkthrough | Names encountered here |
+| --- | --- | --- |
+| C3D modeling kernel | Model objects, geometry, topology, and paths | `MbModel`, `MbSolid`, `MbPath` |
+| C3D Vision | Scene, viewport, picking, and selection state | `SceneSegment`, `SelectionManager` |
+| MbVision bridge | Connect model data to visual representations | `MxModelExtension`, `SceneGenerator`, `ProgressBuild` |
+| QtVision framework | Assemble the Qt window, panels, and application coordination | `QtSdiMainWindow`, `ModelView`, `ModelEditor` |
+
+This is a responsibility map, not a claim that every dependency forms one strict vertical chain. The application uses several groups directly. Nor is it a survey of the whole C3D Toolkit: converters, solvers, and other modules are outside this sample's immediate story.
+
+The supplied code includes `qt_vision.h`, `model_entity.h`, and `mb_scenegenerator.h`; its build links the QtVision target and `mbvision` and invokes an SDK linking helper. To examine behavior hidden behind those calls, start with the corresponding headers and the VisionKit sources in your SDK distribution. Packaging, binary names, and available APIs should be checked against that distribution.
+
+For a first reading, hold onto four application objects:
+
+- `QtSdiMainWindow` is the assembled window.
+- `ModelView`, obtained through `sceneWidget()`, is the access point for scene and viewport operations.
+- `ModelEditor` is where this sample requests its selection tool and connects identity mapping.
+- `Selection` is the sample's own helper: it loads scene geometry and implements the readout, cursor, and settings callbacks.
+
+`Selection` is broader than its name. Calling it “the application helper” while reading is enough; renaming it midway through the walkthrough would make the original source harder to follow.
+
+## Startup assembles the application
+
+Read `main.cpp` as a sequence of wiring decisions:
+
+```text
+enable licensed modules
+  -> create the Qt application
+  -> construct the main window
+  -> configure navigation and the viewport toolbar
+  -> give the helper its scene widget
+  -> configure selection and give the helper its manager
+  -> connect model opening and open the bundled file
+  -> create settings and output widgets
+  -> show the window and enter the event loop
+```
+
+The first part establishes the runtime and UI. `createApplication` is checked for failure before widgets are constructed. The main window's options decide which panels exist. Camera controls and the viewport toolbar are configured through separate helpers.
+
+The application helper then receives the widget:
+
+```cpp
+sceneSelection->setSceneWidget(mainWindow.sceneWidget());
+mainWindow.sceneWidget()->installEventFilter(sceneSelection);
+```
+
+These lines establish different relationships. The setter stores access to the widget and, in its implementation, gives the helper a Qt parent. The event-filter installation lets the helper observe widget events. Observing events does not itself establish ownership.
+
+Selection setup follows this order in the sample:
+
+```cpp
+mainWindow.modelEditor()->setSelectionTool(selectOps);
+sceneSelection->setSelectionManager(
+    mainWindow.modelEditor()->selectionManager());
+```
+
+Configure the tool before handing its manager to the helper. The helper's setter only stores the pointer; it does not construct or configure a selection manager. The implementation and repeated-call behavior of `setSelectionTool` belong to `ModelEditor`, outside these five files.
+
+Two small widgets then complete the example. The properties panel emits a common `propChanged` signal, so each callback checks a property ID before updating the appropriate setting. `OutputContent` creates a five-column table and exposes it through `outputTableWidget()`; the application helper fills it later.
+
+**What to look for in the source:** initialization establishes dependencies first, then callbacks use them. For a modified application, make every callback's required widgets and state ready before an operation that could emit its signal. The supplied sample opens its bundled file before constructing the output panel; preserve or change that order only with the framework's notification behavior understood.
+
+## Opening a file builds the scene
+
+The entry point is a Qt connection:
+
+```cpp
+QObject::connect(&mainWindow, &QtSdiMainWindow::openNewModel,
+    sceneSelection, &Selection::slotOpenModel);
+```
+
+The helper receives an `MxModelExtension*`. File parsing is upstream of this callback. This function starts with an already opened model and takes responsibility for its scene representation.
+
+Read `slotOpenModel` in three phases.
+
+**First, remove the previous displayed model.** The helper remembers its model segment in `m_pSegModel` and removes that segment from the scene root before building another. That prevents this callback from simply accumulating another displayed model on each open.
+
+**Second, create the generator and connect its notifications.** The mapping connection is:
+
+```cpp
+Object::Connect(m_pSceneGenerator, &SceneGenerator::SetupIDMapping,
+    m_sceneWidget->modelEditor(), &ModelEditor::slotSetupIDMapping);
+```
+
+This is the handoff through which generation supplies identity mapping to the editor. The connection is made before generation begins, so it can receive mappings produced during construction. The exact payload and storage of those mappings are framework details; the connection alone does not reveal a particular number of internal maps.
+
+The completion connection deletes the generator, frames the scene's bounding box, and requests a repaint. The application deliberately puts those actions behind a completion notification rather than immediately after starting the build.
+
+**Third, create the segment and start geometry construction.**
+
+```cpp
+m_pSegModel = m_pSceneGenerator->CreateSceneSegment(model, pTopSegment);
+m_pSceneGenerator->StartBuildGeometry();
+```
+
+The separation is useful: a segment can be established before its display geometry is ready. Code that needs the completed geometry belongs on the completion path.
+
+```text
+openNewModel(model)
+  -> remove old displayed segment
+  -> create generator and progress object
+  -> connect mapping and completion
+  -> create model segment
+  -> start geometry build
+  -> completion callback: release generator, frame view, redraw
+```
+
+The callback structure accommodates delayed construction. The precise default threading mode and the thread on which callbacks are delivered need to be checked in the installed SDK; they are not defined by this call site. In particular, a worker doing geometry work does not by itself prove that a completion callback is safe to use for Qt UI operations.
+
+## Ownership and completion
+
+“Who creates this?” and “who destroys this?” are different questions. So is “who has a pointer to it?”
+
+The supplied application code establishes these relationships:
+
+| Object or pointer | What the source actually establishes |
+| --- | --- |
+| `mainWindow` | Local variable in `main`, remaining alive during `exec()` |
+| `sceneSelection` | Allocated with `new`; `setSceneWidget` calls Qt `setParent(sceneWidget)` |
+| `m_sceneWidget` | Stored pointer used to access the widget; the helper does not create it |
+| `OutputContent` | Created by the sample and installed in the framework output widget |
+| `m_outputTable` | Created by `OutputContent`, added to its layout, and also referenced by the helper |
+| `m_ptrSelectManager` | Copy of `SelectionManagerPtr`; consult its SDK definition for its ownership contract |
+| `m_pSceneGenerator` | Created for a load, explicitly deleted in the completion callback |
+| `m_pSegModel` | Remembers the segment to remove on a subsequent load; no deletion rule follows merely from the raw pointer |
+
+The helper's Qt parent is important. A Qt parent deletes its child objects when destroyed, which explains why the sample does not separately delete `sceneSelection`. This is a specific ownership rule, not a general property of storing pointers. [Qt's object ownership explanation](https://doc.qt.io/qt-6/objecttrees.html)
+
+The generator has a different lifetime. Its destructor check is:
+
+```cpp
+Selection::~Selection()
+{
+    VSN_ASSERT(m_pSceneGenerator == nullptr);
+}
+```
+
+That expresses an expectation: no outstanding generator when the helper is destroyed. It does not implement cancellation, waiting, or disconnection.
+
+A larger application needs explicit answers for closing during a build, opening another model while one is building, build failure, and selection references to a replaced scene. Those answers may partly live in the framework, but they cannot be inferred from this assertion. Treat the sample's normal completion path as the starting point for a lifecycle design.
+
+## Why there are two connection spellings
+
+The helper declares:
+
+```cpp
+class Selection : public QObject, public Object
+{
+    Q_OBJECT
+    // ...
+};
+```
+
+Here `Object` resolves to `VSN::Object`. The sample participates in both Qt's object system and Vision's object system.
+
+| Notification | Connection used in the source | Application response |
+| --- | --- | --- |
+| `openNewModel` | `QObject::connect` | Build a scene for the model |
+| `propChanged` | `QObject::connect` | Dispatch by property ID |
+| `SetupIDMapping` | `Object::Connect` | Pass mapping to the editor |
+| `BuildAllCompleted` | `Object::Connect` | Release generator and update the view |
+| Selection-change signals | `Object::Connect` | Rebuild the readout |
+
+The signal's framework determines the connection API. Keeping the spellings distinct helps identify which contract to inspect when debugging.
+
+This explains the sample's dual inheritance. It does not mean every component in a larger application must inherit both bases. A component that only receives Qt events and calls ordinary Vision methods has different needs from one registered as a receiver in Vision's signal system. Choose the bases and adapters from the actual connections.
+
+## Where to make a change
+
+The file map becomes useful once the runtime flow is familiar:
+
+| Desired change | First place to read |
+| --- | --- |
+| Add or remove a panel | Window flags in `main.cpp` |
+| Change what happens after opening a model | `Selection::slotOpenModel` |
+| Change displayed selection data | `slotItemSelectModified` and `OutputContent` |
+| Change hover cursor behavior | `eventFilter` and cursor resources |
+| Add a property | Property construction and ID dispatch in `main.cpp` |
+| Understand hidden tool defaults | SDK implementation of `ModelEditor::setSelectionTool` |
+| Understand a missing cursor or model resource | `selection.qrc`, `res/`, and resource compilation |
+
+There is no need to split the sample into many classes to read it. For an application that grows, scene loading, selection presentation, and settings are reasonable separate responsibilities. That is an architectural choice, not a prerequisite for using Vision.
+
+At this point, the application can receive a model, build its scene representation, and display it. The next question runs in the opposite direction: when the user selects displayed geometry, how does the application find the model object behind it?
+
+**Next:** [Part 2 — From a Click to a Model Object](/notes/5-c3d-vision-click-to-model). **Reference:** [the five source files and their limitations](/notes/6-c3d-vision-selection-source-reference).

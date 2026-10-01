@@ -1,0 +1,681 @@
+---
+layout: ../../layouts/BlogLayout.astro
+title: "C3D Vision: 23_Selection Source Reference"
+description: "The five supplied sample files with original names, license placeholders, build context, and a guide to the disabled or incomplete example paths."
+tags: ["cpp", "c3d", "qt", "reference", "personal-notes"]
+time: 22
+featured: false
+timestamp: 2026-10-01T12:00:00+03:00
+filename: 6-c3d-vision-selection-source-reference
+---
+
+This page accompanies [Part 1 — From Model to Viewport](/notes/4-c3d-vision-model-to-viewport) and [Part 2 — From a Click to a Model Object](/notes/5-c3d-vision-click-to-model). Read those for the explanation; use this page to locate the implementation without interrupting the narrative with complete files.
+
+It is an additional reference alongside the earlier [anatomy note](/notes/3-c3d-vision-project-anatomy), whose appendix uses renamed and edited classes. Here the source names remain `Selection`, `OutputContent`, `selection.h`, and `selection.cpp`.
+
+## Source and scope
+
+These are the five files supplied for review on 1 October 2026, identifying the project as `23_Selection`. They are a supplied snapshot, not a claim to reproduce a particular current SDK release. The build-file notice says 2025; that is not an SDK version number. No exact SDK build, Qt version, parent CMake project, or resource assets accompanied the files.
+
+The listings preserve the supplied code, comments, notices, disabled sections, and existing quirks. Only the `LICENSEKEY` and `LICENSESIG` string values in `main.cpp` have been replaced with publication placeholders, and line endings and trailing whitespace are normalized. The C++ sample has not been compiled or run for these articles.
+
+**Files**
+
+- [`main.cpp`](#maincpp) — application construction and signal wiring.
+- [`selection.h`](#selectionh) — declarations and inline setters.
+- [`selection.cpp`](#selectioncpp) — scene loading, readout, cursors, and optional examples.
+- [`selection.qrc`](#selectionqrc) — embedded resource manifest.
+- [`CMakeLists.txt`](#cmakeliststxt) — target definition inside the SDK build.
+
+## Build context
+
+The CMake target depends on definitions outside this directory, including `vsn_qt_wrap_cpp`, `vsn_qt_add_resources`, `vsn_link_with_qt_vislib_math`, `QtVision_OUTPUT`, `23_Selection_OUTPUT`, and `SRC_Shared`. The included framework and kernel headers likewise come from the SDK. Do not expect configuring this directory by itself to resolve those dependencies.
+
+To reproduce the example, start from a compatible SDK's documented parent build and toolchain, use its example target configuration, supply the eleven files named by `selection.qrc`, and configure your own license values locally. The `.qrc` includes the sample `.c3d` model, filter icons, and cursor images; a manifest is not a substitute for those files.
+
+Record the SDK build, Qt version, compiler, platform, and resource source when making a reproducible application project. A successful website build checks the article formatting, not the validity of this C++ target against an SDK.
+
+## Active code and optional sketches
+
+The active path constructs a window, enables selection actions, opens the bundled model, builds scene geometry, changes display settings, and mirrors selected-item identifiers into a table. Other code needs to be read with its compile-time switches and call sites in mind:
+
+| Code | State in these files | What would be needed to use it |
+| --- | --- | --- |
+| `FIND_TOPOLOGYBYHASH` | Disabled; lookup refers to undeclared `m_pModel` | Connect to the current kernel model, validate owner type and identifiers, handle failed/ambiguous resolution |
+| `OTHER_METHOD_1` | Disabled; `m_pFindArea` is never assigned | Obtain the intended area process and connect its start callback before using the veto |
+| `OTHER_METHOD_2` | Disabled; no activation action or finish connection is supplied | Provide process access, activation action, finish connection, and initial enabled-state policy |
+| `LINE_SEGMENT` | Disabled; helper has no call site here | Decide when to create the extra scene segment and how to manage its lifetime |
+| `_selectSegment` | Defined but not called here | Call it for its intended grouping-node case, or deliberately generalize its traversal |
+| `SetPickingByGeometry` | Commented out in `main.cpp` | Inspect the installed SDK's contract before changing the picking path |
+
+The existence of unfinished custom area handlers does not imply that the area tool enabled through `ModelEditor::Area` is itself disabled or broken. These are separate paths.
+
+## Details worth noticing while reading
+
+The output widget assigns widths to columns 0 and 1 again while setting up the headers for columns 3 and 4. This looks like a copy-and-paste error; it is retained so the listing remains faithful. `main.cpp` also removes the selection-color alpha subproperty twice. Neither detail is an architectural requirement.
+
+The topology sketch uses an unchecked cast to `MbSolid` and accepts the first matching name hash. Its assertion is a debugging check, not a user-facing policy for missing references. Part 2 proposes explicit checks without presenting them as code already implemented here.
+
+The table sets its row count from the entire selection collection but fills rows only for successful `InstSelectionItem` casts. If other item kinds occur, unused rows can remain. The source also blocks signals per row after clearing and resizing the table; that is not a complete guard for a future editable, bidirectional readout.
+
+The helper is parented to the scene widget by Qt. The generator is explicitly deleted in its completion callback. The assertion in the helper destructor checks that no generator remains; it does not implement cancellation. Shutdown and overlapping loads require the surrounding framework's lifecycle contract to be understood.
+
+These observations distinguish the sample's teaching value from the additional decisions needed for an application. The listings below intentionally do not silently repair them.
+
+---
+
+## main.cpp
+
+```cpp
+#include "selection.h"
+#include <tool_enabler.h>
+#include <vsn_last.h>
+
+using namespace VSN;
+using namespace QtVision;
+
+// ---
+int main(int argc, char** argv)
+{
+
+    const char* LICENSEKEY = "REPLACE_WITH_YOUR_LICENSEKEY";
+    const char* LICENSESIG = "REPLACE_WITH_YOUR_LICENSESIG";
+
+    EnableMathModules( LICENSEKEY, std::strlen(LICENSEKEY),
+                       LICENSESIG, std::strlen(LICENSESIG));
+//  [0]
+    auto application = QtApplication::createApplication(argc, argv, "Selection");
+    if (!application)
+        return 1;
+//  [1]
+//    GlobalFlags::SetPickingByGeometry(true);
+    Selection* sceneSelection = new Selection();
+    QtSdiMainWindow::CreateOptions controls(QtMainWindow::MenuBar | QtMainWindow::ModelPanel |
+        QtMainWindow::PropsPanel | QtMainWindow::OutputPanel | QtMainWindow::StatusBar | QtMainWindow::FilterBar);
+    QtSdiMainWindow mainWindow(controls);
+    mainWindow.processManager()->createProcessesCameraControls();
+    mainWindow.viewController()->createHeadsUpViewToolbar(true);
+    sceneSelection->setSceneWidget(mainWindow.sceneWidget());
+    mainWindow.sceneWidget()->installEventFilter(sceneSelection);
+//  [2]
+    ModelEditor::AllowActSelectOptions selectOps(ModelEditor::Body | ModelEditor::Face | ModelEditor::Edge |
+        ModelEditor::Vertex | ModelEditor::Area);
+    mainWindow.modelEditor()->setSelectionTool(selectOps);
+//    mainWindow.modelEditor()->selectionManager()->SetBodySelectionEnabled(true);
+    sceneSelection->setSelectionManager(mainWindow.modelEditor()->selectionManager());
+//  [3]
+    QObject::connect(&mainWindow, &QtSdiMainWindow::openNewModel, sceneSelection, &Selection::slotOpenModel);
+    QFile file(":/res/selection.c3d");
+    mainWindow.openFile(file);
+//  [4]
+    VarPropManager* propManager = mainWindow.propertyWidget()->propertyManager();
+    VarProperty* groupProperty = propManager->addProperty(VarPropManager::groupTypeId(), QObject::tr("Select"));
+    VarProperty* propHighlighting = propManager->addProperty(QVariant::Bool, QObject::tr("Highlight:"), ID_DYNAMIC_HIGHLIGHTING);
+    propHighlighting->setValue(true);
+    QObject::connect(mainWindow.propertyWidget(), &QtPropBrowserWidget::propChanged,
+        [propHighlighting, &sceneSelection](QtVision::Property* property)
+        {
+            if (property->propertyId() == ID_DYNAMIC_HIGHLIGHTING)
+            {
+                VarProperty* vProperty = ((VarProperty*)property);
+                sceneSelection->slotDynamicHighlighting(vProperty->value().toBool());
+            }
+        });
+    groupProperty->addSubProperty(propHighlighting);
+
+    VarProperty* propHighlightColor = propManager->addProperty(QVariant::Color, QObject::tr("Highlight color:"), ID_HIGHLIGHTCOLOR);
+    propHighlightColor->removeSubProperty(ID_COLOR_ALPHA);
+
+    propHighlightColor->setValue(sceneSelection->highlightColor());
+    QObject::connect(mainWindow.propertyWidget(), &QtPropBrowserWidget::propChanged,
+        [propHighlightColor, &sceneSelection](QtVision::Property* property)
+        {
+            if (property->propertyId() == ID_HIGHLIGHTCOLOR)
+            {
+                VarProperty* vProperty = ((VarProperty*)property);
+                sceneSelection->slotHighlightColor(vProperty->value().value<QColor>());
+            }
+        });
+    groupProperty->addSubProperty(propHighlightColor);
+
+    VarProperty* propSelectionColor = propManager->addProperty(QVariant::Color, QObject::tr("Selection color:"), ID_SELECTIONCOLOR);
+    propSelectionColor->removeSubProperty(ID_COLOR_ALPHA);
+
+    propSelectionColor->removeSubProperty(ID_COLOR_ALPHA);
+    propSelectionColor->setValue(sceneSelection->selectionColor());
+    QObject::connect(mainWindow.propertyWidget(), &QtPropBrowserWidget::propChanged,
+        [propSelectionColor, &sceneSelection](QtVision::Property* property)
+        {
+            if (property->propertyId() == ID_SELECTIONCOLOR)
+            {
+                VarProperty* vProperty = ((VarProperty*)property);
+                sceneSelection->slotSelectionColor(vProperty->value().value<QColor>());
+            }
+        });
+    groupProperty->addSubProperty(propSelectionColor);
+    mainWindow.propertyWidget()->addProperty(groupProperty);
+//  [5]
+    OutputContent* outputContent = new OutputContent;
+    mainWindow.outputWidget()->setWidget(outputContent);
+    sceneSelection->setOutputTable(outputContent->outputTableWidget());
+
+    Object::Connect(mainWindow.modelEditor()->selectionManager().get(), &SelectionManager::signalItemSelectModified,
+        sceneSelection, &Selection::slotItemSelectModified);
+    Object::Connect(mainWindow.modelEditor()->selectionManager().get(), &SelectionManager::signalItemsSelectModified,
+        sceneSelection, &Selection::slotItemSelectModified);
+
+    // Show window
+    mainWindow.show();
+    return application->exec();
+}
+```
+
+## selection.h
+
+```cpp
+#ifndef __SELECTION_H
+#define __SELECTION_H
+
+#include <QFile>
+#include <QTableWidget>
+
+#include <qt_vision.h>
+
+#include <model_entity.h>
+#include <mb_scenegenerator.h>
+
+#define OTHER_METHOD_1 0
+#define OTHER_METHOD_2 0
+
+using namespace VSN;
+using namespace QtVision;
+
+const char ID_DYNAMIC_HIGHLIGHTING[] = "Orientation.DynamicHighlighting";
+const char ID_HIGHLIGHTCOLOR[] = "Orientation.HighlightColor";
+const char ID_SELECTIONCOLOR[] = "Orientation.SelectionColor";
+
+/* OutputContent */
+class OutputContent : public QWidget
+{
+public:
+    OutputContent();
+    ~OutputContent() override;
+public:
+    QTableWidget* outputTableWidget() const { return m_outputTable; }
+protected:
+    QVBoxLayout* m_layout;
+    QTableWidget* m_outputTable;
+private:
+    Q_DISABLE_COPY(OutputContent)
+};
+
+/* Selection */
+class Selection : public QObject, public Object
+{
+    Q_OBJECT
+public:
+    explicit Selection();
+    ~Selection() override;
+public:
+    inline void setSelectionManager(SelectionManagerPtr ptrSelectManager);
+    inline void setSceneWidget(ModelView* sceneWidget);
+    inline void setOutputTable(QTableWidget* outputTable);
+    QColor highlightColor() const;
+    QColor selectionColor() const;
+protected:
+    void slotStartArea(bool& bAllow);
+    void slotFinishArea();
+public Q_SLOTS:
+    void slotOpenModel(MxModelExtension* pModel);
+    void slotSelectByRectTriggered();
+    void slotHighlightColor(const QColor& clr);
+    void slotSelectionColor(const QColor& clr);
+    void slotDynamicHighlighting(bool state);
+    void slotItemSelectModified();
+protected:
+    bool eventFilter(QObject* watched, QEvent* event) override;
+private:
+    ModelView* m_sceneWidget;
+    SceneSegment* m_pSegModel;
+    SceneGenerator* m_pSceneGenerator;
+    SelectionManagerPtr m_ptrSelectManager;
+    PrFindSelectArea* m_pFindArea;
+    QTableWidget* m_outputTable;
+    QCursor m_curEdge;
+    QCursor m_curFace;
+    QCursor m_curVertex;
+    QCursor m_curPoint;
+private:
+    Q_DISABLE_COPY(Selection)
+};
+
+inline void Selection::setSelectionManager(SelectionManagerPtr ptrSelectManager)
+{
+    m_ptrSelectManager = ptrSelectManager;
+//    m_ptrSelectManager->SetSelectionMode(SelectionManager::SingleSelection);
+}
+
+// ---
+inline void Selection::setSceneWidget(ModelView* sceneWidget)
+{
+    m_sceneWidget = sceneWidget;
+    m_curPoint = QtVision::findCursor(m_sceneWidget);
+    setParent(m_sceneWidget);
+}
+
+inline void Selection::setOutputTable(QTableWidget* outputTable) { m_outputTable = outputTable; }
+
+#endif // __SELECTION_H
+```
+
+## selection.cpp
+
+```cpp
+#include "selection.h"
+
+#include <solid.h>
+#include <cur_contour3d.h>
+#include <vsn_geometryrep.h>
+#include <vsn_pointgeometry.h>
+#include <cur_line_segment3d.h>
+#include <cur_line_segment.h>
+#include <cur_contour.h>
+#include <vsn_last.h>
+
+static const int tree_margins = 4;    // height of the separator
+
+static QString strNodeKey = QStringLiteral("Vis Node Key");
+static QString strBodyIdx = QStringLiteral("Vis Body Idx");
+static QString strPrimId  = QStringLiteral("Vis Prim Id");
+
+static QString strPath = QStringLiteral("Mat Path hash");
+static QString strPrim = QStringLiteral("Mat Prim hash");
+
+/* OutputContent */
+OutputContent::OutputContent()
+    : m_layout(new QVBoxLayout(this))
+    , m_outputTable(new QTableWidget)
+{
+    m_layout->addWidget(m_outputTable);
+    m_outputTable->setColumnCount(5);
+    m_outputTable->setRowCount(0);
+
+    QFontMetrics fm(font());
+    m_outputTable->setWordWrap(true);
+    m_outputTable->setHorizontalHeaderItem(0, new QTableWidgetItem(strNodeKey));
+    m_outputTable->setColumnWidth(0, fm.boundingRect(strNodeKey).width() * 2 + fm.height() * 2);
+    m_outputTable->setHorizontalHeaderItem(1, new QTableWidgetItem(strBodyIdx));
+    m_outputTable->setColumnWidth(1, fm.boundingRect(strBodyIdx).width() * 2 + fm.height() * 2);
+    m_outputTable->setHorizontalHeaderItem(2, new QTableWidgetItem(strPrimId));
+    m_outputTable->setColumnWidth(2, fm.boundingRect(strPrimId).width() * 2 + fm.height() * 2);
+
+    m_outputTable->setHorizontalHeaderItem(3, new QTableWidgetItem(strPath));
+    m_outputTable->setColumnWidth(0, fm.boundingRect(strPath).width() * 2 + fm.height() * 2);
+    m_outputTable->setHorizontalHeaderItem(4, new QTableWidgetItem(strPrim));
+    m_outputTable->setColumnWidth(1, fm.boundingRect(strPrim).width() * 2 + fm.height() * 2);
+}
+
+OutputContent::~OutputContent()
+{
+}
+
+#define LINE_SEGMENT 0
+#if LINE_SEGMENT
+static SceneSegment* CreateLineSegment(SceneSegment* pTopSegment)
+{
+    Q_ASSERT(pTopSegment != nullptr);
+    MbContour* pSketch = new MbContour();
+    pSketch->AddSegment(new MbLineSegment(MbCartPoint(0.0, 0.0), MbCartPoint(0.0, 50.0)));
+    pSketch->AddSegment(new MbLineSegment(MbCartPoint(0.0, 50.0), MbCartPoint(50.0, 50.0)));
+    pSketch->AddSegment(new MbLineSegment(MbCartPoint(50.0, 50.0), MbCartPoint(50.0, 0.0)));
+
+    MbPlacement3D pl;
+    MbPlaneInstance* pPlaneInstance = new MbPlaneInstance(*pSketch, pl);
+    MathRepresentation* pRepresentation = new MathRepresentation();
+    pRepresentation->SetMathItem(pPlaneInstance);
+    SceneSegment* pSceneSegment = new SceneSegment(pRepresentation, pTopSegment);
+
+    pl.SetOrigin(MbCartPoint3D(0.0, 100.0, 0.0));
+    pSceneSegment->CreateRelativeMatrix(MbMatrix3D(pl));
+    return pSceneSegment;
+}
+#endif
+
+#define FIND_TOPOLOGYBYHASH 0
+#if FIND_TOPOLOGYBYHASH
+static MbTopologyItem* findTopologyByHash(const MbSolid* solid, uint32 primitiveId, ObjectType typeObject)
+{
+    RPArray<MbTopologyItem> items;
+    switch (typeObject)
+    {
+        case ObjectType::Face:
+        {
+            solid->GetFaces(items);
+            break;
+        }
+        case ObjectType::Edge:
+        {
+            RPArray<MbCurveEdge> edges;
+            solid->GetEdges(edges);
+            std::copy(edges.begin(), edges.end(), std::back_inserter(items));
+            break;
+        }
+        case ObjectType::Vertex:
+        {
+            RPArray<MbVertex> vertexes;
+            solid->GetVertices(vertexes);
+            std::copy(vertexes.begin(), vertexes.end(), std::back_inserter(items));
+            break;
+        }
+    }
+    for (MbTopologyItem* curItem : items)
+    {
+        if (curItem->GetName().Hash() == primitiveId)
+            return curItem;
+    }
+    return nullptr;
+}
+#endif
+
+static QString typePrimitive(InstSelectionItem* item)
+{
+    QString strText("N");
+    switch (item->GetType())
+    {
+        case ObjectType::Vertex: strText = QString("Vertex"); break;
+        case ObjectType::Edge: strText = QString("Edge"); break;
+        case ObjectType::Face: strText = QString("Face"); break;
+    }
+    return strText;
+}
+
+/* _selectSegment */
+static void _selectSegment(SelectionManagerPtr ptrSelectManager, SceneSegment* pSegment)
+{
+    if (pSegment->GetRepresentation() == nullptr)
+    {
+        auto listItem = pSegment->GetChildSegments();
+        for (auto it = listItem.begin(); it != listItem.end(); ++it)
+        {
+            SceneSegment* pSegmentItem = (*it);
+            if (pSegmentItem->GetRepresentation() == nullptr)
+                _selectSegment(ptrSelectManager, pSegmentItem);
+            else
+                ptrSelectManager->Select(pSegmentItem->GetUniqueKey());
+        }
+    }
+}
+
+/* Selection */
+Selection::Selection()
+    : m_sceneWidget(nullptr)
+    , m_pSegModel(nullptr)
+    , m_pSceneGenerator(nullptr)
+    , m_ptrSelectManager(nullptr)
+    , m_pFindArea(nullptr)
+    , m_outputTable(nullptr)
+    , m_curEdge(QCursor(QPixmap(":/res/edge.cur")))
+    , m_curFace(QCursor(QPixmap(":/res/face.cur")))
+    , m_curVertex(QCursor(QPixmap(":/res/vertex.cur")))
+    , m_curPoint()
+{
+}
+
+//---------------------------------------------------------------------------
+//
+// ---
+Selection::~Selection()
+{
+    VSN_ASSERT(m_pSceneGenerator == nullptr);
+}
+
+//-----------------------------------------------------------------------------
+//
+// ---
+void Selection::slotOpenModel(MxModelExtension* model)
+{
+    if (model == nullptr)
+        return;
+
+    if (m_pSegModel != nullptr)
+    {
+        SceneSegment* pTopSegment = m_sceneWidget->sceneContent()->GetRootSegment();
+        Q_ASSERT(pTopSegment != nullptr);
+        pTopSegment->RemoveSegment(m_pSegModel);
+    }
+
+    SceneSegment* pTopSegment = m_sceneWidget->sceneContent()->GetRootSegment();
+    Q_ASSERT(pTopSegment != nullptr);
+    m_pSceneGenerator = new SceneGenerator();
+    ProgressBuild* pProgressBuild = m_pSceneGenerator->CreateProgressBuild();
+    Object::Connect(m_pSceneGenerator, &SceneGenerator::SetupIDMapping, m_sceneWidget->modelEditor(),
+        &ModelEditor::slotSetupIDMapping);
+    Object::Connect(pProgressBuild, &ProgressBuild::BuildAllCompleted, this,
+        [this]()
+        {
+            VSN_DELETE_AND_NULL(m_pSceneGenerator);
+            m_sceneWidget->viewport()->ZoomToFit(m_sceneWidget->sceneContent()->GetBoundingBox(), 1.5f);
+            m_sceneWidget->update();
+        });
+
+    m_pSegModel = m_pSceneGenerator->CreateSceneSegment(model, pTopSegment);
+    m_pSceneGenerator->StartBuildGeometry();
+}
+
+//---------------------------------------------------------------------------
+//
+// ---
+void Selection::slotStartArea(bool& bAllow)
+{
+#if OTHER_METHOD_1
+    bAllow = !m_pFindArea->IsObjectUnderCursor();
+#else
+    VSN_UNUSED(bAllow);
+#endif
+}
+
+//---------------------------------------------------------------------------
+//
+// ---
+void Selection::slotFinishArea()
+{
+#if OTHER_METHOD_2
+    m_pFindArea->SetEnabled(false);
+#endif
+}
+
+//---------------------------------------------------------------------------
+//
+// ---
+void Selection::slotSelectByRectTriggered()
+{
+#if OTHER_METHOD_2
+    m_pFindArea->SetEnabled(true);
+#endif
+}
+
+// ---
+QColor Selection::highlightColor() const
+{
+    Color clr = m_ptrSelectManager->GetHighlightColor();
+    return QColor(clr.GetRed(), clr.GetGreen(), clr.GetBlue());
+}
+
+// ---
+QColor Selection::selectionColor() const
+{
+    Color clr = m_ptrSelectManager->GetSelectionColor();
+    return QColor(clr.GetRed(), clr.GetGreen(), clr.GetBlue());
+}
+
+// ---
+void Selection::slotHighlightColor(const QColor& clr)
+{ m_ptrSelectManager->SetHighlightColor(Color(clr.red(), clr.green(), clr.blue())); }
+
+// ---
+void Selection::slotSelectionColor(const QColor& clr)
+{ m_ptrSelectManager->SetSelectionColor(Color(clr.red(), clr.green(), clr.blue())); }
+
+//---------------------------------------------------------------------------
+//
+// ---
+void Selection::slotDynamicHighlighting(bool state)
+{
+    m_ptrSelectManager->SetDynamicHighlighting(state);
+    m_sceneWidget->update();
+}
+
+//---------------------------------------------------------------------------
+//
+// ---
+void Selection::slotItemSelectModified()
+{
+    Q_ASSERT(m_ptrSelectManager != nullptr);
+    QFontMetrics fm(m_outputTable->font());
+    const int height = fm.boundingRect("X").height() + fm.boundingRect("X").height() / 2;
+
+    auto& lstItem = m_ptrSelectManager->GetSelectionItems();
+
+    m_outputTable->clearContents();
+    m_outputTable->setRowCount(static_cast<int>(lstItem.size()));
+    int index = 0;
+    for (auto it : lstItem)
+    {
+        if (InstSelectionItem* item = dynamic_cast<InstSelectionItem*>(it))
+        {
+            MbPath path = item->GetMathPath();
+#if FIND_TOPOLOGYBYHASH
+            MbMatrix3D mx;
+            const MbItem* pMathItem = m_pModel->GetItemByPath(path, mx);
+            if (pMathItem != nullptr)
+            {
+                const MbSolid* pSolid = static_cast<const MbSolid*>(pMathItem);
+                uint32 id = item->GetMathPrimitive();
+                if (id != c3d::UNDEFINED_SNAME)
+                {
+                    MbTopologyItem* pTopologyItem = findTopologyByHash(pSolid, item->GetMathPrimitive(), item->GetType());
+                    pTopologyItem = pTopologyItem;
+                    Q_ASSERT(pTopologyItem != nullptr);
+                }
+            }
+#endif
+            bool bBlocked = m_outputTable->blockSignals(true);
+            String strKey = item->GetNodeKey().ToString();
+            m_outputTable->setItem(index, 0, new QTableWidgetItem(strKey.c_str()));
+            m_outputTable->item(index, 0)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            m_outputTable->setItem(index, 1, new QTableWidgetItem(QString::number(item->GetIndexBody())));
+            m_outputTable->item(index, 1)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            m_outputTable->setItem(index, 2, new QTableWidgetItem(QString::number(item->GetPrimitiveId())));
+            m_outputTable->item(index, 2)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            m_outputTable->setVerticalHeaderItem(index, new QTableWidgetItem(typePrimitive(item)));
+            m_outputTable->setRowHeight(index, height);
+
+            if (path.Count() > 0)
+            {
+                m_outputTable->setItem(index, 3, new QTableWidgetItem(QString::number(item->GetMathPath().Hash())));
+                m_outputTable->item(index, 3)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+                m_outputTable->setItem(index, 4, new QTableWidgetItem(QString::number(item->GetMathPrimitive())));
+                m_outputTable->item(index, 4)->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+                m_outputTable->setVerticalHeaderItem(index, new QTableWidgetItem(typePrimitive(item)));
+                m_outputTable->setRowHeight(index, height);
+            }
+
+            m_outputTable->blockSignals(bBlocked);
+            index++;
+        }
+    }
+}
+
+// ---
+bool Selection::eventFilter(QObject* watched, QEvent* event)
+{
+    if (watched != m_sceneWidget)
+        return QObject::eventFilter(watched, event);
+
+    if (event->type() == QEvent::MouseMove)
+    {
+        QCursor curCursor;
+        ObjectType type = ObjectType::None;
+        if (SelectionItem* item = m_ptrSelectManager->GetHighlightItem())
+            type = item->GetType();
+
+        switch (type)
+        {
+            case ObjectType::Vertex: curCursor = m_curVertex;
+                break;
+            case ObjectType::Edge: curCursor = m_curEdge;
+                break;
+            case ObjectType::Face: curCursor = m_curFace;
+                break;
+            default: curCursor = m_curPoint;
+                break;
+        }
+        m_sceneWidget->setCursor(curCursor);
+    }
+    return QObject::eventFilter(watched, event);
+}
+```
+
+## selection.qrc
+
+```xml
+<!DOCTYPE RCC><RCC version="1.0">
+  <qresource>
+    <file>res/selection.c3d</file>
+    <file>res/filter24x24.png</file>
+    <file>res/filterseg24x24.png</file>
+    <file>res/filterbody24x24.png</file>
+    <file>res/filterface24x24.png</file>
+    <file>res/filteredge24x24.png</file>
+    <file>res/filtervertex24x24.png</file>
+    <file>res/edge.cur</file>
+    <file>res/face.cur</file>
+    <file>res/vertex.cur</file>
+    <file>res/point_cur.cur</file>
+  </qresource>
+</RCC>
+```
+
+## CMakeLists.txt
+
+```cmake
+################################################################################
+#                                                                              #
+#  Copyright (c) 2025, C3D Labs LLC                                            #
+#  All rights reserved.                                                        #
+#                                                                              #
+#  This file is part of C3DVision Library                                      #
+#  https://c3dlabs.com, https://c3dlabs.ru/                                    #
+#                                                                              #
+#  Exclusive rights to C3D Vision, any copies or components (parts) thereof    #
+#  and other intellectual property belong to C3D Labs, LLC (the Rightholder).  #
+#  The license rights and restrictions are regulated by the Agreement between  #
+#  the User and the Rightholder.                                               #
+#                                                                              #
+################################################################################
+
+project(23_Selection)
+
+################################################################################
+# Build the Example/Selection executables
+################################################################################
+set(SRC_Selection ./selection.cpp ./selection.h ./main.cpp)
+
+set(MOC_Files ./selection.h)
+vsn_qt_wrap_cpp(MOC_Selection ${MOC_Files})
+
+set(RCC_Files ./selection.qrc)
+vsn_qt_add_resources(RCC_Gui_Selection ${RCC_Files})
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+add_executable(${23_Selection_OUTPUT} WIN32 ${MOC_Selection} ${RCC_Gui_Selection} ${SRC_Selection} ${SRC_Shared})
+target_link_libraries(${23_Selection_OUTPUT} PRIVATE ${QtVision_OUTPUT} ${STDLIB} mbvision)
+vsn_link_with_qt_vislib_math(${23_Selection_OUTPUT} True)
+
+set_target_properties(${23_Selection_OUTPUT} PROPERTIES FOLDER ${Examples_OUTPUT}/Qt)
+###############################################################################
+```
+
+---
+
+Reading order: [Part 1 — From Model to Viewport](/notes/4-c3d-vision-model-to-viewport) → [Part 2 — From a Click to a Model Object](/notes/5-c3d-vision-click-to-model).
