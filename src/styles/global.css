@@ -264,10 +264,13 @@ main section {
   overflow-wrap: break-word;
 }
 
-/* Код внутри строки рвётся в любом месте: одна длинная сигнатура вроде
-   ObjectList<SelectionItem*>& иначе задаёт минимальную ширину всей страницы. */
+/* Строчный код переносится по границам идентификатора: <wbr> расставляет
+   плагин rehypeBreakIdentifiers (astro.config.mjs), поэтому
+   SceneViewController рвётся как SceneView|Controller, а не «SceneViewCon|
+   troller». break-word оставлен страховкой на случай, если и такой кусок
+   не влезает. */
 .prose :not(pre) > code {
-  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* Листинги и ASCII-схемы прокручиваются: перенос разрушил бы выравнивание. */
