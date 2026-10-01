@@ -202,14 +202,17 @@ html.dark {
   color-scheme: dark;
 }
 
-/* Shiki generates both palettes at build time; the existing toggle selects one. */
-html.dark .astro-code,
-html.dark .astro-code span {
-  color: var(--shiki-dark) !important;
-  background-color: #000 !important;
-  font-style: var(--shiki-dark-font-style) !important;
-  font-weight: var(--shiki-dark-font-weight) !important;
-  text-decoration: var(--shiki-dark-text-decoration) !important;
+/* Shiki generates both palettes at build time; the existing toggle selects one.
+   Только для экрана: при печати остаётся светлый inline-цвет из разметки. */
+@media screen {
+  html.dark .astro-code,
+  html.dark .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: #000 !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
 }
 
 /* ───────────────────────────────────────────────────────────────────────────
@@ -284,15 +287,18 @@ main section {
 /* ───────────────────────────────────────────────────────────────────────────
    Печать.
 
-   Ctrl+P (или «Сохранить как PDF») на любой заметке даёт готовый документ:
-   светлая тема принудительно, служебные элементы скрыты, полоса набора — вся
-   страница. Листинги на бумаге не переносятся, а уменьшаются: перенос сломал
-   бы ASCII-схемы, а 7pt хватает, чтобы самая длинная строка (~100 знаков)
-   влезла в 180 мм.
+   Ctrl+P (или «Сохранить как PDF») на любой заметке даёт готовый документ.
+   Оформление остаётся своим: шрифты, цвета подсветки, рамки и отбивки те же,
+   что в светлой теме. Меняется только то, чего физически требует бумага:
 
-   Текст набирается засечками: читать 20 минут моноширинной прозы с бумаги
-   тяжело. Чтобы вернуть моноширинный шрифт, достаточно убрать объявления
-   font-family ниже — на экране они ничего не меняют.
+   1. Бумага не бывает тёмной — принудительно светлая тема (тёмное
+      переопределение Shiki ограничено @media screen выше).
+   2. На бумаге нет горизонтальной прокрутки — листинги уменьшаются до
+      размера, при котором самая длинная строка (99 знаков) влезает в полосу
+      набора. Переносить их нельзя: перенос разрушил бы ASCII-схемы.
+   3. У бумаги есть разрывы страниц — листинги и строки таблиц не рвутся,
+      шапка таблицы повторяется.
+   4. Шапка, подвал и навигация никуда не ведут — скрыты.
    ─────────────────────────────────────────────────────────────────────────── */
 @media print {
   @page {
@@ -302,25 +308,35 @@ main section {
 
   html,
   html.dark,
-  html.black {
-    background: #fff !important;
-    color-scheme: light;
-    /* Тёмная тема на бумаге — это залитый тонером лист. */
-    --color-zag-dark: #000;
-    --color-zag-light: #fff;
-    --color-zag-dark-muted: #444;
-    --color-zag-light-muted: #444;
-  }
-
+  html.black,
   body {
     background: #fff !important;
-    color: #000 !important;
-    font-family: var(--font-serif);
-    font-size: 10.5pt;
-    line-height: 1.5;
   }
 
-  /* Шапка, подвал и навигация по заметкам на бумаге не нужны. */
+  /* Текст тёмной темы на бумаге невидим: возвращаем цвет чернил.
+     Селектор не включает code — у строчного кода своя плашка, а внутри
+     <pre> работает светлая тема Shiki. */
+  body,
+  main h1,
+  main span,
+  .prose p,
+  .prose li,
+  .prose th,
+  .prose td,
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6,
+  .prose strong,
+  .prose em,
+  .prose blockquote,
+  .prose a {
+    color: var(--color-zag-dark) !important;
+  }
+
+  /* Шапка, подвал и навигация по заметкам. */
   body > header,
   body > footer,
   nav[aria-label="Навигация по заметкам"],
@@ -338,107 +354,45 @@ main section {
     max-width: none !important;
   }
 
-  .prose p,
-  .prose li {
-    color: #000 !important;
-    orphans: 3;
-    widows: 3;
+  /* 99 знаков при 7.5pt занимают ~157 мм из доступных ~174 мм. */
+  .prose pre {
+    font-size: 7.5pt;
+    white-space: pre;
+    overflow: visible;
+    break-inside: avoid;
   }
 
-  /* Заголовки не отрываются от своего текста. */
-  main h1,
+  /* На бумаге прокрутка бессмысленна: таблица печатается целиком. */
+  .prose .table-scroll {
+    overflow: visible !important;
+  }
+
+  .prose .table-scroll > table {
+    min-width: 0 !important;
+  }
+
+  .prose thead {
+    display: table-header-group;
+  }
+
+  .prose tr,
+  .prose img {
+    break-inside: avoid;
+  }
+
   .prose h1,
   .prose h2,
   .prose h3,
   .prose h4,
   .prose h5,
   .prose h6 {
-    font-family: var(--font-serif) !important;
-    color: #000 !important;
     break-after: avoid;
     break-inside: avoid;
   }
 
-  .prose h2 {
-    /* Раздел начинается с новой страницы только если на текущей не осталось
-       места под заголовок с абзацем. */
-    margin-top: 1.4em;
-  }
-
-  /* Подсветка Shiki печатается чёрным по белому. Селекторы длиннее, чем
-     html.dark .astro-code span, иначе тёмная тема перебьёт их своим !important. */
-  html .prose pre,
-  html .prose pre code,
-  html .prose pre span,
-  html.dark .prose pre,
-  html.dark .prose pre code,
-  html.dark .prose pre span {
-    background: #fff !important;
-    background-color: #fff !important;
-    color: #000 !important;
-    font-style: normal !important;
-    font-weight: 400 !important;
-  }
-
-  .prose pre {
-    border: 1px solid #bbb;
-    border-radius: 0;
-    padding: 6pt 8pt;
-    font-size: 7.5pt;
-    line-height: 1.35;
-    white-space: pre;
-    overflow: visible;
-    break-inside: avoid;
-  }
-
-  .prose :not(pre) > code {
-    background: #fff !important;
-    background-color: #fff !important;
-    color: #000 !important;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    padding: 0 1pt;
-    font-size: 8.5pt;
-  }
-
-  /* На бумаге прокрутка бессмысленна: таблица печатается целиком. */
-  .prose .table-scroll {
-    overflow: visible !important;
-    margin-block: 1em;
-  }
-
-  .prose .table-scroll > table {
-    width: 100% !important;
-    min-width: 0 !important;
-    font-size: 8.5pt;
-    border-collapse: collapse;
-  }
-
-  .prose th,
-  .prose td {
-    border: 1px solid #bbb;
-    padding: 2pt 4pt;
-    color: #000 !important;
-  }
-
-  /* Шапка таблицы повторяется на каждой странице, строки не рвутся. */
-  .prose thead {
-    display: table-header-group;
-  }
-
-  .prose tr {
-    break-inside: avoid;
-  }
-
-  /* Адрес ссылки на бумаге не виден, поэтому дописываем его. */
-  .prose a {
-    color: #000 !important;
-    text-decoration: underline;
-  }
-
-  .prose a[href^="http"]::after {
-    content: " (" attr(href) ")";
-    font-size: 8pt;
-    word-break: break-all;
+  .prose p,
+  .prose li {
+    orphans: 3;
+    widows: 3;
   }
 }
