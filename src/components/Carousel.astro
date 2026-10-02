@@ -4,13 +4,18 @@
 // для стрелок и ::scroll-marker для точек. Всё это пока умеет только
 // Chromium 135+, поэтому для Firefox и Safari скрипт ниже собирает
 // резервную навигацию; сама прокрутка со снапом работает везде.
-// invert у кадра перебивает общий invert карусели: белым схемам на прозрачном
-// фоне он нужен, фотографиям — нет, а лежать они могут в одной карусели.
-// По умолчанию инверсии нет ни у карусели, ни у кадра.
-type Item = { src: string; caption?: string; alt?: string; invert?: boolean };
+// lightOrDark называется и работает как у ImageBox и VideoBox: invertLight
+// инвертирует кадр в светлой теме (белая графика на прозрачном фоне — иначе
+// белое по белому), invertDark — в тёмной (светлая графика на белом фоне).
+// Направление приходится называть, а не включать флагом: в одной карусели
+// лежат и те и другие схемы, да ещё и фотографии, которым инверсия не нужна.
+// Значение у кадра перебивает общее значение карусели; по умолчанию both —
+// инверсии нет ни там, ни там.
+type Tone = "both" | "invertLight" | "invertDark";
+type Item = { src: string; caption?: string; alt?: string; lightOrDark?: Tone };
 type Props = {
   images?: Item[];
-  invert?: boolean;
+  lightOrDark?: Tone;
   maxHeight?: string;
   matchFirst?: boolean;
   label?: string;
@@ -18,11 +23,15 @@ type Props = {
 
 const {
   images = [],
-  invert = false,
+  lightOrDark = "both",
   maxHeight,
   matchFirst = false,
   label = "Carousel",
 } = Astro.props as Props;
+
+// Сами классы живут в global.css — те же, что у ImageBox и VideoBox.
+const invertClass = (tone: Tone) =>
+  tone === "invertLight" ? "invert-light" : tone === "invertDark" ? "invert-dark" : undefined;
 
 // Имя якоря уникально для каждой карусели: стрелки и точки позиционируются
 // анкерами, и с одним общим именем несколько каруселей на странице
@@ -62,7 +71,7 @@ const trackStyle = [
                   src={image.src}
                   alt={image.alt ?? image.caption ?? ""}
                   loading={index === 0 ? "eager" : "lazy"}
-                  class={(image.invert ?? invert) ? "invert-light" : undefined}
+                  class={invertClass(image.lightOrDark ?? lightOrDark)}
                 />
                 {image.caption ? <figcaption>{image.caption}</figcaption> : null}
               </figure>
