@@ -11,6 +11,7 @@ filename: 6-diploma-thesis
 import Anchor from "../../components/common/Anchor.astro";
 import Tags from "../../components/common/Tags.astro";
 import Carousel from "../../components/Carousel.astro";
+import ImageBox from "../../components/ImageBox.astro";
 
 **Разработка модуля архитектурного объёмного моделирования в виртуальной реальности.**
 
@@ -123,6 +124,16 @@ import Carousel from "../../components/Carousel.astro";
 В этой работе такой механизм предстоит связать с вводом контроллеров и
 построением геометрии через C3D.
 
+<Carousel
+  label="Жизненный цикл модального инструмента"
+  maxHeight="300px"
+  lightOrDark="invertDark"
+  images={[
+    { src: "/thesis/blender-modifiers.png", caption: "Каждый кадр." },
+    { src: "/thesis/blender-geo-nodes.png", caption: "Инициализация инструмента." },
+    { src: "/thesis/modal-03-out.svg", caption: "Завершение инструмента." },
+  ]}
+/>
 ## Пересчёт зависимых построений
 
 Изменение одного объекта может затронуть другие. Например, объём вырезает
