@@ -321,6 +321,67 @@ const trackStyle = [
   .zag-carousel-dot[aria-current="true"] {
     background-color: var(--zag-carousel-fg);
   }
+
+  /* --- Печать --------------------------------------------------------- */
+
+  /* На бумаге прокрутки нет, поэтому лента раскладывается в столбец: кадры
+     печатаются друг за другом, как ряд фигур у DiagramRow. Сетка вместо
+     flex-direction: column взята не случайно — у слайда flex: 0 0 100%, и в
+     колонке эти 100% стали бы высотой; в сетке flex-свойства не действуют,
+     а gap работает так же. Вертикальное центрирование отключать не нужно:
+     строка сетки равна высоте слайда, свободного места нет, и auto-поля
+     кадра обращаются в нуль сами. maxHeight остаётся в силе: object-fit:
+     contain вписывает кадр целиком, ничего не обрезая, и заодно не даёт
+     одному кадру занять страницу.
+
+     Правила печати живут здесь, а не в global.css, потому что перебивают
+     экранные правила этого же блока — в одном файле порядок каскада виден. */
+  @media print {
+    /* Место под точки больше не нужно: их не печатаем. */
+    .zag-carousel {
+      padding-bottom: 0;
+    }
+
+    .zag-carousel-track {
+      display: grid;
+      /* Отбивка как gap-6 у DiagramRow: подпись одного кадра не должна
+         липнуть к следующему. */
+      gap: 1.5rem;
+      overflow: visible;
+      scroll-snap-type: none;
+      scroll-marker-group: none;
+    }
+
+    /* Кадр с подписью не разрывается между страницами. */
+    .zag-carousel-slide {
+      break-inside: avoid;
+    }
+
+    /* matchFirst на бумаге только мешает: высоту эталона ResizeObserver
+       измерил по ширине экрана, а в печати колонка другая (max-width снят
+       в global.css), так что сохранённое значение кадры бы перекосило.
+       Да и выравнивать высоту незачем — ленту не прокручивают. Селектор
+       повторён целиком: иначе экранное правило победило бы по специфичности. */
+    .zag-carousel[data-match-first] .zag-carousel-slide:not(:first-child) img,
+    .zag-carousel[data-match-first] .zag-carousel-slide:not(:first-child) video {
+      height: auto;
+    }
+
+    /* Подпись приглушена, и в тёмной теме это светло-серый — на белой бумаге
+       его почти не видно. Возвращаем серый для светлого фона. */
+    .zag-carousel-slide figcaption {
+      color: var(--color-zag-dark-muted);
+    }
+
+    /* Стрелки, точки и резервная навигация на бумаге никуда не ведут. */
+    .zag-carousel-track::scroll-button(*) {
+      content: none;
+    }
+
+    .zag-carousel-nav {
+      display: none;
+    }
+  }
 </style>
 
 <script>
@@ -345,6 +406,18 @@ const trackStyle = [
   };
 
   document.querySelectorAll<HTMLElement>("[data-match-first]").forEach(matchFirstSlide);
+
+  // Печать: кадры за первым помечены loading="lazy" и стоят за пределами
+  // экрана, так что браузер вправе их не загружать — на бумаге остались бы
+  // пустые места. Chromium перед печатью догружает такие кадры сам, остальным
+  // помогаем руками: снимаем lazy, как только печать началась.
+  addEventListener("beforeprint", () => {
+    document
+      .querySelectorAll<HTMLImageElement>('[data-zag-carousel] img[loading="lazy"]')
+      .forEach((image) => {
+        image.loading = "eager";
+      });
+  });
 
   // Ниже — навигация для браузеров без родных ::scroll-button и ::scroll-marker.
   // Скрипт нужен только там, где нет родных ::scroll-button и ::scroll-marker.

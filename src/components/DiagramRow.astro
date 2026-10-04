@@ -1,10 +1,21 @@
 ---
-// Ряд схем с подписями. Схемы — белая графика на прозрачном фоне,
-// поэтому в светлой теме инвертируются (как invertLight у ImageBox).
-type Item = { src: string; caption?: string; alt?: string };
-type Props = { images?: Item[]; invert?: boolean; cols?: number };
+// Ряд схем с подписями. Схемы — белая графика на прозрачном фоне, поэтому по
+// умолчанию инвертируются в светлой теме (как было у прежнего invert={true}).
+// lightOrDark называется и работает как у Carousel: invertLight инвертирует
+// схему в светлой теме, invertDark — в тёмной (светлая графика на белом фоне),
+// both не трогает. Значение у схемы перебивает общее значение ряда: в одном
+// ряду попадаются и те и другие. Из набора ImageBox и VideoBox взяты только
+// инвертирующие значения — light и dark там прячут кадр целиком, а в сетке на
+// его месте осталась бы дыра.
+type Tone = "both" | "invertLight" | "invertDark";
+type Item = { src: string; caption?: string; alt?: string; lightOrDark?: Tone };
+type Props = { images?: Item[]; lightOrDark?: Tone; cols?: number };
 
-const { images = [], invert = true, cols = 3 } = Astro.props as Props;
+const { images = [], lightOrDark = "invertLight", cols = 3 } = Astro.props as Props;
+
+// Сами классы живут в global.css — те же, что у ImageBox, VideoBox и Carousel.
+const invertClass = (tone: Tone) =>
+  tone === "invertLight" ? "invert-light" : tone === "invertDark" ? "invert-dark" : undefined;
 
 // Классы перечислены целиком: Tailwind сканирует исходники как текст
 // и склеенное имя вида `sm:grid-cols-${cols}` не сгенерирует.
@@ -31,7 +42,7 @@ const columns: Record<number, string> = {
         <img
           src={image.src}
           alt={image.alt ?? image.caption ?? ""}
-          class={`w-full ${invert ? "invert-light" : ""}`}
+          class:list={["w-full", invertClass(image.lightOrDark ?? lightOrDark)]}
         />
         <figcaption class="mt-2 text-xs zag-text-muted">{image.caption}</figcaption>
       </figure>
